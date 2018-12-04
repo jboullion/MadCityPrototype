@@ -100,8 +100,9 @@ gulp.task('images', ['uploads'], function() {
 gulp.task('browser-sync', function(){
     console.log('Syncing...');
     browserSync.init({
-        proxy: "http://localhost/"+THEME
-  });
+        proxy: "http://localhost/"+THEME,
+        port: 420
+    });
 
     gulp.watch(THEME_PATH + "/styles/*.css").on('change', browserSync.reload);
     gulp.watch(THEME_PATH + "/js/*.js").on('change', browserSync.reload);

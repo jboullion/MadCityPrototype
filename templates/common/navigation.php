@@ -8,6 +8,7 @@
 	<div class="clearfix"></div>
 </div>
 
+<div id="menu-shade"></div>
 <div id="menu">
 	<div class="menu-toggle">
 		<i class="fal fa-times"></i>
@@ -17,6 +18,6 @@
 		<li><a href="#"><i class="fas fa-fw fa-fist-raised"></i> Powers</a></li>
 		<li><a href="#"><i class="fas fa-fw fa-glasses-alt"></i> Skills</a></li>
 		<li><a href="#"><i class="fas fa-fw fa-books"></i> Rules</a></li>
-		<li><a href="#"><i class="fas fa-fw fa-books"></i> Profile</a></li>
+		<li><a href="#"><i class="fas fa-fw fa-user-circle"></i> Profile</a></li>
 	</ul>
 </div>

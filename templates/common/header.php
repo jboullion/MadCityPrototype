@@ -1,6 +1,6 @@
 <head>
 	<meta charset="utf-8">
-	<meta content="width=device-width,initial-scale=1,minimal-ui" name="viewport">
+	<meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
 
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Nosifer|Roboto:400,700" rel="stylesheet">

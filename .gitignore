@@ -47,8 +47,8 @@ Temporary Items
 .apdisk
 
 # Custom
-.gitignore
 node_modules
 
+.editorconfig
 package.json
 package-lock.json
