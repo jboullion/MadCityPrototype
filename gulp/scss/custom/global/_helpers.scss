@@ -110,6 +110,12 @@ span.right-spacer			{ margin-right: 30px; }
 }
 
 
+/**
+ * Print Helpers
+ */
+.page-break 		{ page-break-before: always; }
+
+
 //SITE WIDE MEDIA QUERIES
 //Tiny Phones (480px) and below
 @media(max-width: $screen-tiny-max) {

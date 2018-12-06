@@ -46,6 +46,11 @@ input:focus 				{ outline: 0 !important; }
 
 hr 							{ border-color: $upgrayddd; margin: 40px 0px; }
 
+/*
+.card 						{ border: 0;
+	.card-body 				{ padding: 0; }
+}
+*/
 
 /* styles for the entry / content areas */
 .entry,

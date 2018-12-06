@@ -9,12 +9,12 @@ h2							{ font-size: 4rem; line-height: 1.25;
 }
 h3							{ font-size: 3.2rem; line-height: 1.5; }
 h4							{ font-size: 3rem; line-height: 1.7; }
-h5							{ font-size: 2.4rem; line-height: 1.8; font-style: italic; }
-h6							{ font-size: 1.5rem; line-height: 2.3; font-family: $body-font; }
+h5							{ font-family: $body-font; font-size: 2rem; font-weight: bold; line-height: 1.8; font-style: italic; }
+h6							{ font-family: $body-font; font-size: 1.5rem; font-weight: bold; line-height: 1.5; }
 
 html 						{ font-size: $root-font-size; line-height: 1.5; }
 
-.default-font-style			{ font-weight: normal; font-size: 2rem; line-height: 1.6; color: $black; font-family: $body-font; margin-bottom: 20px; }
+.default-font-style			{ font-weight: normal; font-size: 1.4rem; line-height: 1.5; color: $black; font-family: $body-font; margin-bottom: 20px; }
 body 						{ @extend .default-font-style; 
 	p 						{ @extend .default-font-style; }
 
