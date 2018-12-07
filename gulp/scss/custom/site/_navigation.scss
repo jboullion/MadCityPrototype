@@ -14,7 +14,7 @@
 	}
 }
 
-.menu-toggle 						{ cursor: pointer; float: right; padding: 0 15px 0 0; user-select: none; }
+.menu-toggle 						{ cursor: pointer; float: right; font-size: 3rem; padding: 0 15px 0 0; user-select: none; }
 
 #menu-shade 						{ background: rgba(0, 0, 0, 0); position: fixed; top: 0px; right: 0; bottom: 0px; left: 0; visibility: hidden; transition: all $menu-transition; z-index: 99;
 	&.open 							{ visibility: visible; background: rgba(0, 0, 0, 0.5); }

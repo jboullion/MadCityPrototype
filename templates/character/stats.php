@@ -28,8 +28,7 @@
 		<div class="row">
 		<?php 
 			foreach($stats as $name => $stat){
-				echo '<div class="col-12 col-md-4">
-						<h5>'.ucwords($name).'</h5>';
+				echo '<div class="col-4">'; //<h5>'.ucwords($name).'</h5>
 
 				foreach($stat as $name => $value){
 					jb_display_number_group($name, $value);

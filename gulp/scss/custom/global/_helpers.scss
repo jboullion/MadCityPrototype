@@ -22,6 +22,34 @@
 .hidden						{ display: none; }
 .clear						{ clear: both; }
 
+.shake 						{ cursor: pointer; 
+	&:hover {
+		animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+		transform: rotate(0deg);
+		transform-origin: center;
+		backface-visibility: hidden;
+		perspective: 1000px;
+	}
+}
+
+@keyframes shake {
+	25% {
+		transform: rotate(15deg);//translate3d(4px, 0, 0);
+	}
+	
+	50% {
+		transform: rotate(-15deg);//translate3d(4px, 0, 0);
+	}
+
+	75% {
+		transform: rotate(15deg);//translate3d(4px, 0, 0);
+	}
+
+	100% {
+		transform: rotate(0deg);//translate3d(4px, 0, 0);
+	}
+}
+
 .wp-caption 				{ max-width: 100%; }
 
 .wp-caption-text,

@@ -1,15 +1,15 @@
 /* FONTS */
-h1,h2,h3,h4,h5,h6 			{ color: $text-color; font-family: $header-font; font-weight: normal; margin-bottom: 20px; margin-top: 0px; }
+h1,h2,h3,h4,h5,h6 			{ color: $text-color; font-family: $evil; font-weight: normal; margin-bottom: 20px; margin-top: 0px; }
 
-h1							{ font-size: 5rem; line-height: 1.1; margin: 0 ;
+h1							{ font-size: 5rem; font-family: $header-font; line-height: 1.1; margin: 0;
 	@media (max-width: $screen-sm-max)  { font-size: 4rem; }
 }
-h2							{ font-size: 4rem; line-height: 1.25; 
-	@media (max-width: $screen-sm-max)  { font-size: 3.6rem; }
+h2							{ font-size: 3rem; line-height: 1.25;  font-family: $evil;
+	@media (max-width: $screen-sm-max)  { font-size: 3rem; }
 }
 h3							{ font-size: 3.2rem; line-height: 1.5; }
 h4							{ font-size: 3rem; line-height: 1.7; }
-h5							{ font-family: $body-font; font-size: 2rem; font-weight: bold; line-height: 1.8; font-style: italic; }
+h5							{ font-family: $body-font; font-size: 1.8rem; font-weight: bold; line-height: 1.5; }
 h6							{ font-family: $body-font; font-size: 1.5rem; font-weight: bold; line-height: 1.5; }
 
 html 						{ font-size: $root-font-size; line-height: 1.5; }

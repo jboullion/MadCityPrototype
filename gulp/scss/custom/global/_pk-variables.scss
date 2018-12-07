@@ -1,3 +1,9 @@
+// FONTS
+@font-face { 
+	font-family: 'Evil Genius';
+	src: url('#{$fa-font-path}/evilgeniusbb_reg.otf');
+}
+
 //bootstrap variable conversion
 $screen-xs-min: map-get($grid-breakpoints, xs);
 $screen-sm-min: map-get($grid-breakpoints, sm);
@@ -16,6 +22,8 @@ $screen-tiny-max: ($screen-xs-min - 1);
 
 //folder locations
 $img-path: '../images/';
+
+
 
 // site colors
 $white: white;
@@ -48,6 +56,7 @@ $gracccie: #ccc;
 // fonts
 $roboto: 'Roboto', sans-serif;
 $nosifer: 'Nosifer', sans-serif;
+$evil: 'Evil Genius', sans-serif;
 
 $body-font: $roboto;
 $header-font: $nosifer;

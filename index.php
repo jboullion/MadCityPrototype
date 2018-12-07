@@ -7,7 +7,5 @@
 		<?php require_once('templates/common/navigation.php'); ?>
 		<?php require_once('templates/character/sheet.php'); ?>
 		<?php require_once('templates/common/footer.php'); ?>
-		<div class="page-break"></div>
-		<?php require_once('templates/character/powers.php'); ?>
 	</body>
 </html>

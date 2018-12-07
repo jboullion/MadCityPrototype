@@ -30,7 +30,7 @@
 	)
 	*/
 	$powers[] = array(
-		'set' => 'Direct Damage',
+		'set' => 'Special Ability',
 		'mutations' => array(
 					1 => array(
 						'name' => 'Psychic Blast',
@@ -103,7 +103,7 @@
 	);
 
 	$powers[] = array(
-		'set' => 'Direct Damage',
+		'set' => 'Status',
 		'mutations' => array(
 					1 => array(
 						'name' => 'Psychic Blast',
@@ -140,7 +140,7 @@
 	);
 
 	$powers[] = array(
-		'set' => 'Direct Damage',
+		'set' => 'Condition',
 		'mutations' => array(
 					1 => array(
 						'name' => 'Psychic Blast',
@@ -222,26 +222,40 @@
 		<div class="row">
 		<?php 
 			foreach($powers as $power){
-				echo '<div class="col-12 col-sm-6 col-lg-3">';
+				echo '<div class="col-12 col-sm-6 col-lg-3 power-wrapper">';
 
 				echo '<h5>'.$power['set'].'</h5>';
 
+				echo '<table class="table power-table">';
 				// <h6 class="card-subtitle mb-2 text-muted">'.$mutation['damage'].'</h6>
 				if(! empty($power['mutations'])){
 					foreach($power['mutations'] as $mutation){
+
+						echo '<tr data-burn="'.$mutation['burn'].'">
+								<td>'.$mutation['name'].'</td>
+								<td class="dice"><i class="fal fa-dice-d20"></i></td>
+								<td class="dice"><i class="fas fa-fw fa-plus-square"></i></td>
+								<td class="dice"><i class="fal fa-atom"></i></td>
+							</tr>';
+
+						/*
 						echo '<div class="card" data-burn="'.$mutation['burn'].'" >
 								<div class="card-body">
 								
 									<p class="card-title font-weight-bold">
-									<i class="fal fa-info-circle" data-toggle="tooltip" data-placement="top" title="'.$mutation['description'].'"></i>
+									
 									 '.$mutation['name'].'</p>
 									<button class="btn btn-primary">Roll</button>
 									<button class="btn btn-danger">Burn</button>
 									<button class="btn btn-success">Mutate</button>
 								</div>
 							</div>';
+						
+							break;
+						*/
 					}
 				}
+				echo '</table>';
 
 				echo '</div>';
 			}

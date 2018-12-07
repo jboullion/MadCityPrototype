@@ -31,8 +31,7 @@
 		<div class="row">
 			<?php 
 				foreach($skills as $name => $skill){
-					echo '<div class="col-12 col-md-4">
-							<h5>'.ucwords($name).'</h5>';
+					echo '<div class="col-4">'; //<h5>'.ucwords($name).'</h5>
 
 					foreach($skill as $name => $value){
 						jb_display_number_group($name, $value);
