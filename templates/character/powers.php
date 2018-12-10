@@ -81,7 +81,7 @@
 
 				// <h6 class="card-subtitle mb-2 text-muted">'.$mutation['damage'].'</h6>
 				echo '<tr data-damage="'.$power['damage'].'">
-						<th class="set">'.$power['set'].'</th>
+						<th class="set"><i class="fal fa-fw fa-info-circle info"></i> '.$power['set'].'</th>
 						<td class="name">'.$power['name'].'</td>
 						<td class="dice roller"><i class="fal fa-dice-d20"></i></td>
 						<td class="dice mutate"><i class="fal fa-atom"></i></td>

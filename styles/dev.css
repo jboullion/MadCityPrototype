@@ -10450,6 +10450,9 @@ readers do not read off random characters that represent icons */
 .dice {
   cursor: pointer; }
 
+.info {
+  cursor: pointer; }
+
 .shake:hover {
   animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   transform: rotate(0deg);
@@ -11034,7 +11037,12 @@ blockquote {
 
 @media (max-width: 767px) {
   #powers {
-    margin-bottom: 30px; } }
+    margin-bottom: 30px; }
+    #powers .power-table th {
+      width: 40%; }
+    #powers .power-table td {
+      padding: 0;
+      width: auto; } }
 
 #equipment .item {
   margin-bottom: 30px; }
@@ -11095,7 +11103,7 @@ blockquote {
 #roller-modal .roller-table {
   width: 100%; }
   #roller-modal .roller-table th {
-    width: 30%; }
+    width: 40%; }
 
 @media print {
   #powers .power-table th {

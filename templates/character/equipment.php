@@ -98,8 +98,8 @@
 		foreach($equipment as $slot => $item){
 
 			echo '<tr>
-					<th>'.ucwords($slot).'</th>
-					<td>'.$item['name'].'</td>
+					<th class="slot"><i class="fal fa-fw fa-info-circle info"></i> '.ucwords($slot).'</th>
+					<td class="name">'.$item['name'].'</td>
 				</tr>';
 
 		}

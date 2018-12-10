@@ -116,12 +116,13 @@ $(document).ready(function(){
 	$menu = $('#menu');
 	$shade = $('#menu-shade');
 	$toggle = $('.menu-toggle');
-	$numberInputs = $('.number-control');
-
+	
 	$rollers = $('.roller');
 	$rollerModal = $('#roller-modal');
 	$mutate = $('.mutate');
 	$mutateModal = $('#mutate-modal');
+	$info = $('.info');
+	$infoModal = $('#info-modal');
 
 	$actionModals = $('.action-modal');
 	$actionContent = $('.action-content');
@@ -130,6 +131,7 @@ $(document).ready(function(){
 	$increment = $('.increment');
 	$decrement = $('.decrement');
 
+	$numberInputs = $('.number-control');
 
 	// menu toggle
 	$toggle.click(function(e){
@@ -172,6 +174,11 @@ $(document).ready(function(){
 	// Open the mutate modal
 	$mutate.click(function(e){
 		$mutateModal.toggleClass('open');
+	});
+
+	// Open the Info modal
+	$info.click(function(e){
+		$infoModal.toggleClass('open');
 	});
 
 	// Increment a related value
