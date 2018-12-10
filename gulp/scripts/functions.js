@@ -4,7 +4,7 @@
  * @param mixed cvalue  Cookie Value
  * @param int exdays How many days before expire
  */
-function pkSetCookie(cname, cvalue, exdays) {
+function jbSetCookie(cname, cvalue, exdays) {
 	var d = new Date();
 	d.setTime(d.getTime() + (exdays*24*60*60*1000));
 	var expires = "expires="+ d.toUTCString();
@@ -16,7 +16,7 @@ function pkSetCookie(cname, cvalue, exdays) {
  * @param  string cname  Cookie Name
  * @return string        Cookie Value
  */
-function pkGetCookie(cname) {
+function jbGetCookie(cname) {
 	var name = cname + "=";
 	var ca = document.cookie.split(';');
 	for(var i = 0; i <ca.length; i++) {
@@ -35,7 +35,7 @@ function pkGetCookie(cname) {
  * Delete a Cookie
  * @param string cname  Cookie Name
  */
-function pkDeleteCookie(cname) {
+function jbDeleteCookie(cname) {
 	setCookie(cname, '', -1);
 }
 
@@ -48,12 +48,12 @@ function pkDeleteCookie(cname) {
  * @return string         The updated string with the variables replaced
  * 
  * @usage
- * var newString = PKTemplateEngine(stringTpl, {
+ * var newString = JBTemplateEngine(stringTpl, {
                     dataID: 1,
                     name: James
                 })
  */
-function PKTemplateEngine(tpl, data) {
+function JBTemplateEngine(tpl, data) {
 	var re = /<%([^%>]+)?%>/g, match;
 	while(match = re.exec(tpl)) {
 		tpl = tpl.replace(match[0], data[match[1]])
@@ -63,9 +63,9 @@ function PKTemplateEngine(tpl, data) {
 
 /**
  * Clean all non numeric characters. Also keeping "."
- * usage: str.pkCleanNumber()
+ * usage: str.jbCleanNumber()
  */
-String.prototype.pkCleanNumber = function() {
+String.prototype.jbCleanNumber = function() {
 	var returnValue = this.replace(/[^0-9.-]/g,'');
 
 	//let's make sure we do not return a NaN value
@@ -78,9 +78,9 @@ String.prototype.pkCleanNumber = function() {
 
 /**
  * Format a float as currency
- * usage: floatvalue.pkFormatMoney(0, '.', ',');
+ * usage: floatvalue.jbFormatMoney(0, '.', ',');
  */
-Number.prototype.pkFormatMoney = function(c, d, t){
+Number.prototype.jbFormatMoney = function(c, d, t){
 	var n = this, 
 		c = isNaN(c = Math.abs(c)) ? 2 : c, 
 		d = d == undefined ? "." : d, 

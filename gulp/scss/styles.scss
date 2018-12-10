@@ -10,13 +10,6 @@
 @import "./bootstrapv4"; 
 @import "./fontawesome5/fontawesome";
 
-/*
-* RETINA
-* Allows for retina background images
-* https://github.com/xorcery/retinajs for syntax
-*/
-@import "./custom/common/retina";
-
 /**
  * Global styles that are probably enabled on most sites
  */
@@ -47,5 +40,5 @@
  */
 @import "./custom/site/sitewide";
 @import "./custom/site/navigation";
-@import "./custom/site/pages";
+@import "./custom/site/character";
 

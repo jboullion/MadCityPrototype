@@ -6,6 +6,8 @@
 	<body>
 		<?php require_once('templates/common/navigation.php'); ?>
 		<?php require_once('templates/character/sheet.php'); ?>
+		<?php require_once('templates/character/roller.php'); ?>
+		<?php require_once('templates/character/mutate.php'); ?>
 		<?php require_once('templates/common/footer.php'); ?>
 	</body>
 </html>

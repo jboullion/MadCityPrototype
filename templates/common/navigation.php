@@ -8,7 +8,7 @@
 	<div class="clearfix"></div>
 </div>
 
-<div id="menu-shade" class="d-print-none"></div>
+<div id="menu-shade"></div>
 <div id="menu" class="d-print-none">
 	<div class="menu-toggle">
 		<i class="fal fa-times"></i>

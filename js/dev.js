@@ -4,7 +4,7 @@
  * @param mixed cvalue  Cookie Value
  * @param int exdays How many days before expire
  */
-function pkSetCookie(cname, cvalue, exdays) {
+function jbSetCookie(cname, cvalue, exdays) {
 	var d = new Date();
 	d.setTime(d.getTime() + (exdays*24*60*60*1000));
 	var expires = "expires="+ d.toUTCString();
@@ -16,7 +16,7 @@ function pkSetCookie(cname, cvalue, exdays) {
  * @param  string cname  Cookie Name
  * @return string        Cookie Value
  */
-function pkGetCookie(cname) {
+function jbGetCookie(cname) {
 	var name = cname + "=";
 	var ca = document.cookie.split(';');
 	for(var i = 0; i <ca.length; i++) {
@@ -35,7 +35,7 @@ function pkGetCookie(cname) {
  * Delete a Cookie
  * @param string cname  Cookie Name
  */
-function pkDeleteCookie(cname) {
+function jbDeleteCookie(cname) {
 	setCookie(cname, '', -1);
 }
 
@@ -48,12 +48,12 @@ function pkDeleteCookie(cname) {
  * @return string         The updated string with the variables replaced
  * 
  * @usage
- * var newString = PKTemplateEngine(stringTpl, {
+ * var newString = JBTemplateEngine(stringTpl, {
                     dataID: 1,
                     name: James
                 })
  */
-function PKTemplateEngine(tpl, data) {
+function JBTemplateEngine(tpl, data) {
 	var re = /<%([^%>]+)?%>/g, match;
 	while(match = re.exec(tpl)) {
 		tpl = tpl.replace(match[0], data[match[1]])
@@ -63,9 +63,9 @@ function PKTemplateEngine(tpl, data) {
 
 /**
  * Clean all non numeric characters. Also keeping "."
- * usage: str.pkCleanNumber()
+ * usage: str.jbCleanNumber()
  */
-String.prototype.pkCleanNumber = function() {
+String.prototype.jbCleanNumber = function() {
 	var returnValue = this.replace(/[^0-9.-]/g,'');
 
 	//let's make sure we do not return a NaN value
@@ -78,9 +78,9 @@ String.prototype.pkCleanNumber = function() {
 
 /**
  * Format a float as currency
- * usage: floatvalue.pkFormatMoney(0, '.', ',');
+ * usage: floatvalue.jbFormatMoney(0, '.', ',');
  */
-Number.prototype.pkFormatMoney = function(c, d, t){
+Number.prototype.jbFormatMoney = function(c, d, t){
 	var n = this, 
 		c = isNaN(c = Math.abs(c)) ? 2 : c, 
 		d = d == undefined ? "." : d, 
@@ -116,6 +116,20 @@ $(document).ready(function(){
 	$menu = $('#menu');
 	$shade = $('#menu-shade');
 	$toggle = $('.menu-toggle');
+	$numberInputs = $('.number-control');
+
+	$rollers = $('.roller');
+	$rollerModal = $('#roller-modal');
+	$mutate = $('.mutate');
+	$mutateModal = $('#mutate-modal');
+
+	$actionModals = $('.action-modal');
+	$actionContent = $('.action-content');
+	$actionClose = $('.action-close');
+
+	$increment = $('.increment');
+	$decrement = $('.decrement');
+
 
 	// menu toggle
 	$toggle.click(function(e){
@@ -131,9 +145,55 @@ $(document).ready(function(){
 
 	// force the number input to be limited to it's max length
 	// input[type=number]...optional if you decide this is useful on all number inputs 
-	$('.number-control').on('input', function(){
+	$numberInputs.on('input', function(){
 		return (this.value.length > this.maxLength)?this.value = this.value.slice(0, this.maxLength):false;
 	});
+
+	// prevent the action modals from closing when clicking on them
+	$actionContent.click(function(e){
+		e.stopPropagation();
+	});
+
+	// close all action modals
+	$actionClose.click(function(e){
+		$actionModals.removeClass('open');
+	});
+
+	// close a modal by clicking on the background
+	$actionModals.click(function(e){
+		$(this).removeClass('open');
+	});
+
+	// Open the roller modal
+	$rollers.click(function(e){
+		$rollerModal.toggleClass('open');
+	});
+
+	// Open the mutate modal
+	$mutate.click(function(e){
+		$mutateModal.toggleClass('open');
+	});
+
+	// Increment a related value
+	$increment.click(function(e){
+		var target = $(this).data('target');
+		var currentVal = parseInt($('#'+target).val().jbCleanNumber()) + 1;
+		if(currentVal < 0){
+			currentVal = 0;
+		}
+		$('#'+target).val(currentVal);
+	});
+
+	// Decrement a related value
+	$decrement.click(function(e){
+		var target = $(this).data('target');
+		var currentVal = parseInt($('#'+target).val().jbCleanNumber()) - 1;
+		if(currentVal < 0){
+			currentVal = 0;
+		}
+		$('#'+target).val(currentVal);
+	});
+
 });
 /*!
   * Bootstrap v4.0.0 (https://getbootstrap.com)
