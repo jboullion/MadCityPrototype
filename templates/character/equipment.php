@@ -4,102 +4,59 @@
 			'name' => 'Baseball Cap',
 			'description' => '',
 			'bonus' => 1,
-			'stat' => PERCEPTION
+			'stat' => 1
 		),
 		'torso' => array(
 			'name' => 'Hockey Pads',
 			'description' => '',
 			'bonus' => 1,
-			'stat' => ARMOR
+			'stat' => 2
 		),
 		'gloves' => array(
 			'name' => 'Batting Gloves',
 			'description' => '',
 			'bonus' => 1,
-			'stat' => MELEE
+			'stat' => 3
 		),
 		'legs' => array(
 			'name' => 'Skin Tight Kevlar',
 			'description' => '',
 			'bonus' => 1,
-			'stat' => ARMOR
+			'stat' => 4
 		),
 		'feet' => array(
 			'name' => 'Super Sneakers',
 			'description' => '',
 			'bonus' => 1,
-			'stat' => INITIATIVE
+			'stat' => 5
 		),
 		'accessory' => array(
 			'name' => 'Necklace of Mojo',
 			'description' => 'Yeah Baby',
 			'bonus' => 1,
-			'stat' => CHARISMA
+			'stat' => 6
 		)
 	);
 
-	/**
-	 * A Heroes power.
-	 */
-	class Equipment { 
-		var $name; 
-		var $description;
-		var $damage; // the "d" value of the dice involved
-		var $act;
-		VAR $ammo;
-
-		/**
-		 * @param string $name The name of the power
-		 * @param string $description The name of the power
-		 * @param int $damage The random value to determine damage
-		 * @param int $act The Act the power belongs in
-		 * @param bool $burn Can this power burn power points
-		 */
-		function __construct($name, $description, $damage, $act, $ammo) {
-			$this->name = $name;
-			$this->$description = $description;
-			$this->$damage = $damage; // the "d" value of the dice involved
-			$this->$act = $act;
-			$this->$ammo = $ammo;
-			$this->notes = $notes;
-		}
-
-		function getDamage(){
-			return $this->$damage;
-		}
-
-		function setDamage($damage){
-			$this->$damage = $damage;
-		}
-
-		function getAmmo(){
-			return $this->$ammo;
-		}
-
-		function setAmmo($ammo){
-			$this->$ammo = $ammo;
-		}
-
-		function getNotes(){
-			return $this->$notes;
-		}
-
-		function setNotes($notes){
-			$this->$notes = $notes;
-		}
-
-	}
 ?>
 <div id="equipment" class="col-12 col-md-6">
 	<h2 class="text-center">Equipment</h2>
 
 	<table class="table equipment-table">
+		<thead>
+			<tr>
+				<th>Slot</th>
+				<th>Name</th>
+				<th>Bonus</th>
+			</tr>
+		</thead>
 	<?php 
 		foreach($equipment as $slot => $item){
 
 			echo '<tr>
-					<th class="slot"><i class="fal fa-fw fa-info-circle info"></i> '.ucwords($slot).'</th>
+					<th class="slot"><i class="fal fa-fw fa-info-circle info no-print"></i> '.ucwords($slot).'</th>
 					<td class="name">'.$item['name'].'</td>
+					<td class="bonus" data-bonus="'.$item['bonus'].'" data-stat="'.$item['stat'].'">+'.$item['bonus'].' '.$STATS[$item['stat']].'</td>
 				</tr>';
 
 		}

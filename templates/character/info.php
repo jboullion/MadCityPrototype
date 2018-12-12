@@ -8,12 +8,8 @@
 			<i class="fal fa-times-circle action-close"></i>
 		</div>
 		<div class="action-body">
-			<p>Here is some information about this thing:</p>
+			<h5>Equipment Name</h5>
 			<table class="table info-table">
-				<tr>
-					<th>Name</th>
-					<td>Power / Equipment</td>
-				</tr>
 				<tr>
 					<th>Description</th>
 					<td>This thing does stuff</td>

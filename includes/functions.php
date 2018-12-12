@@ -1,38 +1,124 @@
 <?php 
-/**
- * A variety of functions used throughout the site
- */
 
 /**
- * Display the a stat / skill component
+ * Debug function display cleaner information
  * 
- * @param string $name The name of the stat or skill
- * @param int $value The value of this stat or skill
+ * @param mixed $data Any PHP variable you want to debug
  */
-function jb_display_number_group($name, $value, $roll = true){
-	$id = str_replace(' ', '-', $name);
-
-	echo '<div class="form-group">
-			<label for="'.$id.'">'.ucwords($name).'</label>
-			<div class="input-group">';
-	
-	if(! $roll){
-		echo '<div class="input-group-prepend d-print-none">
-				<span class="input-group-text increment" data-target="'.$id.'"><i class="fas fa-fw fa-plus-square"></i></span>
-			</div>';
-	}
-
-	echo '	<input type="number" class="form-control number-control" id="'.$id.'" value="'.$value.'" aria-describedby="'.$id.'-label" pattern="[0-9]{3}" min="0" max="999" maxlength="3">
-			<div class="input-group-append d-print-none">';
-	
-	if($roll){
-		echo '<span class="input-group-text roller"><i class="fal fa-dice-d20"></i></span>';
-	}else{
-		echo '
-		<span class="input-group-text decrement" data-target="'.$id.'"><i class="fas fa-minus-square"></i></span>';
-	}
-	
-	echo '		</div>
-			</div>
-		</div>';
+function jb_print($data){
+	echo '<pre class="jb-print">'.print_r($data, true).'</pre>';
 }
+
+
+
+/**
+ * Setup Database Connection / PDO Object
+ */
+function setup_pdo(){
+	if(ENVIRONMENT == 'dev'){
+		$host = 'localhost';
+		$db   = 'madcity';
+		$user = 'root';
+		$pass = '';
+	}else{
+		$host = 'localhost';
+		$db   = 'jboullio_madcity';
+		$user = 'jboullio_james';
+		$pass = 'JimmYB123!';
+	}
+
+	$charset = 'utf8mb4';
+
+	$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+
+	$options = [
+		PDO::ATTR_ERRMODE 				=> PDO::ERRMODE_EXCEPTION,
+		PDO::ATTR_DEFAULT_FETCH_MODE 	=> PDO::FETCH_ASSOC,
+		PDO::ATTR_EMULATE_PREPARES 		=> false,
+	];
+
+	try {
+		return new PDO($dsn, $user, $pass, $options);
+	} catch (\PDOException $e) {
+		throw new \PDOException($e->getMessage(), (int)$e->getCode());
+	}
+}
+
+
+
+/**
+ * Return an array of stats used throughout the site
+ * 
+ * @param PDO $PDO PDO Object
+ * @return array An array of stats and their IDs
+ */
+function rules_get_stats(PDO $PDO){
+	$stmt = $PDO->prepare('SELECT * FROM stats');
+	$stmt->execute();
+	$stats = $stmt->fetchAll();
+	$STATS = array();
+	if(! empty($stats)){
+		foreach($stats as $stat){
+			$STATS[$stat['stat_id']] = $stat['stat_name'];
+		}
+		return $STATS;
+	}else{
+		return false;
+	}
+}
+
+
+
+/**
+ * Return an array of user information
+ * 
+ * @param PDO $PDO PDO Object
+ * @param int $user_id The user ID of the user info to get
+ * @param return $user object 
+ * 
+ * TODO: Setup a User Class and return that
+ */
+function site_get_user(PDO $PDO, $user_id){
+	$stmt = $PDO->prepare("SELECT user_email FROM users WHERE user_id = {$user_id} LIMIT 1");
+	$stmt->execute();
+	return $stmt->fetch();
+}
+
+
+/**
+ * Return an array of user information
+ * 
+ * @param PDO $PDO PDO Object
+ * @param int $user_id The user ID of the user info to get
+ * 
+ * TODO: Setup a User Class and return that
+ */
+function site_get_character(PDO $PDO, $char_id){
+	$stmt = $PDO->prepare("SELECT * FROM characters WHERE character_id = :char_id LIMIT 1");
+	$stmt->execute( array('char_id' => $char_id) );
+	$CHARACTER = $stmt->fetch();
+
+	
+/*
+	$test = array(
+		'health' => 20,
+		'power' => 1
+	);
+
+	//jb_print(json_encode($test));
+	jb_print($CHARACTER['character_vitals']);
+
+	$test = json_encode($test);
+
+	$stmt = $PDO->prepare("UPDATE characters SET character_vitals = (?) WHERE character_id = ?");
+	$stmt->execute( array($test,$char_id) );
+*/
+
+	//convert from JSON back into PHP arrays
+	$CHARACTER['character_vitals'] = json_decode($CHARACTER['character_vitals'], true);
+	$CHARACTER['character_powers'] = json_decode($CHARACTER['character_powers'], true);
+	$CHARACTER['character_equipment'] = json_decode($CHARACTER['character_equipment'], true);
+
+	return $CHARACTER;
+}
+

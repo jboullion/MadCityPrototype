@@ -1,74 +1,20 @@
 <?php 
+global $PDO, $STATS, $USER;
 
-define('STRENGTH', 0);
-define('DEXTERITY', 1);
-define('STAMINA', 2);
+if($_SERVER['HTTP_HOST'] == 'localhost'){
+	define('ENVIRONMENT', 'dev');
+}else{
+	define('ENVIRONMENT', 'live');
+}
 
-define('INTELLIGENCE', 3);
-define('PERCEPTION', 4);
-define('WISDOM', 5);
+// Setup Database object
+$PDO = setup_pdo();
 
-define('CHARISMA', 6);
-define('RAGE', 7);
-define('WILL', 8);
-define('LUCK', 9);
+// Setup the current user on the site
+$USER = site_get_user($PDO, 1);
 
-define('HEALTH', 10);
-define('POWER', 11);
-define('H_REGEN', 12);
-define('P_REGEN', 13);
-define('ARMOR', 14);
-define('RESISTANCE', 15);
+// Setup the current character on the site
+$CHARACTER = site_get_character($PDO, 1);
 
-define('SPEED', 16);
-define('INITIATIVE', 17);
-
-define('MELEE', 18);
-define('ATHLETICS', 19);
-define('DRIVE', 20);
-define('FIRE_ARMS', 21);
-
-define('INVESTIGATE', 22);
-define('MEDICINE', 23);
-define('COMPUTERS', 24);
-define('SCIENCE', 25);
-
-define('STEALTH', 26);
-define('PERSUASSION', 27);
-define('EMPATHY', 28);
-define('ALERTNESS', 29);
-
-
-
-define('POWERS', array(
-	'STRENGTH',
-	'DEXTERITY',
-	'STAMINA',
-	'INTELLIGENCE',
-	'PERCEPTION',
-	'WISDOM',
-	'CHARISMA',
-	'RAGE',
-	'WILL',
-	'LUCK',
-	'HEALTH',
-	'POWER',
-	'H_REGEN',
-	'P_REGEN',
-	'ARMOR',
-	'RESISTANCE',
-	'SPEED',
-	'INITIATIVE',
-	'MELEE',
-	'ATHLETICS',
-	'DRIVE',
-	'FIRE_ARMS',
-	'INVESTIGATE',
-	'MEDICINE',
-	'COMPUTERS',
-	'SCIENCE',
-	'STEALTH',
-	'PERSUASSION',
-	'EMPATHY',
-	'ALERTNESS'
-));
+// get an array of stats used in various calculations
+$STATS = rules_get_stats($PDO);

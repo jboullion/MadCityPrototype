@@ -10811,9 +10811,9 @@ label {
   border-radius: 0;
   color: black;
   cursor: pointer;
-  font-size: 2rem;
+  font-size: 2.4rem;
   line-height: 1.2;
-  padding: 2px 5px 0 5px; }
+  padding: 0 2px; }
 
 .form-check .form-check-label {
   cursor: pointer;
@@ -10968,6 +10968,12 @@ blockquote {
   padding: 15px; }
   #main-navigation #logo {
     float: left; }
+  #main-navigation #user-info {
+    float: right;
+    padding: 9px 3% 0 0; }
+    @media (max-width: 575px) {
+      #main-navigation #user-info {
+        display: none; } }
 
 .menu-toggle {
   cursor: pointer;
@@ -11104,6 +11110,22 @@ blockquote {
   width: 100%; }
   #roller-modal .roller-table th {
     width: 40%; }
+
+#info-modal h5 {
+  font-family: "Evil Genius", sans-serif;
+  margin-bottom: 10px; }
+
+#start-turn {
+  background-color: #fefefe;
+  border-radius: 50%;
+  border: 1px solid #333;
+  cursor: pointer;
+  padding: 15px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px; }
+  #start-turn i {
+    font-size: 3.6rem; }
 
 @media print {
   #powers .power-table th {

@@ -6,8 +6,8 @@
 	);
 
 	$vitals['mental'] = array(
-		'health regen' => 0,
-		'power regen' => 0
+		'health_regen' => 0,
+		'power_regen' => 0
 	);
 
 	$vitals['personality'] = array(
@@ -24,11 +24,16 @@
 		</div>
 		<div class="row">
 			<?php 
-				foreach($vitals as $name => $vital){
-					echo '<div class="col-4">'; //<h5>'.ucwords($name).'</h5>
+				foreach($vitals as $type => $vital){
+					echo '<div class="col-4">';
 
-					foreach($vital as $name => $value){
-						jb_display_number_group($name, $value, false);
+					foreach($vital as $stat => $value){
+						if($type == 'physical'){
+							$increment = true;
+						}else{
+							$increment = false;
+						}
+						jb_display_number_group($stat, $CHARACTER['character_vitals'][$stat], false, $increment);
 					}
 					
 					echo '</div>';
