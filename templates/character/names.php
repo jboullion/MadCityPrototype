@@ -16,8 +16,8 @@
 			
 			<div class="col-6">
 				<div class="form-group">
-					<label for="power-type">Power Type</label>
-					<input type="text" class="form-control" id="power-type" value="<?php echo $CHARACTER['character_type'] ?>">
+					<label for="hero-power-type">Power Type</label>
+					<input type="text" class="form-control" id="hero-power-type" value="<?php echo $CHARACTER['character_type'] ?>">
 				</div>
 			</div>
 			<div class="col-6">

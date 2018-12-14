@@ -10309,37 +10309,7 @@ readers do not read off random characters that represent icons */
 @font-face {
   font-family: 'Font Awesome 5 Pro';
   font-style: normal;
-  font-weight: 900;
-  src: url("./fonts/fa-solid-900.eot");
-  src: url("./fonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("./fonts/fa-solid-900.woff2") format("woff2"), url("./fonts/fa-solid-900.woff") format("woff"), url("./fonts/fa-solid-900.ttf") format("truetype"), url("./fonts/fa-solid-900.svg#fontawesome") format("svg"); }
-
-.fa,
-.fas {
-  font-family: 'Font Awesome 5 Pro';
-  font-weight: 900; }
-
-/*!
- * Font Awesome Pro 5.5.0 by @fontawesome - https://fontawesome.com
- * License - https://fontawesome.com/license (Commercial License)
- */
-@font-face {
-  font-family: 'Font Awesome 5 Pro';
-  font-style: normal;
-  font-weight: 400;
-  src: url("./fonts/fa-regular-400.eot");
-  src: url("./fonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("./fonts/fa-regular-400.woff2") format("woff2"), url("./fonts/fa-regular-400.woff") format("woff"), url("./fonts/fa-regular-400.ttf") format("truetype"), url("./fonts/fa-regular-400.svg#fontawesome") format("svg"); }
-
-.far {
-  font-family: 'Font Awesome 5 Pro';
-  font-weight: 400; }
-
-/*!
- * Font Awesome Pro 5.5.0 by @fontawesome - https://fontawesome.com
- * License - https://fontawesome.com/license (Commercial License)
- */
-@font-face {
-  font-family: 'Font Awesome 5 Pro';
-  font-style: normal;
+  font-display: swap;
   font-weight: 300;
   src: url("./fonts/fa-light-300.eot");
   src: url("./fonts/fa-light-300.eot?#iefix") format("embedded-opentype"), url("./fonts/fa-light-300.woff2") format("woff2"), url("./fonts/fa-light-300.woff") format("woff"), url("./fonts/fa-light-300.ttf") format("truetype"), url("./fonts/fa-light-300.svg#fontawesome") format("svg"); }
@@ -10356,6 +10326,7 @@ readers do not read off random characters that represent icons */
  */
 @font-face {
   font-family: 'Evil Genius';
+  font-display: swap;
   src: url("./fonts/evilgeniusbb_reg.otf"); }
 
 /*

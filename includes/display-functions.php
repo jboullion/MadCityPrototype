@@ -15,7 +15,7 @@ function jb_display_number_group($name, $value, $roll = true, $increment = false
 	if(! $roll && $increment){
 		echo '<div class="input-group-prepend d-print-none">
 				<span class="input-group-text increment" data-target="'.$id.'">
-					<i class="far fa-chevron-square-up"></i>
+					<i class="fal fa-chevron-square-up"></i>
 				</span>
 			</div>';
 	}
@@ -26,7 +26,7 @@ function jb_display_number_group($name, $value, $roll = true, $increment = false
 	if($roll){
 		echo '<span class="input-group-text roller"><i class="fal fa-dice-d20"></i></span>';
 	}else if($increment){
-		echo '<span class="input-group-text decrement" data-target="'.$id.'"><i class="far fa-chevron-square-down"></i></span>';
+		echo '<span class="input-group-text decrement" data-target="'.$id.'"><i class="fal fa-chevron-square-down"></i></span>';
 	}
 	
 	echo '		</div>

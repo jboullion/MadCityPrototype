@@ -130,6 +130,4 @@ $(document).ready(function(){
 			$actionDiceResult.removeClass('open');
 		}, 2000);
 	});
-
-	
 });

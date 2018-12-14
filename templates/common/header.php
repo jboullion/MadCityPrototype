@@ -1,8 +1,9 @@
 <head>
+	<title>Mad City: Evolution</title>
+	<meta name="Description" content="Table Top RPG by James Boullion">
 	<meta charset="utf-8">
 	<meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
-
-	
+	<meta http-equiv="Cache-control" content="public">
 
 	<!-- Favicons -->
 	<link rel="apple-touch-icon" sizes="57x57" href="favicons/apple-icon-57x57.png">
@@ -19,16 +20,13 @@
 	<link rel="icon" type="image/png" sizes="96x96" href="favicons/favicon-96x96.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
 	<link rel="manifest" href="manifest.json">
-	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileColor" content="#333">
 	<meta name="msapplication-TileImage" content="favicons/ms-icon-144x144.png">
-	<meta name="theme-color" content="#ffffff">
+	<meta name="theme-color" content="#333">
 
 	<!-- PWA Manifest -->
 	<link rel="manifest" href="manifest.json">
 
-	<!-- Google Fonts -->
-	<link href="https://fonts.googleapis.com/css?family=Nosifer|Roboto:400,700" rel="stylesheet">
-	
 	<!-- Custom Styles -->
 	<link rel="stylesheet" href="css/live.css" >
 

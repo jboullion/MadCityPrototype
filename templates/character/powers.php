@@ -39,5 +39,5 @@
 	?>
 	</table>
 
-	<button id="add-power" class="btn btn-default no-print"><i class="far fa-plus-circle"></i> Add Power</button>
+	<button id="add-power" class="btn btn-default no-print"><i class="fal fa-plus-circle"></i> Add Power</button>
 </div>

@@ -2,7 +2,7 @@
 <?php require_once('includes/config.php'); ?>
 <?php require_once('includes/display-functions.php'); ?>
 <!doctype html>
-<html>
+<html lang="en">
 	<?php require_once('templates/common/header.php'); ?>
 	<body>
 		<?php require_once('templates/common/navigation.php'); ?>

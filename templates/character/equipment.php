@@ -41,5 +41,5 @@
 	?>
 	</table>
 
-	<button id="add-equipment" class="btn btn-default no-print"><i class="far fa-plus-circle"></i> Add Equipment</button>
+	<button id="add-equipment" class="btn btn-default no-print"><i class="fal fa-plus-circle"></i> Add Equipment</button>
 </div>
