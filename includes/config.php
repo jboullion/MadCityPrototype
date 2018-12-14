@@ -18,3 +18,25 @@ $CHARACTER = site_get_character($PDO, 1);
 
 // get an array of stats used in various calculations
 $STATS = rules_get_stats($PDO);
+
+// Equipment slots
+$SLOTS = array('Head', 'Torso', 'Hands', 'Legs', 'Feet', 'Accessory' );
+
+// Effects
+$POWER_EFFECTS = array(
+	array(
+		'damage' => 4,
+		'roll' => -1,
+		'dot' => -1,
+	),
+	array(
+		'damage' => 8,
+		'roll' => -2,
+		'dot' => -2,
+	),
+	array(
+		'damage' => 12,
+		'roll' => -3,
+		'dot' => -3,
+	),
+);

@@ -41,6 +41,16 @@
 		.action-body 	{ padding: 15px;
 			h6 			{ border-bottom: 1px solid $upgrayddd; margin-bottom: 5px; padding-bottom: 5px; }
 			label 		{ font-weight: normal; }
+
+			table 		{ width: 100%;
+				th 		{ padding: 6px 4px 6px 0; }
+				td 		{ padding: 6px 0 6px 4px; }
+			}
+
+			.form-control,
+			select 		{ padding: 2px; font-size: 1.6rem; }
+
+			select 		{ margin-top: 4px; }
 		}
 
 		.action-footer  { background-color: $light-gray;  text-align: right; padding: 15px;
@@ -49,6 +59,26 @@
 			}
 		}
 	}
+}
+
+// ACTION DICE
+#action-dice 			{ position: fixed; bottom: 0; padding: 30px 0; display: flex; justify-content: space-around; width: 100%;
+	.action-dice 		{ background-color: #fefefe; border-radius: 50%; border: 1px solid $dark-gray; cursor: pointer; padding: 10px; text-align: center; position: relative; height: 6rem; width: 6rem;
+		i 				{ @include center(); font-size: 3.4rem; }
+	}
+
+	#d4 				{ background-color: rgb(196, 117, 241); }
+	#d6 				{ background: gold; }
+	#d8 				{ background: dodgerblue; }
+	#d10 				{ background: darkseagreen; }
+	#d12 				{ background: coral; }
+	#d20 				{ background: pink; }
+}
+
+#dice-result 			{ visibility: hidden; opacity: 0; transition: opacity $menu-transition, visibility $menu-transition; background-color: $white; position: fixed; left: 50%; bottom: 100px; font-size: 6rem;
+	&.open 				{ visibility: visible; opacity: 1; }
+
+	span 				{ @include center(); top: 40%; font-size: 3rem; }
 }
 
 // INDIVIDUAL ACTION MODALS

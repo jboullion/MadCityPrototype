@@ -99,14 +99,24 @@ String.prototype.replaceAll = function(search, replacement) {
 	return this.replace(new RegExp(search, 'g'), replacement);
 };
 
+
+/**
+ * Use a number to get a random value bewteen that number and 0
+ * usage: Number.random();
+ */
+Number.prototype.random = function(){
+	var min = 1;
+	var max = Math.floor(this);
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
 /**
  * Round a number to X decimals
- * @param  Number 	value     	Any Number value
  * @param  int 		decimals  	The number of decimals to round to
  * @return Number           	the resulting rounded number
  */
-function jbRound(value, decimals) {
+Number.prototype.round = function(decimals){
 	var multiplier = Math.pow(10, decimals || 0);
-	return Math.round(value * multiplier) / multiplier;
+	return Math.round(this * multiplier) / multiplier;
 }
 

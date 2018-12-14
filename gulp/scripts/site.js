@@ -1,15 +1,24 @@
+//hack to close address bar on mobile devices right away if not launching from the home screen
+window.scrollTo(0,1);
+
 // setup menu
 $(document).ready(function(){
 	$menu = $('#menu');
 	$shade = $('#menu-shade');
 	$toggle = $('.menu-toggle');
-	
+
 	$rollers = $('.roller');
 	$rollerModal = $('#roller-modal');
 	$mutate = $('.mutate');
 	$mutateModal = $('#mutate-modal');
 	$info = $('.info');
 	$infoModal = $('#info-modal');
+
+	$addPower = $('#add-power');
+	$powerModal = $('#power-modal');
+
+	$addEquipment = $('#add-equipment');
+	$equipmentModal = $('#equipment-modal');
 
 	$actionModals = $('.action-modal');
 	$actionContent = $('.action-content');
@@ -19,6 +28,9 @@ $(document).ready(function(){
 	$decrement = $('.decrement');
 
 	$numberInputs = $('.number-control');
+
+	$actionDice = $('.action-dice');
+	$actionDiceResult = $('#dice-result');
 
 	// menu toggle
 	$toggle.click(function(e){
@@ -55,17 +67,27 @@ $(document).ready(function(){
 
 	// Open the roller modal
 	$rollers.click(function(e){
-		$rollerModal.toggleClass('open');
+		$rollerModal.addClass('open');
 	});
 
 	// Open the mutate modal
 	$mutate.click(function(e){
-		$mutateModal.toggleClass('open');
+		$mutateModal.addClass('open');
 	});
 
 	// Open the Info modal
 	$info.click(function(e){
-		$infoModal.toggleClass('open');
+		$infoModal.addClass('open');
+	});
+
+	// Open the Power modal
+	$addPower.click(function(e){
+		$powerModal.addClass('open');
+	});
+
+	// Open the Equipment modal
+	$addEquipment.click(function(e){
+		$equipmentModal.addClass('open');
 	});
 
 	// Increment a related value
@@ -88,4 +110,26 @@ $(document).ready(function(){
 		$('#'+target).val(currentVal);
 	});
 
+	// Roll a die!
+	var rolling = false;
+	var rollingTimer = null;
+	$actionDice.click(function(e){
+		e.preventDefault();
+		e.stopPropagation();
+		rolling = true;
+
+		//clear our timer so we are not closing results while they are still clicking
+		if(rollingTimer){
+			clearTimeout(rollingTimer);
+		}
+		var value = parseInt($(this).data('value'));
+		$actionDiceResult.css('left', $(this).position().left).addClass('open').find('span').html(value.random());
+		
+		//hide the dice results after a delay
+		rollingTimer = setTimeout(function(){ 
+			$actionDiceResult.removeClass('open');
+		}, 2000);
+	});
+
+	
 });

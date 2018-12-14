@@ -1,22 +1,5 @@
 <?php 
-	$stats = array();
-	$stats['physical'] = array(
-		'strength' => 0,
-		'dexterity' => 0,
-		'stamina' => 0
-	);
-
-	$stats['mental'] = array(
-		'intelligence' => 0,
-		'perception' => 0,
-		'wisdom' => 0
-	);
-
-	$stats['personality'] = array(
-		'charisma' => 0,
-		'rage' => 0,
-		'will' => 0
-	);
+	$stats = $CHARACTER['stats'];
 ?>
 <div class="wrapper">
 	<div class="container">

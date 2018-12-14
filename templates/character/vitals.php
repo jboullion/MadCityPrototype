@@ -1,19 +1,5 @@
 <?php 
-	$vitals = array();
-	$vitals['physical'] = array(
-		'health' => 20,
-		'power' => 0
-	);
-
-	$vitals['mental'] = array(
-		'health_regen' => 0,
-		'power_regen' => 0
-	);
-
-	$vitals['personality'] = array(
-		'armor' => 0,
-		'resistance' => 0
-	);
+	$vitals = $CHARACTER['vitals'];
 ?>
 <div class="wrapper">
 	<div class="container">
@@ -33,7 +19,7 @@
 						}else{
 							$increment = false;
 						}
-						jb_display_number_group($stat, $CHARACTER['character_vitals'][$stat], false, $increment);
+						jb_display_number_group($stat, $value, false, $increment);
 					}
 					
 					echo '</div>';

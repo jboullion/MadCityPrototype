@@ -27,6 +27,41 @@ label 							{ margin-bottom: 0; font-size: 1.4rem; font-weight: bold; }
 }
 
 
+.mad-style select:focus 	{ box-shadow: none; outline: 0; }
+
+.mad-style 					{ position: relative; max-width: 450px;
+	&:before				{ content: "\f0d7"; color: $gold; font-size: 1.5rem; font-family: $fontAwesome; font-weight: bold; pointer-events: none; position: absolute; right: 20px; top: 0px; }
+
+	select					{ 
+		background-color: #FFFFFF;
+		cursor: pointer; 
+		display: inline-block; 
+
+		border: 0;
+		border-bottom: 1px solid $graaay;
+		border-radius: 0;
+		padding: 0 40px 0 19px;
+		font-size: 2rem;
+		line-height: 1;
+		outline:none;
+		color: $text-color;
+
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		-ms-appearance: none;
+
+		width: 100%;
+
+		&.error					{ border: 1px solid #FF0000; }
+
+		option					{ padding: 4px 15px; 
+			&:disabled			{ display: none; }
+		}
+
+	}
+}
+
+
 /* Remove controls from Firefox */
 input[type=number] 				{ -moz-appearance: textfield; }
 

@@ -24,5 +24,9 @@
 				</tr>
 			</table>
 		</div>
+		<div class="action-footer">
+			<button type="button" class="btn btn-outline-danger action-close">Close</button>
+			<button type="button" class="btn btn-outline-success">Change</button>
+		</div>
 	</div>
 </div>

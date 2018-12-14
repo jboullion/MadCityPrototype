@@ -98,26 +98,12 @@ function site_get_character(PDO $PDO, $char_id){
 	$stmt->execute( array('char_id' => $char_id) );
 	$CHARACTER = $stmt->fetch();
 
-	
-/*
-	$test = array(
-		'health' => 20,
-		'power' => 1
-	);
-
-	//jb_print(json_encode($test));
-	jb_print($CHARACTER['character_vitals']);
-
-	$test = json_encode($test);
-
-	$stmt = $PDO->prepare("UPDATE characters SET character_vitals = (?) WHERE character_id = ?");
-	$stmt->execute( array($test,$char_id) );
-*/
-
 	//convert from JSON back into PHP arrays
-	$CHARACTER['character_vitals'] = json_decode($CHARACTER['character_vitals'], true);
-	$CHARACTER['character_powers'] = json_decode($CHARACTER['character_powers'], true);
-	$CHARACTER['character_equipment'] = json_decode($CHARACTER['character_equipment'], true);
+	$CHARACTER['vitals'] = json_decode($CHARACTER['character_vitals'], true);
+	$CHARACTER['stats'] = json_decode($CHARACTER['character_stats'], true);
+	$CHARACTER['skills'] = json_decode($CHARACTER['character_skills'], true);
+	$CHARACTER['powers'] = json_decode($CHARACTER['character_powers'], true);
+	$CHARACTER['equipment'] = json_decode($CHARACTER['character_equipment'], true);
 
 	return $CHARACTER;
 }

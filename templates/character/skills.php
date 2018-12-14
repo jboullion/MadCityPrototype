@@ -1,25 +1,5 @@
 <?php 
-	$skills = array();
-	$skills['physical'] = array(
-		'melee' => 0,
-		'athletics' => 0,
-		'drive' => 0,
-		'fire arms' => 0,
-	);
-
-	$skills['mental'] = array(
-		'investigate' => 0,
-		'medicine' => 0,
-		'computers' => 0,
-		'science' => 0,
-	);
-
-	$skills['personality'] = array(
-		'stealth' => 0,
-		'persuasion' => 0,
-		'empathy' => 0,
-		'alertness' => 0,
-	);
+	$skills = $CHARACTER['skills'];
 ?>
 <div class="wrapper">
 	<div class="container">

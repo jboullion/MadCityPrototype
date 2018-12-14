@@ -2,6 +2,12 @@
 	<meta charset="utf-8">
 	<meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
 
+	<!-- https://developers.google.com/web/fundamentals/native-hardware/fullscreen/ -->
+	<meta name="mobile-web-app-capable" content="yes">
+
+	<!-- PWA Manifest -->
+	<link rel="manifest" href="manifest.json">
+
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Nosifer|Roboto:400,700" rel="stylesheet">
 	
