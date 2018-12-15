@@ -46,6 +46,3 @@ $POWER_EFFECTS = array(
 		'dot' => -3,
 	),
 );
-
-// functions used to display components dynamically
-require_once('display-functions.php');

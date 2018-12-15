@@ -1,3 +1,6 @@
+<?php 
+	//TODO: Merge with other templates?
+?>
 <div class="wrapper">
 	<div class="container">
 		<div class="row">
