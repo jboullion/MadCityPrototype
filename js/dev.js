@@ -124,36 +124,20 @@ Number.prototype.round = function(decimals){
 //hack to close address bar on mobile devices right away if not launching from the home screen
 window.scrollTo(0,1);
 
+//used around the site for post calls and stuff
+var BASE_DIR = '/madcity/';
+
 // setup menu
-$(document).ready(function(){
+jQuery(document).ready(function($){
 	$menu = $('#menu');
 	$shade = $('#menu-shade');
 	$toggle = $('.menu-toggle');
 
-	$rollers = $('.roller');
-	$rollerModal = $('#roller-modal');
-	$mutate = $('.mutate');
-	$mutateModal = $('#mutate-modal');
-	$info = $('.info');
-	$infoModal = $('#info-modal');
-
-	$addPower = $('#add-power');
-	$powerModal = $('#power-modal');
-
-	$addEquipment = $('#add-equipment');
-	$equipmentModal = $('#equipment-modal');
+	$numberInputs = $('.number-control');
 
 	$actionModals = $('.action-modal');
 	$actionContent = $('.action-content');
 	$actionClose = $('.action-close');
-
-	$increment = $('.increment');
-	$decrement = $('.decrement');
-
-	$numberInputs = $('.number-control');
-
-	$actionDice = $('.action-dice');
-	$actionDiceResult = $('#dice-result');
 
 	// menu toggle
 	$toggle.click(function(e){
@@ -188,6 +172,34 @@ $(document).ready(function(){
 		$(this).removeClass('open');
 	});
 
+});
+/**
+ * Controls the actions and tracks the data on the character page
+ */
+jQuery(document).ready(function($){
+	$characterSheet = $('#character-sheet');
+	$inputSaves = $('.character-save');
+
+	$rollers = $('.roller');
+	$rollerModal = $('#roller-modal');
+	$mutate = $('.mutate');
+	$mutateModal = $('#mutate-modal');
+	$info = $('.info');
+	$infoModal = $('#info-modal');
+
+	$addPower = $('#add-power');
+	$powerModal = $('#power-modal');
+
+	$addEquipment = $('#add-equipment');
+	$equipmentModal = $('#equipment-modal');
+
+	$increment = $('.increment');
+	$decrement = $('.decrement');
+
+	$actionDice = $('.action-dice');
+	$actionDiceResult = $('#dice-result');
+
+
 	// Open the roller modal
 	$rollers.click(function(e){
 		$rollerModal.addClass('open');
@@ -220,7 +232,7 @@ $(document).ready(function(){
 		if(currentVal < 0){
 			currentVal = 0;
 		}
-		$('#'+target).val(currentVal);
+		$('#'+target).val(currentVal).trigger('change');
 	});
 
 	// Decrement a related value
@@ -230,11 +242,11 @@ $(document).ready(function(){
 		if(currentVal < 0){
 			currentVal = 0;
 		}
-		$('#'+target).val(currentVal);
+		$('#'+target).val(currentVal).trigger('change');
+
 	});
 
 	// Roll a die!
-	var rolling = false;
 	var rollingTimer = null;
 	$actionDice.click(function(e){
 		e.preventDefault();
@@ -245,6 +257,7 @@ $(document).ready(function(){
 		if(rollingTimer){
 			clearTimeout(rollingTimer);
 		}
+
 		var value = parseInt($(this).data('value'));
 		$actionDiceResult.css('left', $(this).position().left).addClass('open').find('span').html(value.random());
 		
@@ -253,4 +266,23 @@ $(document).ready(function(){
 			$actionDiceResult.removeClass('open');
 		}, 2000);
 	});
+
+	// Submit our character sheet to our update function to save
+	$characterSheet.submit(function(e){
+		e.preventDefault();
+
+		var data = $(this).serializeArray();
+
+		$.post( BASE_DIR+"rest/character/update", data, function( data ) {
+			//console.log(data);
+		}, 'json');
+
+	});
+
+
+	// Any time an input element with the 'save' class is changed we will save our character
+	$inputSaves.change(function(e){
+		$characterSheet.trigger('submit');
+	});
+
 });

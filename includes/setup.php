@@ -1,26 +1,15 @@
 <?php 
-global $PDO, $STATS, $USER;
+require_once('classes/Utilities.php');
+require_once('database.php');
 
-if($_SERVER['HTTP_HOST'] == 'localhost'){
-	define('ENVIRONMENT', 'dev');
-}else{
-	define('ENVIRONMENT', 'live');
-}
-
-// functions used throuhgout the site
-require_once('functions.php');
-
-// All Classes loaded here
-require_once('classes.php');
-
-// Setup Database object
-$PDO = setup_pdo();
+$user_id = 1;
+$character_id = 1;
 
 // Setup the current user on the site
-$USER = site_get_user($PDO, 1);
+$USER = site_get_user($PDO, $user_id);
 
 // Setup the current character on the site
-$CHARACTER = site_get_character($PDO, 1);
+$CHARACTER = new Character($PDO, $character_id, $user_id);
 
 // get an array of stats used in various calculations
 $STATS = rules_get_stats($PDO);

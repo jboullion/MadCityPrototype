@@ -8,6 +8,10 @@ class Character {
 	// PDO Object with connection to DB
 	var $PDO;
 
+	// The IDs of the character and user in the database
+	var $character_id;
+	var $user_id;
+
 	// name
 	var $name; 
 	var $hero_name;
@@ -108,15 +112,19 @@ class Character {
 	/**
 	 * @param array $character The results of a 
 	 */
-	function __construct($PDO, $char_id) {
+	function __construct($PDO, $character_id, $user_id) {
+		$this->PDO = $PDO;
 
-		$stmt = $PDO->prepare("SELECT * FROM characters WHERE character_id = :char_id LIMIT 1");
-		$stmt->execute( array('char_id' => $char_id) );
+		$this->character_id = $character_id;
+		$this->user_id = $user_id;
+
+		$stmt = $this->PDO->prepare("SELECT * FROM characters WHERE character_id = :character_id AND user_id = :user_id LIMIT 1");
+		$stmt->execute( array('character_id' => $character_id, 'user_id' => $user_id) );
 		$data = $stmt->fetch();
 
 		$this->name = $data['character_name'];
 		$this->mutant_name = $data['character_mutant_name'];
-		$this->power_type = $data['character_type'];
+		$this->power_type = $data['character_power_type'];
 		$this->xp = $data['character_xp'];
 
 		$character_data = json_decode($data['character_data'], true);
@@ -126,6 +134,43 @@ class Character {
 			$this->{$key} = $value;
 		}
 
+	}
+
+
+	/**
+	 * Take the data submitted from the form
+	 * 
+	 * @param array $data The character form data
+	 */
+	function update($data){
+		$update = 
+		"UPDATE `characters`   
+			SET `character_name` = :character_name,
+				`character_mutant_name` = :character_mutant_name,
+				`character_power_type` = :character_power_type,
+				`character_xp` = :character_xp,
+				`character_data` = :character_data,
+				`last_updated` = :last_updated
+			WHERE `user_id` = :user_id AND `character_id` = :character_id";
+
+
+		$stmt = $this->PDO->prepare($update);
+
+		$stmt->execute( 
+			array(
+				'character_name' => $data['character']['name'],
+				'character_mutant_name' => $data['character']['mutant_name'],
+				'character_power_type' => $data['character']['power_type'],
+				'character_xp' => $data['character']['xp'],
+				'character_data' => json_encode($data['data']),
+				'last_updated' => date('Y-m-d H:i:s'),
+				'user_id' => $data['user_id'],
+				'character_id' => $data['character_id'],
+				
+			)
+		);
+
+		return $stmt->rowCount();
 	}
 
 	/**
@@ -148,8 +193,38 @@ class Character {
 	}
 
 	/**
-	 * Display the Vitals, Stats, and Skills
+	 * Display the Name and XP
 	 * 
+	 */
+	function displayNames(){
+		$display_names = array(
+			'name' => 'Character Name',
+			'mutant_name' => 'Mutant Name',
+			'power_type' => 'Power Type',
+			'xp' => 'Total XP',
+		); ?>
+		<div class="wrapper">
+			<div class="container">
+				<div class="row">
+
+		<?php foreach($display_names as $prop => $display_name): ?>
+			<div class="col-12 col-sm-6">
+				<div class="form-group">
+					<label for="character_<?php echo $prop; ?>"><?php echo $display_name; ?></label>
+					<input type="text" class="form-control character-save" id="character_<?php echo $prop; ?>" name="character[<?php echo $prop; ?>]" value="<?php echo $this->getProp($prop); ?>">
+				</div>
+			</div>
+		<?php endforeach; ?>
+
+				</div>
+			</div>
+		</div>
+		<?php 
+	}
+
+
+	/**
+	 * Display the Vitals, Stats, and Skills
 	 */
 	function displayStats(){
 		$display_stats = array(
@@ -176,7 +251,7 @@ class Character {
 									$increment = $display_stat == 'vitals' && 'physical' == $type?true:false;
 									$roll = $display_stat != 'vitals'?true:false;
 
-									$this->displayStat($name, $this->getProp($prop), $roll, $increment);
+									$this->displayStat($name, $prop, $roll, $increment);
 								}
 								
 								echo '</div>';
@@ -188,14 +263,16 @@ class Character {
 		<?php endforeach;
 	}
 
+
 	/**
 	 * Display the a stat / skill component
 	 * 
 	 * @param string $name The name of the stat or skill
 	 * @param int $value The value of this stat or skill
 	 */
-	function displayStat($name, $value, $roll = true, $increment = false){
-		$id = str_replace('_', '-', $name);
+	function displayStat($name, $prop, $roll = true, $increment = false){
+		$id = $prop;
+		$value = $this->getProp($prop);
 	
 		echo '<div class="form-group">
 				<label for="'.$id.'">'.ucwords($name).'</label>
@@ -209,7 +286,7 @@ class Character {
 				</div>';
 		}
 	
-		echo '	<input type="number" class="form-control number-control" id="'.$id.'" value="'.$value.'" aria-describedby="'.$id.'-label" pattern="[0-9]{3}" min="0" max="999" maxlength="3">
+		echo '	<input type="number" class="form-control number-control character-save" id="'.$id.'" name="data['.$id.']" value="'.$value.'" aria-describedby="'.$id.'-label" pattern="[0-9]{3}" min="0" max="999" maxlength="3">
 				<div class="input-group-append d-print-none">';
 		
 		if($roll){
