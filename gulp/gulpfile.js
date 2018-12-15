@@ -39,7 +39,7 @@ gulp.task('sass-styles', function() {
         .pipe(rename({
             basename: "dev"
           }))
-        .pipe(gulp.dest(THEME_PATH + '/styles'))
+        .pipe(gulp.dest(THEME_PATH + '/css'))
         .pipe(sass({
           outputStyle: 'compressed'
         })

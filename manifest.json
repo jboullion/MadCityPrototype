@@ -40,6 +40,6 @@
 		}
 	],
 	"start_url": "index.php",
-	"display": "standalone", //standalone, fullscreen
+	"display": "standalone",
 	"orientation": "portrait"
 }
