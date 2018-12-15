@@ -94,17 +94,6 @@ function site_get_user(PDO $PDO, $user_id){
  * TODO: Setup a User Class and return that
  */
 function site_get_character(PDO $PDO, $char_id){
-	$stmt = $PDO->prepare("SELECT * FROM characters WHERE character_id = :char_id LIMIT 1");
-	$stmt->execute( array('char_id' => $char_id) );
-	$CHARACTER = $stmt->fetch();
-
-	//convert from JSON back into PHP arrays
-	$CHARACTER['vitals'] = json_decode($CHARACTER['character_vitals'], true);
-	$CHARACTER['stats'] = json_decode($CHARACTER['character_stats'], true);
-	$CHARACTER['skills'] = json_decode($CHARACTER['character_skills'], true);
-	$CHARACTER['powers'] = json_decode($CHARACTER['character_powers'], true);
-	$CHARACTER['equipment'] = json_decode($CHARACTER['character_equipment'], true);
-
-	return $CHARACTER;
+	return new Character($PDO, $char_id);
 }
 

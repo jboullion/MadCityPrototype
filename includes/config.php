@@ -7,6 +7,12 @@ if($_SERVER['HTTP_HOST'] == 'localhost'){
 	define('ENVIRONMENT', 'live');
 }
 
+// functions used throuhgout the site
+require_once('functions.php');
+
+// All Classes loaded here
+require_once('classes.php');
+
 // Setup Database object
 $PDO = setup_pdo();
 
@@ -40,3 +46,6 @@ $POWER_EFFECTS = array(
 		'dot' => -3,
 	),
 );
+
+// functions used to display components dynamically
+require_once('display-functions.php');

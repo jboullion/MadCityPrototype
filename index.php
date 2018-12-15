@@ -1,6 +1,4 @@
-<?php require_once('includes/functions.php'); ?>
 <?php require_once('includes/config.php'); ?>
-<?php require_once('includes/display-functions.php'); ?>
 <!doctype html>
 <html lang="en">
 	<?php require_once('templates/common/header.php'); ?>
