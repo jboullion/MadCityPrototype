@@ -10,10 +10,8 @@ $CHARACTER->equipment[] = $_POST;
 // Make our character update itself in the database
 $result = $CHARACTER->updateEquipment();
 
-if(DEBUG){
-	if($result == 1){
-		echo json_encode(array('success' => 'Equipment Added'));
-	}else{
-		echo json_encode(array('error' => 'Equipment Add Failed'));
-	}
+if($result == 1){
+	echo json_encode(array('success' => 'Equipment Added'));
+}else{
+	echo json_encode(array('error' => 'Equipment Add Failed'));
 }

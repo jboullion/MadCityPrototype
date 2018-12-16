@@ -10,10 +10,8 @@ $CHARACTER->powers[$_POST['power_key']] = $_POST;
 // Make our character update itself in the database
 $result = $CHARACTER->updatePowers();
 
-if(DEBUG){
-	if($result == 1){
-		echo json_encode(array('success' => 'Power Edited'));
-	}else{
-		echo json_encode(array('error' => 'Power Edit Failed'));
-	}
+if($result == 1){
+	echo json_encode(array('success' => 'Power Edited'));
+}else{
+	echo json_encode(array('error' => 'Power Edit Failed'));
 }
