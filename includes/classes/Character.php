@@ -128,10 +128,10 @@ class Character {
 		$this->power_type = $data['character_power_type'];
 		$this->xp = $data['character_xp'];
 
-		if(empty($data['character_data'])){
-			$character_data = array();
+		if(empty($data['character_stats'])){
+			$character_stats = array();
 		}else{
-			$character_data = json_decode($data['character_data'], true);
+			$character_stats = json_decode($data['character_stats'], true);
 		}
 
 		if(empty($data['character_powers'])){
@@ -147,7 +147,7 @@ class Character {
 		}
 
 		//dynamically assign our values...clever or dangerous?...BOTH! ;)
-		foreach($character_data as $key => $value){
+		foreach($character_stats as $key => $value){
 			$this->{$key} = $value;
 		}
 
@@ -361,7 +361,7 @@ class Character {
 				</div>';
 		}
 	
-		echo '	<input type="number" class="form-control number-control character-save" id="'.$id.'" name="data['.$id.']" value="'.$value.'" aria-describedby="'.$id.'-label" pattern="[0-9]{3}" min="0" max="999" maxlength="3">
+		echo '	<input type="number" class="form-control number-control character-save" id="'.$id.'" name="stats['.$id.']" value="'.(empty($value)?0:$value).'" aria-describedby="'.$id.'-label" pattern="[0-9]{3}" min="0" max="999" maxlength="3">
 				<div class="input-group-append d-print-none">';
 		
 		if($roll){

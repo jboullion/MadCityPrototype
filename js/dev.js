@@ -424,7 +424,7 @@ jQuery(document).ready(function($){
 				//reset form and close form on success
 				$editPowerForm.trigger("reset");
 				$editPowerForm.find('.action-close').first().trigger('click');
-
+				
 				$('#power-'+deleteKey).fadeOut('normal');
 
 			}else if(result.error != null){
