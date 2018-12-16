@@ -56,7 +56,7 @@
 			</form>
 		</div>
 		<div class="action-footer">
-			<button type="button" class="btn btn-outline-danger action-close">Close</button>
+			<button type="button" class="btn btn-outline-default action-close">Close</button>
 			<button type="button" class="btn btn-outline-success">Equip</button>
 		</div>
 	</div>

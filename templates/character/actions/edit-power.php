@@ -12,8 +12,12 @@
 
 				<input type="hidden" name="character_id" value="<?php echo $CHARACTER->character_id; ?>" />
 				<input type="hidden" name="user_id" value="<?php echo $CHARACTER->user_id; ?>" />
-				<input type="hidden" name="power_key" value="" />
+				<input type="hidden" id="edit-power-key" name="power_key" value="" />
 				<table>
+					<tr>
+						<th>Level</th>
+						<td><input type="number" id="edit-power-level" name="level" class="form-control number-control" pattern="[0-9]{3}" min="0" max="10" maxlength="1" /></td>
+					</tr>
 					<tr>
 						<th>Type</th>
 						<td><input type="text" id="edit-power-type" name="type" class="form-control" /></td>
@@ -38,7 +42,9 @@
 
 			</div>
 			<div class="action-footer">
-				<button type="button" class="btn btn-outline-danger action-close">Close</button>
+				<button type="button" class="btn btn-outline-danger float-left" id="delete-power">Delete</button>
+				<button type="button" class="btn btn-outline-default action-close">Close</button>
+				
 				<button type="submit" class="btn btn-outline-success">Edit</button>
 			</div>
 		</form>

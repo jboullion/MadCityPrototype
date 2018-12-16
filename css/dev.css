@@ -10421,7 +10421,7 @@ readers do not read off random characters that represent icons */
 .dice {
   cursor: pointer; }
 
-.info {
+.pointer {
   cursor: pointer; }
 
 .shake:hover {

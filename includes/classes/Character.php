@@ -411,11 +411,11 @@ class Character {
 	 * Display A Single power
 	 */
 	function displayPower($key, $power){
-		echo '<tr data-key="'.$key.'" data-object="'.json_encode($power).'">
-				<th class="type"><i class="fal fa-fw fa-info-circle info no-print"></i> '.$power['type'].'</th>
+		echo '<tr id="power-'.$key.'" data-key="'.$key.'" data-object="'.htmlspecialchars(json_encode($power), ENT_QUOTES, 'UTF-8').'">
+				<th class="type edit-power pointer"><i class="fal fa-fw fa-info-circle no-print"></i> <span>'.$power['type'].'</span></th>
 				<td class="name">'.$power['name'].'</td>
 				<td class="dice roller"><i class="fal fa-dice-d20"></i></td>
-				<td class="dice "><i class="fal fa-atom"></i></td>
+				<td class="dice mutate"><i class="fal fa-atom"></i></td>
 			</tr>';
 	}
 

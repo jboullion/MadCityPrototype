@@ -12,6 +12,7 @@
 				
 				<input type="hidden" name="character_id" value="<?php echo $CHARACTER->character_id; ?>" />
 				<input type="hidden" name="user_id" value="<?php echo $CHARACTER->user_id; ?>" />
+				<input type="hidden" name="level" value="1" />
 				<table>
 					<tr>
 						<th>Type</th>
@@ -37,16 +38,16 @@
 			
 			</div>
 			<div class="action-footer">
-				<button type="button" class="btn btn-outline-danger action-close">Close</button>
-				<button type="submit" class="btn btn-outline-success">Mutate</button>
+				<button type="button" class="btn btn-outline-default action-close">Close</button>
+				<button type="submit" class="btn btn-outline-success">Add</button>
 			</div>
 		</form>
 	</div>
 </div>
 <!-- when adding a new power we will use this template -->
 <script id="power-template" type="text/template">
-	<tr data-key="<%key%>" data-object="<%object%>">
-		<th class="type"><i class="fal fa-fw fa-info-circle info no-print"></i> <%type%></th>
+	<tr id="power-<%key%>" data-key="<%key%>" data-object='<%object%>'>
+		<th class="type edit-power pointer"><i class="fal fa-fw fa-info-circle no-print"></i> <%type%></th>
 		<td class="name"><%name%></td>
 		<td class="dice roller"><i class="fal fa-dice-d20"></i></td>
 		<td class="dice mutate"><i class="fal fa-atom"></i></td>
