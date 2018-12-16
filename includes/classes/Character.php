@@ -105,9 +105,10 @@ class Character {
 	var $intimidation;
 	var $alertness;
 
-	// dynamic sets 
+	// dynamic sets of abilities
 	var $powers;
 	var $equipment;
+
 
 	/**
 	 * @param array $character The results of a 
@@ -127,7 +128,23 @@ class Character {
 		$this->power_type = $data['character_power_type'];
 		$this->xp = $data['character_xp'];
 
-		$character_data = json_decode($data['character_data'], true);
+		if(empty($data['character_data'])){
+			$character_data = array();
+		}else{
+			$character_data = json_decode($data['character_data'], true);
+		}
+
+		if(empty($data['character_powers'])){
+			$this->powers = array();
+		}else{
+			$this->powers = json_decode($data['character_powers'], true);
+		}
+
+		if(empty($data['character_equipment'])){
+			$this->equipment = array();
+		}else{
+			$this->equipment = json_decode($data['character_equipment'], true);
+		}
 
 		//dynamically assign our values...clever or dangerous?...BOTH! ;)
 		foreach($character_data as $key => $value){
@@ -142,17 +159,17 @@ class Character {
 	 * 
 	 * @param array $data The character form data
 	 */
-	function update($data){
+	function updateStats($data){
 		$update = 
 		"UPDATE `characters`   
 			SET `character_name` = :character_name,
 				`character_mutant_name` = :character_mutant_name,
 				`character_power_type` = :character_power_type,
 				`character_xp` = :character_xp,
-				`character_data` = :character_data,
+				`character_stats` = :character_stats,
 				`last_updated` = :last_updated
-			WHERE `user_id` = :user_id AND `character_id` = :character_id";
-
+			WHERE `user_id` = :user_id 
+				AND `character_id` = :character_id";
 
 		$stmt = $this->PDO->prepare($update);
 
@@ -162,10 +179,68 @@ class Character {
 				'character_mutant_name' => $data['character']['mutant_name'],
 				'character_power_type' => $data['character']['power_type'],
 				'character_xp' => $data['character']['xp'],
-				'character_data' => json_encode($data['data']),
+				'character_stats' => json_encode($data['stats']),
 				'last_updated' => date('Y-m-d H:i:s'),
 				'user_id' => $data['user_id'],
 				'character_id' => $data['character_id'],
+				
+			)
+		);
+
+		return $stmt->rowCount();
+	}
+
+	/**
+	 * After updating character powers, tell the character to update itself
+	 * 
+	 * $CHARACTER->powers[] = array() / new Power;
+	 * $CHARACTER->updatePowers();
+	 */
+	function updatePowers(){
+		$update = 
+		"UPDATE `characters`   
+			SET `character_powers` = :character_powers,
+				`last_updated` = :last_updated
+			WHERE `user_id` = :user_id 
+				AND `character_id` = :character_id";
+
+		$stmt = $this->PDO->prepare($update);
+
+		$stmt->execute( 
+			array(
+				'character_powers' => json_encode($this->powers),
+				'last_updated' => date('Y-m-d H:i:s'),
+				'user_id' => $this->user_id,
+				'character_id' => $this->character_id,
+				
+			)
+		);
+
+		return $stmt->rowCount();
+	}
+
+	/**
+	 * After updating character powers, tell the character to update itself
+	 * 
+	 * $CHARACTER->equipment[] = array() / new Power;
+	 * $CHARACTER->updateEquipment();
+	 */
+	function updateEquipment(){
+		$update = 
+		"UPDATE `characters` 
+			SET `character_equipment` = :character_equipment,
+				`last_updated` = :last_updated
+			WHERE `user_id` = :user_id 
+				AND `character_id` = :character_id";
+
+		$stmt = $this->PDO->prepare($update);
+
+		$stmt->execute( 
+			array(
+				'character_equipment' => json_encode($this->equipment),
+				'last_updated' => date('Y-m-d H:i:s'),
+				'user_id' => $this->user_id,
+				'character_id' => $this->character_id,
 				
 			)
 		);
@@ -299,6 +374,81 @@ class Character {
 				</div>
 			</div>';
 		
+	}
+
+
+	/**
+	 * Display the Powers in the Power Table
+	 */
+	function displayPowers(){
+
+		?>
+		<div id="powers" class="col-12 col-md-6">
+			<h2 class="text-center">Powers</h2>
+
+			<table id="power-table" class="table">
+				<thead>
+					<tr>
+						<th>Type</th>
+						<th>Name</th>
+						<th class="text-center no-print">Roll</th>
+						<th class="text-center no-print">Mutate</th>
+					</tr>
+				</thead>
+			<?php 
+				foreach($this->powers as $power) {
+					$this->displayPower($power);
+				}
+			?>
+			</table>
+
+			<button id="add-power" class="btn btn-default no-print"><i class="fal fa-plus-circle"></i> Add Power</button>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Display A Single power
+	 */
+	function displayPower($power){
+		echo '<tr data-damage="'.$power['damage'].'">
+				<th class="type"><i class="fal fa-fw fa-info-circle info no-print"></i> '.$power['type'].'</th>
+				<td class="name">'.$power['name'].'</td>
+				<td class="dice roller"><i class="fal fa-dice-d20"></i></td>
+				<td class="dice "><i class="fal fa-atom"></i></td>
+			</tr>';
+	}
+
+	/**
+	 * Display Equipment
+	 */
+	function displayEquipment(){
+		?>
+		<div id="equipment" class="col-12 col-md-6">
+			<h2 class="text-center">Equipment</h2>
+
+			<table class="table equipment-table">
+				<thead>
+					<tr>
+						<th>Slot</th>
+						<th>Name</th>
+						<th>Bonus</th>
+					</tr>
+				</thead>
+			<?php 
+				foreach($this->equipment as $slot => $item){
+					echo '<tr>
+							<th class="slot"><i class="fal fa-fw fa-info-circle info no-print"></i> '.ucwords($slot).'</th>
+							<td class="name">'.$item['name'].'</td>
+							<td class="bonus" data-bonus="'.$item['bonus'].'" data-stat="'.$item['stat'].'">+'.$item['bonus'].' '.$item['stat'].'</td>
+						</tr>';
+				}
+			?>
+			</table>
+
+			<button id="add-equipment" class="btn btn-default no-print"><i class="fal fa-plus-circle"></i> Add Equipment</button>
+		</div>
+		<?php 
 	}
 
 }

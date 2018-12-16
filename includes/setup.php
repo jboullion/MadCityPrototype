@@ -14,9 +14,6 @@ $CHARACTER = new Character($PDO, $character_id, $user_id);
 // get an array of stats used in various calculations
 $STATS = rules_get_stats($PDO);
 
-// Equipment slots
-$SLOTS = array('Head', 'Torso', 'Hands', 'Legs', 'Feet', 'Accessory' );
-
 // Effects
 $POWER_EFFECTS = array(
 	array(

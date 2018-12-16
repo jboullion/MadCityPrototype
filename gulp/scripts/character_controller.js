@@ -14,6 +14,9 @@ jQuery(document).ready(function($){
 
 	$addPower = $('#add-power');
 	$powerModal = $('#power-modal');
+	$powerForm = $('#power-form');
+	$powerTable = $('#power-table');
+	Tpower = $('#power-template').html();
 
 	$addEquipment = $('#add-equipment');
 	$equipmentModal = $('#equipment-modal');
@@ -98,8 +101,8 @@ jQuery(document).ready(function($){
 
 		var data = $(this).serializeArray();
 
-		$.post( BASE_DIR+"rest/character/update", data, function( data ) {
-			//console.log(data);
+		$.post( BASE_DIR+"rest/character/update", data, function( result ) {
+			//console.log(result);
 		}, 'json');
 
 	});
@@ -108,6 +111,41 @@ jQuery(document).ready(function($){
 	// Any time an input element with the 'save' class is changed we will save our character
 	$inputSaves.change(function(e){
 		$characterSheet.trigger('submit');
+	});
+
+
+	// When the user submits a power to be added to their character
+	$powerForm.submit(function(e){
+		e.preventDefault();
+
+		var $buttons = $(this).find('button');
+		var dataPost = $(this).serializeArray();
+		var dataObject = $(this).serializeObject();
+
+		//prevent double submission
+		$buttons.prop('disabled', true);
+
+		$.post( BASE_DIR+"rest/character/power", dataPost, function( result ) {
+
+			if(result.success != null){
+				//reset form and close form on success
+				$powerForm.trigger("reset");
+				$powerForm.find('.action-close').first().trigger('click');
+
+				var newPower = JBTemplateEngine(Tpower, {
+					type: dataObject.type,
+					name: dataObject.name,
+					damage: dataObject.damage
+				});
+
+				$powerTable.append(newPower);
+			}else if(result.error != null){
+				//inform the user on failure
+				alert('Error: '+result.error);
+			}
+
+			$buttons.prop('disabled', false);
+		}, 'json');
 	});
 
 });

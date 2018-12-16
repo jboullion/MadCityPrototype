@@ -1,6 +1,6 @@
 
 <i id="dice-result" class="fal fa-comment-alt"><span>5</span></i>
-<div id="action-dice">
+<div id="action-dice"> 
 	<div id="d4" data-value="4" class="action-dice">
 		<i class="fal fa-dice-d4"></i>
 	</div>

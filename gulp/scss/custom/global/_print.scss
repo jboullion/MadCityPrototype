@@ -10,6 +10,9 @@
 	a[href]:after,
 	a:link:after,
 	a:visited:after					{ content:""; }
+
+	#dice-result,
+	#action-dice 					{ display: none !important; }
 }
 
 /* FireFox */

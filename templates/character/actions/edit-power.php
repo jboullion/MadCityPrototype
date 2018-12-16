@@ -1,11 +1,11 @@
 <?php 
 
 ?>
-<div id="power-modal" class="action-modal">
+<div id="edit-power-modal" class="action-modal">
 	<div class="action-content">
-		<form id="power-form" action="" method="post">
+		<form id="edit-power-form" action="" method="post">
 			<div class="action-title">
-				Add Power
+				Edit Power
 				<i class="fal fa-times-circle action-close"></i>
 			</div>
 			<div class="action-body">

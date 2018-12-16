@@ -28,7 +28,7 @@
 	<link rel="manifest" href="manifest.json">
 
 	<!-- Custom Styles -->
-	<link rel="stylesheet" href="css/live.css" >
+	<link rel="stylesheet" href="css/live.css?v=<?php echo time(); ?>" >
 
 	<!-- jQuery 3 -->
 	<script

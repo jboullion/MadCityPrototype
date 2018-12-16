@@ -1,19 +1,19 @@
 // POWER AND EQUIPMENT TABLES
 #powers 				{
-	.power-table 		{ 
+	#power-table 		{ 
 		th 				{ vertical-align: middle; width:30%; }
 		td 				{ text-align: center; vertical-align: middle; width:20%;
 			&.name 		{ text-align: left; width:30%; }
 
-			&.dice  	{ font-size: 2rem; }
+			&.dice 		{ font-size: 2rem; }
 		}
 	}
 
 	@media (max-width: $screen-sm-max)  { margin-bottom: 30px;
 		
-		.power-table 		{ 
-			th 				{ width: 40%; }
-			td 				{ padding: 0; width: auto; }
+		#power-table 	{ 
+			th 			{ width: 40%; }
+			td 			{ padding: 0; width: auto; }
 		}
 	}
 }
@@ -48,7 +48,7 @@
 			}
 
 			.form-control,
-			select 		{ padding: 2px; font-size: 1.6rem; }
+			select 		{ padding-left: 2px; font-size: 1.6rem; }
 
 			select 		{ margin-top: 4px; }
 		}
@@ -110,9 +110,9 @@
 }
 
 
-@media print			{
-	#powers 			{
-		.power-table 	{ 
+@media print			{ 
+	#powers 			{ 
+		#power-table 	{ 
 			th 			{ width: 40%; }
 			td 			{ width: 60%; }
 		}

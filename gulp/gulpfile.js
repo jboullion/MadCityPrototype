@@ -1,5 +1,5 @@
 //THIS SHOULD MATCH YOUR THEME NAME
-var THEME = 'ddprototype';
+var THEME = 'madcity';
 
 var gulp = require('gulp');
 var uglify = require('gulp-uglify');

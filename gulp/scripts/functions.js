@@ -120,3 +120,24 @@ Number.prototype.round = function(decimals){
 	return Math.round(this * multiplier) / multiplier;
 }
 
+/**
+ * Take a form and convert it into a Object for easy manipulation
+ * 
+ * @link https://stackoverflow.com/a/23315254
+ * @link http://jsfiddle.net/akhildave/sxGtM/5002/
+ */
+$.fn.serializeObject = function() {
+	var o = {};
+	var a = this.serializeArray();
+	$.each(a, function() {
+		if (o[this.name] !== undefined) {
+			if (!o[this.name].push) {
+				o[this.name] = [o[this.name]];
+			}
+			o[this.name].push(this.value || '');
+		} else {
+			o[this.name] = this.value || '';
+		}
+	});
+	return o;
+};

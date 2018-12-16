@@ -8,7 +8,9 @@
 			<i class="fal fa-times-circle action-close"></i>
 		</div>
 		<div class="action-body">
-			<form action="" method="post">
+			<form id="equipment-form" action="" method="post">
+				<input type="hidden" name="character_id" value="<?php echo $CHARACTER->character_id; ?>" />
+				<input type="hidden" name="user_id" value="<?php echo $CHARACTER->user_id; ?>" />
 				<table>
 					<tr>
 						<th>Slot</th>
