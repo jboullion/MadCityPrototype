@@ -15,7 +15,7 @@ jQuery(document).ready(function($){
 	$addPower = $('#add-power');
 	$powerModal = $('#power-modal');
 	$powerForm = $('#power-form');
-	$powerTable = $('#power-table');
+	$powerTable = $('#power-table tbody');
 	Tpower = $('#power-template').html();
 
 	$addEquipment = $('#add-equipment');
@@ -133,9 +133,10 @@ jQuery(document).ready(function($){
 				$powerForm.find('.action-close').first().trigger('click');
 
 				var newPower = JBTemplateEngine(Tpower, {
+					key: $powerTable.find('tr').length,
+					object: JSON.stringify(dataObject),
 					type: dataObject.type,
-					name: dataObject.name,
-					damage: dataObject.damage
+					name: dataObject.name
 				});
 
 				$powerTable.append(newPower);

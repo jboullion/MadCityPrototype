@@ -396,8 +396,8 @@ class Character {
 					</tr>
 				</thead>
 			<?php 
-				foreach($this->powers as $power) {
-					$this->displayPower($power);
+				foreach($this->powers as $key => $power) {
+					$this->displayPower($key, $power);
 				}
 			?>
 			</table>
@@ -410,8 +410,8 @@ class Character {
 	/**
 	 * Display A Single power
 	 */
-	function displayPower($power){
-		echo '<tr data-damage="'.$power['damage'].'">
+	function displayPower($key, $power){
+		echo '<tr data-key="'.$key.'" data-object="'.json_encode($power).'">
 				<th class="type"><i class="fal fa-fw fa-info-circle info no-print"></i> '.$power['type'].'</th>
 				<td class="name">'.$power['name'].'</td>
 				<td class="dice roller"><i class="fal fa-dice-d20"></i></td>

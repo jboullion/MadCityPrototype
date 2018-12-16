@@ -42,12 +42,13 @@
 			</div>
 		</form>
 	</div>
-	<script id="power-template" type="text/template">
-		<tr data-damage="<%damage%>">
-			<th class="type"><i class="fal fa-fw fa-info-circle info no-print"></i> <%type%></th>
-			<td class="name"><%name%></td>
-			<td class="dice roller"><i class="fal fa-dice-d20"></i></td>
-			<td class="dice mutate"><i class="fal fa-atom"></i></td>
-		</tr>
-	</script>
 </div>
+<!-- when adding a new power we will use this template -->
+<script id="power-template" type="text/template">
+	<tr data-key="<%key%>" data-object="<%object%>">
+		<th class="type"><i class="fal fa-fw fa-info-circle info no-print"></i> <%type%></th>
+		<td class="name"><%name%></td>
+		<td class="dice roller"><i class="fal fa-dice-d20"></i></td>
+		<td class="dice mutate"><i class="fal fa-atom"></i></td>
+	</tr>
+</script>
