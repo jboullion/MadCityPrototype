@@ -1,5 +1,7 @@
 // BUTTONS
-.btn							{ font-size: 1.2rem; font-family: $evil;
+.btn							{ font-size: 1.2rem; font-family: $evil; padding: 6px 20px;
+
+	
 
 	@media print { display: none; }	
 }

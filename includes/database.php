@@ -1,5 +1,5 @@
 <?php 
-define('DEBUG', true);
+
 if($_SERVER['HTTP_HOST'] == 'localhost'){
 	define('ENVIRONMENT', 'dev');
 

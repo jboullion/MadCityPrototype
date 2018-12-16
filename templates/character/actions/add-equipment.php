@@ -18,8 +18,8 @@
 							<div class="mad-style">
 								<select id="equipment-slot" name="equipment-slot">
 									<?php 
-										foreach($SLOTS as $slot){
-											echo '<option value="'.$slot.'">'.$slot.'</option>';
+										foreach($CHARACTER->slots as $slot => $name){
+											echo '<option value="'.$slot.'">'.$name.'</option>';
 										}
 									?>
 								</select>
@@ -56,8 +56,16 @@
 			</form>
 		</div>
 		<div class="action-footer">
-			<button type="button" class="btn btn-outline-default action-close">Close</button>
-			<button type="button" class="btn btn-outline-success">Equip</button>
+			<!--  <button type="button" class="btn btn-outline-default action-close">Close</button> -->
+			<button type="submit" class="btn btn-outline-success">Equip</button>
 		</div>
 	</div>
 </div>
+<!-- when adding a new power we will use this template -->
+<script id="equipment-template" type="text/template">
+	<tr id="equipment-<%key%>" data-key="<%key%>" data-object='<%object%>'>
+		<th class="slot edit-equipment pointer"><i class="fal fa-fw fa-info-circle no-print"></i> <%slot%></th>
+		<td class="name"><%name%></td>
+		<td class="bonus" >+<%bonus%> <%stat%></td>
+	</tr>
+</script>

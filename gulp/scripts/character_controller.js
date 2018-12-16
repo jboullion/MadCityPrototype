@@ -27,6 +27,10 @@ jQuery(document).ready(function($){
 	// Equipment
 	$addEquipment = $('#add-equipment');
 	$equipmentModal = $('#equipment-modal');
+	$equipmentForm = $('#equipment-form');
+	$equipmentTable = $('#equipment-table tbody');
+
+	equipmentTemplate = $('#equipment-template').html();
 
 	$increment = $('.increment');
 	$decrement = $('.decrement');
@@ -60,7 +64,7 @@ jQuery(document).ready(function($){
 		}else{
 			var level = 1;
 		}
-		
+
 		//setup all the data from this power
 		$('#edit-power-level').val(level);
 		$('#edit-power-type').val(power.type);
@@ -114,7 +118,7 @@ jQuery(document).ready(function($){
 
 		var value = parseInt($(this).data('value'));
 		$actionDiceResult.css('left', $(this).position().left).addClass('open').find('span').html(value.random());
-		
+
 		//hide the dice results after a delay
 		rollingTimer = setTimeout(function(){ 
 			$actionDiceResult.removeClass('open');
@@ -183,7 +187,7 @@ jQuery(document).ready(function($){
 		var dataPost = $(this).serializeArray();
 		var dataObject = $(this).serializeObject();
 		var editKey = $editPowerKey.val();
-		
+
 		//prevent double submission
 		$buttons.prop('disabled', true);
 
@@ -231,6 +235,44 @@ jQuery(document).ready(function($){
 				
 				$('#power-'+deleteKey).fadeOut('normal');
 
+			}else if(result.error != null){
+				//inform the user on failure
+				alert('Error: '+result.error);
+			}
+
+			$buttons.prop('disabled', false);
+		}, 'json');
+	});
+
+
+	// Handle the equipment form submission
+	$equipmentForm.submit(function(e){
+		e.preventDefault();
+
+		var $buttons = $(this).find('button');
+		var dataPost = $(this).serializeArray();
+		var equipmentObject = $(this).serializeObject();
+
+		//prevent double submission
+		$buttons.prop('disabled', true);
+
+		$.post( BASE_DIR+"rest/character/equipment/add", dataPost, function( result ) {
+
+			if(result.success != null){
+				//reset form and close form on success
+				$equipmentForm.trigger("reset");
+				$equipmentForm.find('.action-close').first().trigger('click');
+
+				var newEquipment = JBTemplateEngine(equipmentTemplate, {
+					key: $equipmentTable.find('tr').length,
+					object: JSON.stringify(dataObject),
+					slot: equipmentObject.slot,
+					name: equipmentObject.name,
+					bonus: equipmentObject.bonus,
+					stat: equipmentObject.stat,
+				});
+
+				$equipmentTable.append(newEquipment);
 			}else if(result.error != null){
 				//inform the user on failure
 				alert('Error: '+result.error);

@@ -108,6 +108,14 @@ class Character {
 	// dynamic sets of abilities
 	var $powers;
 	var $equipment;
+	var $slots = array(
+		'head' => 'Head',
+		'torso' => 'Torso',
+		'hands' => 'Hands',
+		'legs' => 'Legs',
+		'feet' => 'Feet',
+		'accessory'  => 'Accessory'
+	);
 
 
 	/**
@@ -392,7 +400,7 @@ class Character {
 						<th>Type</th>
 						<th>Name</th>
 						<th class="text-center no-print">Roll</th>
-						<th class="text-center no-print">Mutate</th>
+						<!-- <th class="text-center no-print">Mutate</th> -->
 					</tr>
 				</thead>
 			<?php 
@@ -411,11 +419,12 @@ class Character {
 	 * Display A Single power
 	 */
 	function displayPower($key, $power){
+		//<td class="dice mutate"><i class="fal fa-atom"></i></td>
+
 		echo '<tr id="power-'.$key.'" data-key="'.$key.'" data-object="'.htmlspecialchars(json_encode($power), ENT_QUOTES, 'UTF-8').'">
 				<th class="type edit-power pointer"><i class="fal fa-fw fa-info-circle no-print"></i> <span>'.$power['type'].'</span></th>
-				<td class="name">'.$power['name'].'</td>
+				<td class="name edit-power pointer">'.$power['name'].'</td>
 				<td class="dice roller"><i class="fal fa-dice-d20"></i></td>
-				<td class="dice mutate"><i class="fal fa-atom"></i></td>
 			</tr>';
 	}
 
@@ -427,7 +436,7 @@ class Character {
 		<div id="equipment" class="col-12 col-md-6">
 			<h2 class="text-center">Equipment</h2>
 
-			<table class="table equipment-table">
+			<table id="equipment-table" class="table equipment-table">
 				<thead>
 					<tr>
 						<th>Slot</th>

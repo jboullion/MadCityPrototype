@@ -38,7 +38,7 @@
 			
 			</div>
 			<div class="action-footer">
-				<button type="button" class="btn btn-outline-default action-close">Close</button>
+				<!-- <button type="button" class="btn btn-outline-default action-close">Close</button> -->
 				<button type="submit" class="btn btn-outline-success">Add</button>
 			</div>
 		</form>
@@ -48,7 +48,7 @@
 <script id="power-template" type="text/template">
 	<tr id="power-<%key%>" data-key="<%key%>" data-object='<%object%>'>
 		<th class="type edit-power pointer"><i class="fal fa-fw fa-info-circle no-print"></i> <%type%></th>
-		<td class="name"><%name%></td>
+		<td class="name edit-power pointer"><%name%></td>
 		<td class="dice roller"><i class="fal fa-dice-d20"></i></td>
 		<td class="dice mutate"><i class="fal fa-atom"></i></td>
 	</tr>

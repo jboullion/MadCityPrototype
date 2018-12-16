@@ -10747,7 +10747,8 @@ body a {
 
 .btn {
   font-size: 1.2rem;
-  font-family: "Evil Genius", sans-serif; }
+  font-family: "Evil Genius", sans-serif;
+  padding: 6px 20px; }
   @media print {
     .btn {
       display: none; } }
@@ -11041,17 +11042,17 @@ blockquote {
     visibility: visible;
     background: rgba(0, 0, 0, 0.5); }
 
-#powers #power-table th {
-  vertical-align: middle;
+#powers #power-table tbody th {
   width: 30%; }
+
+#powers #power-table th {
+  vertical-align: middle; }
 
 #powers #power-table td {
   text-align: center;
-  vertical-align: middle;
-  width: 20%; }
+  vertical-align: middle; }
   #powers #power-table td.name {
-    text-align: left;
-    width: 30%; }
+    text-align: left; }
   #powers #power-table td.dice {
     font-size: 2rem; }
 
@@ -11131,6 +11132,8 @@ blockquote {
       background-color: #e5e5e0;
       text-align: right;
       padding: 15px; }
+      .action-modal .action-content .action-footer .btn.btn-outline-default {
+        border-color: #333; }
 
 #action-dice {
   position: fixed;

@@ -29,7 +29,7 @@
 			</div>
 		</div>
 		<div class="action-footer">
-			<button type="button" class="btn btn-outline-danger action-close">Cancel</button>
+			<!--  <button type="button" class="btn btn-outline-danger action-close">Cancel</button> -->
 			<button type="button" class="btn btn-outline-success">Mutate</button>
 		</div>
 	</div>

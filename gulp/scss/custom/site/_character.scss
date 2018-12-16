@@ -1,9 +1,10 @@
 // POWER AND EQUIPMENT TABLES
 #powers 				{
 	#power-table 		{ 
-		th 				{ vertical-align: middle; width:30%; }
-		td 				{ text-align: center; vertical-align: middle; width:20%;
-			&.name 		{ text-align: left; width:30%; }
+		tbody th 		{ width:30%; }
+		th 				{ vertical-align: middle; }
+		td 				{ text-align: center; vertical-align: middle;
+			&.name 		{ text-align: left; }
 
 			&.dice 		{ font-size: 2rem; }
 		}
@@ -55,7 +56,8 @@
 		}
 
 		.action-footer  { background-color: $light-gray;  text-align: right; padding: 15px;
-			.btn 		{ 
+			.btn 				{ 
+				&.btn-outline-default 	{ border-color: $dark-gray; }
 				&:hover {  }
 			}
 		}

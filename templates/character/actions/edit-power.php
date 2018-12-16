@@ -43,8 +43,7 @@
 			</div>
 			<div class="action-footer">
 				<button type="button" class="btn btn-outline-danger float-left" id="delete-power">Delete</button>
-				<button type="button" class="btn btn-outline-default action-close">Close</button>
-				
+				<!--  <button type="button" class="btn btn-outline-default action-close">Close</button> -->				
 				<button type="submit" class="btn btn-outline-success">Edit</button>
 			</div>
 		</form>
