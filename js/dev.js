@@ -54,9 +54,9 @@ function jbDeleteCookie(cname) {
                 })
  */
 function JBTemplateEngine(tpl, data) {
-	var re = /<%([^%>]+)?%>/g, match;
-	while(match = re.exec(tpl)) {
-		tpl = tpl.replace(match[0], data[match[1]])
+	for(var key in data){
+		var re = new RegExp("<%" + key + "%>", "gi");
+		tpl = tpl.replace(re, data[key]);
 	}
 	return tpl;
 }
@@ -75,6 +75,16 @@ String.prototype.jbCleanNumber = function() {
 
 	return returnValue;
 }
+
+
+/**
+ * Capitalize the first letter of a string
+ * usage: str.capitalize()
+ */
+String.prototype.capitalize = function() {
+	return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
 
 /**
  * Format a float as currency
@@ -213,11 +223,13 @@ jQuery(document).ready(function($){
 	$powerModal = $('#power-modal');
 	$powerForm = $('#power-form');
 	$powerTable = $('#power-table tbody');
-	//$editPowerBtn = $('.edit-power');
+
 	$editPowerModal = $('#edit-power-modal');
 	$editPowerForm = $('#edit-power-form');
 	$editPowerKey = $('#edit-power-key');
+
 	$deletePower = $('#delete-power');
+
 	powerTemplate = $('#power-template').html();
 
 	// Equipment
@@ -225,6 +237,12 @@ jQuery(document).ready(function($){
 	$equipmentModal = $('#equipment-modal');
 	$equipmentForm = $('#equipment-form');
 	$equipmentTable = $('#equipment-table tbody');
+
+	$editEquipmentModal = $('#edit-equipment-modal');
+	$editEquipmentForm = $('#edit-equipment-form');
+	$editEquipmentKey = $('#edit-equipment-key');
+
+	$deleteEquipment = $('#delete-equipment');
 
 	equipmentTemplate = $('#equipment-template').html();
 
@@ -274,10 +292,30 @@ jQuery(document).ready(function($){
 
 	});
 
+
+	// Open the Edit Equipment modal
+	$body.on('click','.edit-equipment', function(e){
+		var equipment = $(this).parent().data('object');
+		var key = $(this).parent().data('key');
+
+		//setup all the data from this equipment
+		$('#edit-equipment-slot').val(equipment.slot);
+		$('#edit-equipment-name').val(equipment.name);
+		$('#edit-equipment-bonus').val(equipment.bonus);
+		$('#edit-equipment-stat').val(equipment.stat);
+		$('#edit-equipment-desc').val(equipment.desc);
+		$editEquipmentKey.val(key);
+
+		$editEquipmentModal.addClass('open');
+
+	});
+
+
 	// Open the Equipment modal
 	$addEquipment.click(function(e){
 		$equipmentModal.addClass('open');
 	});
+
 
 	// Increment a related value
 	$increment.click(function(e){
@@ -289,6 +327,7 @@ jQuery(document).ready(function($){
 		$('#'+target).val(currentVal).trigger('change');
 	});
 
+
 	// Decrement a related value
 	$decrement.click(function(e){
 		var target = $(this).data('target');
@@ -299,6 +338,7 @@ jQuery(document).ready(function($){
 		$('#'+target).val(currentVal).trigger('change');
 
 	});
+
 
 	// Roll a die!
 	var rollingTimer = null;
@@ -461,14 +501,81 @@ jQuery(document).ready(function($){
 
 				var newEquipment = JBTemplateEngine(equipmentTemplate, {
 					key: $equipmentTable.find('tr').length,
-					object: JSON.stringify(dataObject),
-					slot: equipmentObject.slot,
+					object: JSON.stringify(equipmentObject),
+					slot: equipmentObject.slot.capitalize(),
 					name: equipmentObject.name,
 					bonus: equipmentObject.bonus,
-					stat: equipmentObject.stat,
+					stat: equipmentObject.stat.capitalize()
 				});
 
 				$equipmentTable.append(newEquipment);
+			}else if(result.error != null){
+				//inform the user on failure
+				alert('Error: '+result.error);
+			}
+
+			$buttons.prop('disabled', false);
+		}, 'json');
+	});
+
+	// Handle the user editing a equipment
+	$editEquipmentForm.submit(function(e){
+		e.preventDefault();
+
+		var $buttons = $(this).find('button');
+		var dataPost = $(this).serializeArray();
+		var equipmentObject = $(this).serializeObject();
+		var editKey = $editEquipmentKey.val();
+
+		//prevent double submission
+		$buttons.prop('disabled', true);
+
+		$.post( BASE_DIR+"rest/character/equipment/edit", dataPost, function( result ) {
+
+			if(result.success != null){
+				//TODO: This is where React is going to be amazing. Now I have to do so bullshit to update the table, but React would do that automagically
+
+				//reset form and close form on success
+				$editEquipmentForm.trigger("reset");
+				$editEquipmentForm.find('.action-close').first().trigger('click');
+
+				var $editedEquipment = $('#equipment-'+editKey);
+
+				$editedEquipment.data('object', equipmentObject);
+				$editedEquipment.find('.slot span').html(equipmentObject.slot);
+				$editedEquipment.find('.name').html(equipmentObject.name);
+				$editedEquipment.find('.bonus').html('+'+equipmentObject.bonus+' '+equipmentObject.stat);
+				//$editedEquipment.find('.desc').html(equipmentObject.desc);
+
+			}else if(result.error != null){
+				//inform the user on failure
+				alert('Error: '+result.error);
+			}
+
+			$buttons.prop('disabled', false);
+		}, 'json');
+	});
+
+	// delete a equipment
+	$deleteEquipment.click(function(e){
+		e.preventDefault();
+
+		var deleteKey = $editEquipmentKey.val();
+		var dataObject = $editEquipmentForm.serializeObject();
+		
+		//prevent double submission
+		var $buttons = $editEquipmentForm.find('button');
+		$buttons.prop('disabled', true);
+
+		$.post( BASE_DIR+"rest/character/equipment/delete", {delete_key:deleteKey, user_id: dataObject.user_id, character_id: dataObject.character_id}, function( result ) {
+
+			if(result.success != null){
+				//reset form and close form on success
+				$editEquipmentForm.trigger("reset");
+				$editEquipmentForm.find('.action-close').first().trigger('click');
+				
+				$('#equipment-'+deleteKey).fadeOut('normal');
+
 			}else if(result.error != null){
 				//inform the user on failure
 				alert('Error: '+result.error);

@@ -5,7 +5,7 @@ unset($_POST['character_id']);
 unset($_POST['user_id']);
 
 //add this new power to our list of powers
-$CHARACTER->powers[$_POST['equipment_key']] = $_POST;
+$CHARACTER->equipment[$_POST['equipment_key']] = $_POST;
 
 // Make our character update itself in the database
 $result = $CHARACTER->updateEquipment();

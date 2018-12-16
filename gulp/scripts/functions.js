@@ -54,9 +54,9 @@ function jbDeleteCookie(cname) {
                 })
  */
 function JBTemplateEngine(tpl, data) {
-	var re = /<%([^%>]+)?%>/g, match;
-	while(match = re.exec(tpl)) {
-		tpl = tpl.replace(match[0], data[match[1]])
+	for(var key in data){
+		var re = new RegExp("<%" + key + "%>", "gi");
+		tpl = tpl.replace(re, data[key]);
 	}
 	return tpl;
 }
@@ -75,6 +75,16 @@ String.prototype.jbCleanNumber = function() {
 
 	return returnValue;
 }
+
+
+/**
+ * Capitalize the first letter of a string
+ * usage: str.capitalize()
+ */
+String.prototype.capitalize = function() {
+	return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
 
 /**
  * Format a float as currency

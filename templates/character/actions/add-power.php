@@ -16,15 +16,15 @@
 				<table>
 					<tr>
 						<th>Type</th>
-						<td><input type="text" id="power-type" name="type" class="form-control" /></td>
+						<td><input type="text" id="power-type" name="type" class="form-control" required/></td>
 					</tr>
 					<tr>
 						<th>Name</th>
-						<td><input type="text" id="power-name" name="name" class="form-control" /></td>
+						<td><input type="text" id="power-name" name="name" class="form-control" required/></td>
 					</tr>
 					<tr>
 						<th>Damage</th>
-						<td><input type="number" id="power-damage" name="damage" class="form-control number-control" pattern="[0-9]{3}" min="0" max="100" maxlength="3" /></td>
+						<td><input type="number" id="power-damage" name="damage" class="form-control number-control" pattern="[0-9]{3}" min="0" max="100" maxlength="3" required/></td>
 					</tr>
 					<tr>
 						<th>Effect</th>
@@ -45,11 +45,11 @@
 	</div>
 </div>
 <!-- when adding a new power we will use this template -->
+<!-- <td class="dice mutate"><i class="fal fa-atom"></i></td> -->
 <script id="power-template" type="text/template">
 	<tr id="power-<%key%>" data-key="<%key%>" data-object='<%object%>'>
 		<th class="type edit-power pointer"><i class="fal fa-fw fa-info-circle no-print"></i> <%type%></th>
 		<td class="name edit-power pointer"><%name%></td>
 		<td class="dice roller"><i class="fal fa-dice-d20"></i></td>
-		<td class="dice mutate"><i class="fal fa-atom"></i></td>
 	</tr>
 </script>

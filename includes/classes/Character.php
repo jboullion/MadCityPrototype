@@ -326,10 +326,10 @@ class Character {
 					</div>
 					<div class="row">
 						<?php 
-							foreach($this->{$display_stat} as $type => $vital){
+							foreach($this->{$display_stat} as $type => $stat){
 								echo '<div class="col-4">';
 
-								foreach($vital as $prop => $name){
+								foreach($stat as $prop => $name){
 									//does this element need increment buttons?
 									$increment = $display_stat == 'vitals' && 'physical' == $type?true:false;
 									$roll = $display_stat != 'vitals'?true:false;
@@ -384,6 +384,19 @@ class Character {
 		
 	}
 
+	/**
+	 * List the vitals, stats, skills without their categories as an options list
+	 * 
+	 * @param string $stat vitals, stats, skills
+	 */
+	function optionStat($stat){
+		foreach($this->{$stat} as $type => $values){
+			foreach($values as $prop => $name){
+				echo '<option value="'.$name.'">'.$name.'</option>';
+			}
+		}
+	}
+
 
 	/**
 	 * Display the Powers in the Power Table
@@ -403,11 +416,13 @@ class Character {
 						<!-- <th class="text-center no-print">Mutate</th> -->
 					</tr>
 				</thead>
-			<?php 
-				foreach($this->powers as $key => $power) {
-					$this->displayPower($key, $power);
-				}
-			?>
+				<tbody>
+				<?php 
+					foreach($this->powers as $key => $power) {
+						$this->displayPower($key, $power);
+					}
+				?>
+				</tbody>
 			</table>
 
 			<button id="add-power" class="btn btn-default no-print"><i class="fal fa-plus-circle"></i> Add Power</button>
@@ -444,15 +459,17 @@ class Character {
 						<th>Bonus</th>
 					</tr>
 				</thead>
-			<?php 
-				foreach($this->equipment as $slot => $item){
-					echo '<tr>
-							<th class="slot"><i class="fal fa-fw fa-info-circle info no-print"></i> '.ucwords($slot).'</th>
-							<td class="name">'.$item['name'].'</td>
-							<td class="bonus" data-bonus="'.$item['bonus'].'" data-stat="'.$item['stat'].'">+'.$item['bonus'].' '.$item['stat'].'</td>
-						</tr>';
-				}
-			?>
+				<tbody>
+				<?php 
+					foreach($this->equipment as $key => $item){
+						echo '<tr id="equipment-'.$key.'" data-key="'.$key.'" data-object="'.htmlspecialchars(json_encode($item), ENT_QUOTES, 'UTF-8').'">
+								<th class="slot edit-equipment pointer"><i class="fal fa-fw fa-info-circle info no-print"></i> <span>'.ucwords($item['slot']).'</span></th>
+								<td class="name edit-equipment pointer">'.$item['name'].'</td>
+								<td class="bonus" data-bonus="'.$item['bonus'].'" data-stat="'.$item['stat'].'">+'.$item['bonus'].' '.ucwords($item['stat']).'</td>
+							</tr>';
+					}
+				?>
+				</tbody>
 			</table>
 
 			<button id="add-equipment" class="btn btn-default no-print"><i class="fal fa-plus-circle"></i> Add Equipment</button>
