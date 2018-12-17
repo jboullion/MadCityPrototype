@@ -10824,7 +10824,7 @@ label {
     pointer-events: none;
     position: absolute;
     right: 20px;
-    top: 0px; }
+    top: 8px; }
   .mad-style select {
     background-color: #FFFFFF;
     cursor: pointer;
@@ -10832,7 +10832,7 @@ label {
     border: 0;
     border-bottom: 1px solid #aaa;
     border-radius: 0;
-    padding: 0 40px 4px 2px;
+    padding: 6px 40px 4px 2px;
     font-size: 2rem;
     line-height: 1;
     outline: none;
@@ -10901,7 +10901,7 @@ body {
   overflow-y: scroll;
   overflow-x: hidden;
   position: relative;
-  padding-bottom: 100px; }
+  padding-bottom: 120px; }
 
 ::-moz-selection {
   /* Code for Firefox */

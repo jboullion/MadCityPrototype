@@ -373,7 +373,7 @@ class Character {
 				<div class="input-group-append d-print-none">';
 		
 		if($roll){
-			echo '<span class="input-group-text roller"><i class="fal fa-dice-d20"></i></span>';
+			//echo '<span class="input-group-text roller"><i class="fal fa-dice-d20"></i></span>';
 		}else if($increment){
 			echo '<span class="input-group-text decrement" data-target="'.$id.'"><i class="fal fa-chevron-square-down"></i></span>';
 		}
@@ -412,7 +412,9 @@ class Character {
 					<tr>
 						<th>Type</th>
 						<th>Name</th>
-						<th class="text-center no-print">Roll</th>
+						<th>Damage</th>
+						<th>Effect</th>
+						<!-- <th class="text-center no-print">Roll</th> -->
 						<!-- <th class="text-center no-print">Mutate</th> -->
 					</tr>
 				</thead>
@@ -434,12 +436,14 @@ class Character {
 	 * Display A Single power
 	 */
 	function displayPower($key, $power){
+		//<td class="dice roller"><i class="fal fa-dice-d20"></i></td>
 		//<td class="dice mutate"><i class="fal fa-atom"></i></td>
 
-		echo '<tr id="power-'.$key.'" data-key="'.$key.'" data-object="'.htmlspecialchars(json_encode($power), ENT_QUOTES, 'UTF-8').'">
-				<th class="type edit-power pointer"><i class="fal fa-fw fa-info-circle no-print"></i> <span>'.$power['type'].'</span></th>
-				<td class="name edit-power pointer">'.$power['name'].'</td>
-				<td class="dice roller"><i class="fal fa-dice-d20"></i></td>
+		echo '<tr id="power-'.$key.'" class="edit-power pointer" data-key="'.$key.'" data-object="'.htmlspecialchars(json_encode($power), ENT_QUOTES, 'UTF-8').'">
+				<th class="type"><i class="fal fa-fw fa-info-circle no-print"></i> <span>'.$power['type'].'</span></th>
+				<td class="name">'.$power['name'].'</td>
+				<td class="damage">'.$power['damage'].'</td>
+				<td class="effect">'.$power['effect'].'</td>
 			</tr>';
 	}
 
@@ -462,9 +466,9 @@ class Character {
 				<tbody>
 				<?php 
 					foreach($this->equipment as $key => $item){
-						echo '<tr id="equipment-'.$key.'" data-key="'.$key.'" data-object="'.htmlspecialchars(json_encode($item), ENT_QUOTES, 'UTF-8').'">
-								<th class="slot edit-equipment pointer"><i class="fal fa-fw fa-info-circle info no-print"></i> <span>'.ucwords($item['slot']).'</span></th>
-								<td class="name edit-equipment pointer">'.$item['name'].'</td>
+						echo '<tr id="equipment-'.$key.'" class="edit-equipment pointer" data-key="'.$key.'" data-bonus="'.$item['bonus'].'" data-stat="'.$item['stat'].'" data-object="'.htmlspecialchars(json_encode($item), ENT_QUOTES, 'UTF-8').'">
+								<th class="slot"><i class="fal fa-fw fa-info-circle info no-print"></i> <span>'.ucwords($item['slot']).'</span></th>
+								<td class="name">'.$item['name'].'</td>
 								<td class="bonus" data-bonus="'.$item['bonus'].'" data-stat="'.$item['stat'].'">+'.$item['bonus'].' '.ucwords($item['stat']).'</td>
 							</tr>';
 					}

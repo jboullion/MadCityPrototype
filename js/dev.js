@@ -270,8 +270,8 @@ jQuery(document).ready(function($){
 
 	// Open the Edit Power modal
 	$body.on('click','.edit-power', function(e){
-		var power = $(this).parent().data('object');
-		var key = $(this).parent().data('key');
+		var power = $(this).data('object');
+		var key = $(this).data('key');
 
 		if(power.level){
 			var level = power.level;
@@ -289,14 +289,13 @@ jQuery(document).ready(function($){
 		$editPowerKey.val(key);
 
 		$editPowerModal.addClass('open');
-
 	});
 
 
 	// Open the Edit Equipment modal
 	$body.on('click','.edit-equipment', function(e){
-		var equipment = $(this).parent().data('object');
-		var key = $(this).parent().data('key');
+		var equipment = $(this).data('object');
+		var key = $(this).data('key');
 
 		//setup all the data from this equipment
 		$('#edit-equipment-slot').val(equipment.slot);
@@ -307,7 +306,6 @@ jQuery(document).ready(function($){
 		$editEquipmentKey.val(key);
 
 		$editEquipmentModal.addClass('open');
-
 	});
 
 
@@ -402,7 +400,9 @@ jQuery(document).ready(function($){
 					key: $powerTable.find('tr').length,
 					object: JSON.stringify(dataObject),
 					type: dataObject.type,
-					name: dataObject.name
+					name: dataObject.name,
+					damage: dataObject.damage,
+					effect: dataObject.effect
 				});
 
 				$powerTable.append(newPower);

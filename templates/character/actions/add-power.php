@@ -31,6 +31,20 @@
 						<td><input type="text" id="power-effect" name="effect" class="form-control" /></td>
 					</tr>
 					<tr>
+						<th>Stat</th>
+						<td>
+							<div class="mad-style">
+								<select id="power-stat" name="stat" required>
+									<?php 
+										$CHARACTER->optionStat('vitals');
+										$CHARACTER->optionStat('stats');
+										$CHARACTER->optionStat('skills');
+									?>
+								</select>
+							</div>
+						</td>
+					</tr>
+					<tr>
 						<th>Description</th>
 						<td><textarea id="power-desc" name="desc" class="form-control" maxlength="200"></textarea></td>
 					</tr>
@@ -45,11 +59,13 @@
 	</div>
 </div>
 <!-- when adding a new power we will use this template -->
+<!-- <td class="dice roller"><i class="fal fa-dice-d20"></i></td> -->
 <!-- <td class="dice mutate"><i class="fal fa-atom"></i></td> -->
 <script id="power-template" type="text/template">
-	<tr id="power-<%key%>" data-key="<%key%>" data-object='<%object%>'>
-		<th class="type edit-power pointer"><i class="fal fa-fw fa-info-circle no-print"></i> <%type%></th>
-		<td class="name edit-power pointer"><%name%></td>
-		<td class="dice roller"><i class="fal fa-dice-d20"></i></td>
+	<tr id="power-<%key%>" class="edit-power pointer" data-key="<%key%>" data-object='<%object%>'>
+		<th class="type"><i class="fal fa-fw fa-info-circle no-print"></i> <%type%></th>
+		<td class="name"><%name%></td>
+		<td class="damage"><%damage%></td>
+		<td class="effect"><%effect%></td>
 	</tr>
 </script>

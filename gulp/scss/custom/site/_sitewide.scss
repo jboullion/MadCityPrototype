@@ -5,7 +5,7 @@ body 						{ background-color: $body-color; transition: background-color $menu-t
 								overflow-y:scroll; 
 								overflow-x:hidden; 
 								position:relative; 
-								padding-bottom: 100px;
+								padding-bottom: 120px;
 								@extend .txt-antialiased;
 }
 

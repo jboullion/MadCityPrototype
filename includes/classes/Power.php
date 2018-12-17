@@ -4,34 +4,31 @@
  * A Heroes power.
  */
 class Power { 
+	var $type;
 	var $name; 
-	var $description;
-	var $damage; // the "d" value of the dice involved
-	var $act;
+	var $effect;
+	var $damage;
+	var $level;
 	VAR $stat;
+	var $description;
 
 	/**
 	 * @param string $name The name of the power
-	 * @param string $description The name of the power
+	 * @param string $type The type of the power
+	 * @param string $description The description of the power
 	 * @param int $damage The random value to determine damage
 	 * @param int $act The Act the power belongs in
-	 * @param bool $burn Can this power burn power points
+	 * @param int $level The level of this power. Also the number of power points it uses
 	 */
-	function __construct($name, $description, $damage, $act, $stat) {
+	function __construct($type, $name, $effect, $description, $damage, $level, $stat) {
+		$this->type = $type;
 		$this->name = $name;
+		$this->effect = $effect;
 		$this->$description = $description;
-		$this->$damage = $damage; // the "d" value of the dice involved
-		$this->$act = $act;
-		$this->$stat = $stat;
-	}
 
-	/**
-	 * Roll this power
-	 * 
-	 * @param int $attack 
-	 */
-	function roll($attack = 0, $stat = 0, $items = 0){
-		return rand(1,20) + $stat + $items;
+		$this->$damage = $damage;
+		$this->$level = $level;
+		$this->$stat = $stat;
 	}
 
 }
