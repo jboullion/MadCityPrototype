@@ -54,4 +54,4 @@ assets
 package.json
 package-lock.json
 
-database.php
+includes/database.php
