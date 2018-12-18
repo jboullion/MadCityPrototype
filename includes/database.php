@@ -1,6 +1,6 @@
 <?php 
 
-if($_SERVER['HTTP_HOST'] == 'localhost'){
+if($_SERVER['HTTP_HOST'] == 'madcity.local'){
 	define('ENVIRONMENT', 'dev');
 
 	//set false if you want to disable debug messages

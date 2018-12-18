@@ -215,7 +215,7 @@ jQuery(document).ready(function($){
 
 		var $buttons = $(this).find('button');
 		var dataPost = $(this).serializeArray();
-		var dataObject = $(this).serializeObject();
+		var powerObject = $(this).serializeObject();
 		var editKey = $editPowerKey.val();
 
 		//prevent double submission
@@ -232,9 +232,11 @@ jQuery(document).ready(function($){
 
 				var $editedPower = $('#power-'+editKey);
 
-				$editedPower.data('object', dataObject);
-				$editedPower.find('.type span').html(dataObject.type);
-				$editedPower.find('.name').html(dataObject.name);
+				$editedPower.data('object', powerObject);
+				$editedPower.find('.type span').html(powerObject.type);
+				$editedPower.find('.name').html(powerObject.name);
+				$editedPower.find('.damage').html(powerObject.damage);
+				$editedPower.find('.effect').html(powerObject.effect);
 
 			}else if(result.error != null){
 				//inform the user on failure

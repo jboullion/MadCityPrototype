@@ -24,7 +24,7 @@
 					</tr>
 					<tr>
 						<th>Damage</th>
-						<td><input type="number" id="power-damage" name="damage" class="form-control number-control" pattern="[0-9]{3}" min="0" max="100" maxlength="3" required/></td>
+						<td><input type="number" id="power-damage" name="damage" class="form-control number-control" pattern="[0-9]{3}" min="0" max="100" maxlength="3" /></td>
 					</tr>
 					<tr>
 						<th>Effect</th>

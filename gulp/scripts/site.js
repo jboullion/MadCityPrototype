@@ -2,7 +2,7 @@
 window.scrollTo(0,1);
 
 //used around the site for post calls and stuff
-var BASE_DIR = '/madcity/';
+var BASE_DIR = '/';
 
 // setup menu
 jQuery(document).ready(function($){
