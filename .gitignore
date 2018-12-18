@@ -49,8 +49,10 @@ Temporary Items
 # Custom
 node_modules
 assets
+vendor
 
 .editorconfig
 package.json
 package-lock.json
 includes/database.php
+client_secrets.json

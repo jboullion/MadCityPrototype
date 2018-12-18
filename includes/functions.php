@@ -1,8 +1,14 @@
 <?php 
 
 
-
-
+/**
+ * Debug function display cleaner information
+ * 
+ * @param mixed $data Any PHP variable you want to debug
+ */
+function jb_print($data){
+	echo '<pre class="jb-print">'.print_r($data, true).'</pre>';
+}
 
 /**
  * Return an array of stats used throughout the site

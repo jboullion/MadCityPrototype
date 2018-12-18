@@ -6,7 +6,7 @@ I am developing the mechanics and building an app to help the players.
 
 Building the app also helps me think through the mechanics and how things should work.
 
-I am starting with a simple PHP and jQuery during the prototype phase. I will be transitioning to React once I know how I want the mechanics / application to operate.
+I am starting with PHP and jQuery during the prototype phase. I will be transitioning to React once I know how I want the mechanics / application to operate.
 
 I will also be setting this up as a PWA so that it can be played without an internet connection and loaded from the home screen.
 
@@ -43,3 +43,8 @@ Add features and spend more time on styling.
 Roll mechanic to allow users to make any roll by clicking an icon next to that stat/skill/power
 
 Add Documentation from Google Drive Sheets
+
+
+
+#Libraries Used
+Google API Client Library ( https://github.com/googleapis/google-api-php-client )
