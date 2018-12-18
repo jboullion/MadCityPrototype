@@ -21,7 +21,7 @@ if(DEBUG){
  * TODO: Do we move this elsewhere? Leaving here provides the one stop for database 
  */
 function setup_pdo(){
-	if(ENVIRONMENT == 'dev'){
+	if(ENVIRONMENT == 'dev'){  
 		$host = 'localhost';
 		$db   = 'madcity';
 		$user = 'root';
