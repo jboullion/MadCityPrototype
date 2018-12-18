@@ -53,3 +53,5 @@ assets
 .editorconfig
 package.json
 package-lock.json
+
+database.php
