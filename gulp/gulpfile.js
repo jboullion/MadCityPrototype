@@ -100,7 +100,7 @@ gulp.task('images', ['uploads'], function() {
 gulp.task('browser-sync', function(){
     console.log('Syncing...');
     browserSync.init({
-        proxy: "http://localhost/"+THEME,
+        proxy: "http://"+THEME+".local",
         port: 420
     });
 

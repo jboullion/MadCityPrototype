@@ -1,4 +1,5 @@
 <?php
+
 // functions used throuhgout the site
 require_once('includes/functions.php');
 
@@ -13,7 +14,16 @@ require_once('includes/setup.php');
 	<?php require_once('templates/common/header.php'); ?>
 	<body>
 		<?php require_once('templates/common/navigation.php'); ?>
-		<?php require_once('templates/login/signin.php'); ?>
+		<?php 
+			// TODO: set this to check for a Character object. A Character object will only be set if we found a character for this ID
+			if(! empty($_GET['id'])){
+				require_once('templates/character/sheet.php');
+			}else{
+				require_once('templates/character/list.php');
+			}
+
+		?>
+		<?php require_once('templates/character/actions/actions.php'); ?>
 		<?php require_once('templates/common/footer.php'); ?>
 	</body>
 </html>

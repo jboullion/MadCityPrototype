@@ -7,7 +7,24 @@ body 						{ background-color: $body-color; transition: background-color $menu-t
 								position:relative; 
 								padding-bottom: 120px;
 								@extend .txt-antialiased;
+
+								
 }
+
+/*
+body {
+	background: linear-gradient(216deg, #ffffff, #3f3f3f);
+	background-size: 400% 400%;
+
+	animation: AnimateGradient 10s ease infinite;
+
+	@keyframes AnimateGradient { 
+		0%{background-position:82% 0%}
+		50%{background-position:19% 100%}
+		100%{background-position:82% 0%}
+	}
+}
+
 
 //need to use mixin because pseudo elements don't play well with @extend
 @mixin selection-styles($color) {
@@ -15,15 +32,7 @@ body 						{ background-color: $body-color; transition: background-color $menu-t
 	background: $color;
 	background: rgba($color, 0.9);
 }
-
-::-moz-selection { /* Code for Firefox */
-	@include selection-styles($red);
-}
-
-::selection {
-	@include selection-styles($red);
-}
-
+*/
 
 
 img 						{ max-width: 100%; height: auto; }

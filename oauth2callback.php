@@ -4,7 +4,7 @@
  * 
  * @link https://developers.google.com/api-client-library/php/auth/web-app
  */
-require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
 session_start();
 

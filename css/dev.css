@@ -10693,8 +10693,7 @@ h5 {
   font-family: "Roboto", sans-serif;
   font-size: 1.8rem;
   font-weight: bold;
-  line-height: 1.5;
-  margin-bottom: 0; }
+  line-height: 1.5; }
 
 h6 {
   font-family: "Roboto", sans-serif;
@@ -10903,17 +10902,28 @@ body {
   position: relative;
   padding-bottom: 120px; }
 
-::-moz-selection {
-  /* Code for Firefox */
-  color: white;
-  background: #8c0007;
-  background: rgba(140, 0, 7, 0.9); }
+/*
+body {
+	background: linear-gradient(216deg, #ffffff, #3f3f3f);
+	background-size: 400% 400%;
 
-::selection {
-  color: white;
-  background: #8c0007;
-  background: rgba(140, 0, 7, 0.9); }
+	animation: AnimateGradient 10s ease infinite;
 
+	@keyframes AnimateGradient { 
+		0%{background-position:82% 0%}
+		50%{background-position:19% 100%}
+		100%{background-position:82% 0%}
+	}
+}
+
+
+//need to use mixin because pseudo elements don't play well with @extend
+@mixin selection-styles($color) {
+	color: white;
+	background: $color;
+	background: rgba($color, 0.9);
+}
+*/
 img {
   max-width: 100%;
   height: auto; }
@@ -11221,3 +11231,31 @@ blockquote {
     width: 40%; }
   #powers #power-table td {
     width: 60%; } }
+
+#signin-page {
+  min-height: 350px; }
+  #signin-page .login-form {
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    margin: 30px 0;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.6s;
+    position: absolute;
+    top: 300px;
+    width: 100%; }
+    #signin-page .login-form .g-signin2 {
+      float: right; }
+    #signin-page .login-form .btn {
+      margin-top: 20px; }
+    #signin-page .login-form .btn-center {
+      transform: translate(-50%, 0);
+      position: relative;
+      left: 50%; }
+    #signin-page .login-form.open {
+      opacity: 1;
+      visibility: visible;
+      top: 0; }
