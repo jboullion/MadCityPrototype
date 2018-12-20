@@ -37,4 +37,4 @@
 	</div>
 </section>
 
-<?php require_once('templates/common/menu.php');
+<?php require_once('menu.php');

@@ -10,6 +10,16 @@ function jb_print($data){
 	echo '<pre class="jb-print">'.print_r($data, true).'</pre>';
 }
 
+function jb_redirect($url, $permanent = false){
+	header('Location: ' . $url, true, $permanent ? 301 : 302);
+	exit();
+}
+
+function jb_random_password( $length = 8 ) {
+	$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-=+;:,.?";
+	return substr( str_shuffle( $chars ), 0, $length );
+}
+
 /**
  * Return an array of stats used throughout the site
  * 

@@ -13,7 +13,7 @@ require_once('includes/setup.php');
 	<?php require_once('templates/common/header.php'); ?>
 	<body>
 		<?php require_once('templates/common/navigation.php'); ?>
-		<?php require_once('templates/login/signin.php'); ?>
+		<?php require_once('templates/login/login.php'); ?>
 		<?php require_once('templates/common/footer.php'); ?>
 	</body>
 </html>

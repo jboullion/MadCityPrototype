@@ -6,7 +6,7 @@
 if(empty($_POST['character_id']) || ! is_numeric($_POST['character_id'])
 	|| empty($_POST['user_id']) || ! is_numeric($_POST['user_id'])) {
 
-	header("HTTP/1.1 401 Unauthorized");
+	echo json_encode(array('error' => 'ID Missing'));
 	exit;
 }
 

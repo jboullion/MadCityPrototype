@@ -40,7 +40,56 @@ jQuery(document).ready(function($){
 		var data = $(this).serializeArray();
 
 		$.post( BASE_DIR+"rest/user/signin", data, function( result ) {
-			//console.log(result);
+			if(result.success){
+				//redirect should occur on the server level, until we move to React
+				window.location.href = window.location.protocol+"//"+window.location.hostname+"/character/";
+			}else if(result.error){
+				$signinForm.find('.alert-danger').html(result.error).removeClass('hidden');
+			}else{
+				$signinForm.find('.alert-danger').html('Unknown Error').removeClass('hidden');
+			}
+		}, 'json');
+
+	});
+
+	// Submit our character sheet to our update function to save
+	$signupForm.submit(function(e){
+		e.preventDefault();
+
+		var data = $(this).serializeArray();
+
+		$.post( BASE_DIR+"rest/user/signup", data, function( result ) {
+
+			if(result.success){
+				//redirect should occur on the server level, until we move to React
+				window.location.href = window.location.protocol+"://"+window.location.hostname+"/character/";
+			}else if(result.error){
+				$signupForm.find('.alert-danger').html(result.error).removeClass('hidden');
+			}else{
+				$signupForm.find('.alert-danger').html('Unknown Error').removeClass('hidden');
+			}
+			
+		}, 'json');
+
+	});
+
+	// Submit our character sheet to our update function to save
+	$forgotForm.submit(function(e){
+		e.preventDefault();
+
+		var data = $(this).serializeArray();
+		$forgotForm.find('.btn-primary').html('<i class="fal fa-circle-notch fa-spin"></i>').prop('disabled', true);
+
+		$.post( BASE_DIR+"rest/user/forgot", data, function( result ) {
+			if(result.success){
+				$forgotForm.find('.alert-danger').addClass('hidden');
+				$forgotForm.find('.alert-success').html(result.success).removeClass('hidden');
+			}else if(result.error){
+				$forgotForm.find('.alert-danger').html(result.error).removeClass('hidden');
+			}else{
+				$forgotForm.find('.alert-danger').html('Unknown Error').removeClass('hidden');
+			}
+			$forgotForm.find('.btn-primary').html('Get New Password').prop('disabled', false);
 		}, 'json');
 
 	});

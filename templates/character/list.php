@@ -1,16 +1,21 @@
-<form id="character-sheet" action="" method="post">
-	<input type="hidden" name="character_id" value="<?php echo $CHARACTER->character_id; ?>" />
-	<input type="hidden" name="user_id" value="<?php echo $CHARACTER->user_id; ?>" />
+<?php 
 
-	<?php $CHARACTER->displayNames(); ?>
-	<?php $CHARACTER->displayStats(); ?>
-
-	<section class="wrapper">
-		<div class="container">
-			<div class="row">
-				<?php $CHARACTER->displayPowers(); ?>
-				<?php $CHARACTER->displayEquipment(); ?>
+?>
+<section id="character-list">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+			<div class="list-group">
+				<a href="/character/?id=1" class="list-group-item list-group-item-action flex-column align-items-start">
+					<div class="d-flex w-100 justify-content-between">
+						<h5 class="mb-1">Character Name</h5>
+						<small>12xp</small>
+					</div>
+					<p class="mb-1">Psychic</p>
+					<small>3 days ago</small>
+				</a>
+				</div>
 			</div>
 		</div>
-	</section>
-</form>
+	</div>
+</section>
