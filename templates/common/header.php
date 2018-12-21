@@ -38,7 +38,7 @@
 
 	<!-- Google APIs -->
 	<!-- https://developers.google.com/identity/sign-in/web/sign-in -->
-	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 	<meta name="google-signin-client_id" content="63734584828-cpm6irahebhdeq12o019v5ep90lmlrkf.apps.googleusercontent.com">
 
 </head>

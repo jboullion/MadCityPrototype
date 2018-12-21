@@ -6,6 +6,8 @@
  */
 header("content-type:application/json");
 
+session_start();
+
 require_once __DIR__.'/../../includes/database.php';
 require_once __DIR__.'/../../includes/functions.php';
 
@@ -20,15 +22,9 @@ if (! filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 }
 
 //Does this email Exist?
-$select = "SELECT user_id FROM users WHERE user_email = :email LIMIT 1";
-$stmt = $PDO->prepare($select);
-$result = $stmt->execute( 
-	array(
-		'email' => $_POST['email']
-	)
-);
+$user = jb_user_exists($PDO, $_POST['email']);
 
-if($result){
+if(! empty($user)){
 	echo json_encode(array('error' => 'Email Address already Exists'));
 	exit;
 }
@@ -48,10 +44,7 @@ $result = $stmt->execute(
 // return our results
 if($result){
 	echo json_encode(array('success' => 'Account Created'));
-
-	session_start();
 	$_SESSION['email'] = $_POST['email'];
-
 }else{
 	echo json_encode(array('error' => 'Unable to create account'));
 }

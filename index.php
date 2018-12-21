@@ -2,6 +2,11 @@
 // functions used throuhgout the site
 require_once('includes/functions.php');
 
+if(! empty($_SESSION['email'])){
+	jb_redirect('/character/');
+	exit;
+}
+
 // All Classes loaded here
 require_once('includes/classes.php');
 

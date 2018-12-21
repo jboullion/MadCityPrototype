@@ -588,23 +588,105 @@ jQuery(document).ready(function($){
 	});
 
 });
-//TODO: Send a post to /rest/user/signin with either ID of email
-//TODO: Set the current user up as this user. IE Show Hello. xxx@domain.com
+/**
+ * Sign In Function from Google Docs for Google Auth
+ * 
+ * @link https://developers.google.com/identity/sign-in/web/sign-in
+ * @param {*} googleUser The object from the google signin callback
+ */
 function googleSignIn(googleUser) {
 	var profile = googleUser.getBasicProfile();
+	var id_token = googleUser.getAuthResponse().id_token;
+	var data = {
+		email:profile.getEmail(),
+		id_token:id_token
+	};
+
+	jbUserFormSend('google-signin', data, $signinForm);
 
 	// console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
 	// console.log('Name: ' + profile.getName());
 	// console.log('Image URL: ' + profile.getImageUrl());
 	// console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+}
+
+/**
+ * Sign Out Function from Google Docs for Google Auth
+ * 
+ * @link https://developers.google.com/identity/sign-in/web/sign-in
+ */
+function jbSignOut() {
+	var auth2 = gapi.auth2.getAuthInstance();
+
+	if (auth2.isSignedIn.get()) {
+		var profile = auth2.currentUser.get().getBasicProfile();
+		console.log('ID: ' + profile.getId());
+		console.log('Full Name: ' + profile.getName());
+		console.log('Given Name: ' + profile.getGivenName());
+		console.log('Family Name: ' + profile.getFamilyName());
+		console.log('Image URL: ' + profile.getImageUrl());
+		console.log('Email: ' + profile.getEmail());
+
+		auth2.signOut().then(function () {
+			console.log('User signed out.');
+	
+			//disconnect from the server and then redirect to homepage
+			$.post( BASE_DIR+"rest/user/logout", {id_token:id_token,email:profile.getEmail()}, function( result ) {
+				window.location.href = window.location.protocol+"//"+window.location.hostname;
+			});
+		});
+	}else{
+		//disconnect from the server and then redirect to homepage
+		$.post( BASE_DIR+"rest/user/logout", function( result ) {
+			window.location.href = window.location.protocol+"//"+window.location.hostname;
+		});
+	}
+
+}
+
+/**
+ * We are calling this as the callback from the Google platform
+ * 
+ * @link https://stackoverflow.com/questions/30945798/html-php-google-single-sign-on-signout-will-throw-cannot-read-property-getauth
+ */
+function onLoad() {
+	gapi.load('auth2', function() {
+		gapi.auth2.init();
+	});
+
 	
 }
 
-function googleSignOut() {
-	var auth2 = gapi.auth2.getAuthInstance();
-	auth2.signOut().then(function () {
-		console.log('User signed out.');
-	});
+/**
+ * Send data to our rest API and respond accordingly
+ * 
+ * @param string script The name of the script to post to
+ * @param object data the object you would like to send to the server 
+ * @param jQueryElement $form the form sending the information that will also reciece the error notices
+ */
+function jbUserFormSend(script, data, $form){
+	$.post( BASE_DIR+"rest/user/"+script, data, function( result ) {
+		if(result.success){
+
+			//redirect should occur on the server level, until we move to React
+			if('forgot-form' == $form[0].id){
+				$form.find('.alert-danger').addClass('hidden');
+				$form.find('.alert-success').html(result.success).removeClass('hidden');
+			}else{
+				window.location.href = window.location.protocol+"//"+window.location.hostname+"/character/";
+			}
+
+		}else if(result.error){
+			$form.find('.alert-danger').html(result.error).removeClass('hidden');
+		}else{
+			$form.find('.alert-danger').html('Unknown Error').removeClass('hidden');
+		}
+
+		if('forgot-form' == $form[0].id){
+			$form.find('.btn-primary').html('Get New Password').prop('disabled', false);
+		}
+	}, 'json');
 }
 
 /**
@@ -629,16 +711,7 @@ jQuery(document).ready(function($){
 
 		var data = $(this).serializeArray();
 
-		$.post( BASE_DIR+"rest/user/signin", data, function( result ) {
-			if(result.success){
-				//redirect should occur on the server level, until we move to React
-				window.location.href = window.location.protocol+"//"+window.location.hostname+"/character/";
-			}else if(result.error){
-				$signinForm.find('.alert-danger').html(result.error).removeClass('hidden');
-			}else{
-				$signinForm.find('.alert-danger').html('Unknown Error').removeClass('hidden');
-			}
-		}, 'json');
+		jbUserFormSend('signin', data, $signinForm);
 
 	});
 
@@ -648,18 +721,7 @@ jQuery(document).ready(function($){
 
 		var data = $(this).serializeArray();
 
-		$.post( BASE_DIR+"rest/user/signup", data, function( result ) {
-
-			if(result.success){
-				//redirect should occur on the server level, until we move to React
-				window.location.href = window.location.protocol+"://"+window.location.hostname+"/character/";
-			}else if(result.error){
-				$signupForm.find('.alert-danger').html(result.error).removeClass('hidden');
-			}else{
-				$signupForm.find('.alert-danger').html('Unknown Error').removeClass('hidden');
-			}
-			
-		}, 'json');
+		jbUserFormSend('signup', data, $signinForm);
 
 	});
 
@@ -670,34 +732,20 @@ jQuery(document).ready(function($){
 		var data = $(this).serializeArray();
 		$forgotForm.find('.btn-primary').html('<i class="fal fa-circle-notch fa-spin"></i>').prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/user/forgot", data, function( result ) {
-			if(result.success){
-				$forgotForm.find('.alert-danger').addClass('hidden');
-				$forgotForm.find('.alert-success').html(result.success).removeClass('hidden');
-			}else if(result.error){
-				$forgotForm.find('.alert-danger').html(result.error).removeClass('hidden');
-			}else{
-				$forgotForm.find('.alert-danger').html('Unknown Error').removeClass('hidden');
-			}
-			$forgotForm.find('.btn-primary').html('Get New Password').prop('disabled', false);
-		}, 'json');
-
+		jbUserFormSend('forgot', data, $forgotForm);
 	});
 
 	$signinBtns.click(function(e){
-		console.log('Sign In Form');
 		$loginForms.removeClass('open');
 		$signinForm.addClass('open');
 	});
 
 	$signupBtns.click(function(e){
-		console.log('Sign Up Form');
 		$loginForms.removeClass('open');
 		$signupForm.addClass('open');
 	});
 
 	$forgotBtns.click(function(e){
-		console.log('Forgot Form');
 		$loginForms.removeClass('open');
 		$forgotForm.addClass('open');
 	});

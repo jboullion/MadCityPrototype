@@ -1,6 +1,10 @@
 <?php
+
 // functions used throuhgout the site
 require_once($_SERVER['DOCUMENT_ROOT'].'/includes/functions.php');
+
+// check user sessions
+require_once($_SERVER['DOCUMENT_ROOT'].'/includes/session.php');
 
 // All Classes loaded here
 require_once($_SERVER['DOCUMENT_ROOT'].'/includes/classes.php');

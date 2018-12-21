@@ -24,17 +24,10 @@ if (! filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 }
 
 //Does this email Exist?
-$select = "SELECT user_id FROM users WHERE user_email = :email LIMIT 1";
-$stmt = $PDO->prepare($select);
-$result = $stmt->execute( 
-	array(
-		'email' => $_POST['email']
-	)
-);
+$user = jb_user_exists($PDO, $_POST['email']);
 
-if($result){
+if(! empty($user)){
 
-	$user = $stmt->fetch();
 	$newPassword = jb_random_password();
 	$newHash = password_hash($newPassword, PASSWORD_DEFAULT);
 
@@ -52,7 +45,7 @@ if($result){
 	);
 	
 	$msg = "Here is your new password: {$newPassword}. You can update this password on your account page.";
-	if (jb_smtpmailer($_POST['email'], 'jboullion83@gmail.com', 'Mad City', 'Forgot Password', $msg)) {
+	if (jb_smtpmailer($_POST['email'], ADMIN_EMAIL, 'Mad City', 'Forgot Password', $msg)) {
 		// do something
 		echo json_encode(array('success' => 'Please check your email for your new password'));
 		exit;

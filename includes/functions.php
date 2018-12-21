@@ -16,7 +16,7 @@ function jb_redirect($url, $permanent = false){
 }
 
 function jb_random_password( $length = 8 ) {
-	$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-=+;:,.?";
+	$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*?";
 	return substr( str_shuffle( $chars ), 0, $length );
 }
 

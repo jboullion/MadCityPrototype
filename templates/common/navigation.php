@@ -22,16 +22,16 @@
 							<i class="fal fa-bars"></i>
 						</div>
 						
-						<div id="user-info">
-							<a href="#" onclick="googleSignOut();" class="btn btn-default">Sign out</a>
-						</div>
+						
 
 						<div class="clearfix"></div>
 					*/
 					//}
 				?>
 				<?php endif; ?>
-				
+				<div id="user-info">
+					<a href="#" onclick="jbSignOut();" class="btn btn-default">Sign out</a>
+				</div>
 			</div>
 		</div>
 	</div>
