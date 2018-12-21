@@ -29,6 +29,8 @@ if(empty($user)){
 //check our current password
 if (password_verify($_POST['password'], $user['user_password'])) {
 	// Login successful.
+	$_SESSION['email'] = $_POST['email'];
+
 	if (password_needs_rehash($user['user_password'], PASSWORD_DEFAULT)) {
 		// Recalculate a new password_hash() and overwrite the one we stored previously
 		$newHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
