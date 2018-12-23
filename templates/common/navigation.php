@@ -12,7 +12,7 @@
 						<h1>Mad City</h1>
 					</div>
 					<div id="user-info">
-						<a href="#" onclick="jbSignOut();" class="btn btn-default">Sign out</a>
+						<a href="#" onclick="jbSignOut(event, '<?php echo $_SESSION['email']; ?>');" class="btn btn-default">Sign out</a>
 					</div>
 				<?php
 					/*

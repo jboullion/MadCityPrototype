@@ -8,21 +8,20 @@ require_once __DIR__.'/../../includes/database.php';
 require_once __DIR__.'/../../includes/functions.php';
 require_once __DIR__.'/../../vendor/autoload.php';
 
+//Destroy anything tracking this user
+unset($_SESSION['email']);
 session_destroy();
 
-if(empty($_POST['email'])) {
-	echo json_encode(array('error' => 'Info Missing'));
-	exit;
-}
+setcookie("google-idtoken", "", time() - 3600);
+setcookie("email", "", time() - 3600);
 
-if (! filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-	echo json_encode(array('error' => 'Invalid Email'));
-	exit;
-}
+//not needed
+unset($_COOKIE['google-idtoken']);
+unset($_COOKIE['email']);
 
 $update = "UPDATE `users` 
 			SET `user_is_online` = 0
-			WHERE `email` = :email";
+			WHERE `user_email` = :email";
 
 $stmt = $PDO->prepare($update);
 
@@ -31,3 +30,5 @@ $result = $stmt->execute(
 		'email' => $_POST['email']
 	)
 );
+
+echo json_encode(array('success' => 'User Logged Out'));

@@ -36,7 +36,7 @@ function jbGetCookie(cname) {
  * @param string cname  Cookie Name
  */
 function jbDeleteCookie(cname) {
-	setCookie(cname, '', -1);
+	jbSetCookie(cname, '', -1);
 }
 
 /**
@@ -602,6 +602,11 @@ function googleSignIn(googleUser) {
 		id_token:id_token
 	};
 
+	//set a cookie with this token so we can check it at a later time on the server
+	jbSetCookie('google-idtoken', id_token, 1);
+	jbSetCookie('email', profile.getEmail(), 1);
+
+	//let our server know we are loggin in and redirect to character page
 	jbUserFormSend('google-signin', data, $signinForm);
 
 	// console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -616,35 +621,45 @@ function googleSignIn(googleUser) {
  * 
  * @link https://developers.google.com/identity/sign-in/web/sign-in
  */
-function jbSignOut() {
+function jbSignOut(e, email) {
+	e.preventDefault();
+	
 	var auth2 = gapi.auth2.getAuthInstance();
 
 	if (auth2.isSignedIn.get()) {
-		var profile = auth2.currentUser.get().getBasicProfile();
-
-		/*
-		console.log('ID: ' + profile.getId());
-		console.log('Full Name: ' + profile.getName());
-		console.log('Given Name: ' + profile.getGivenName());
-		console.log('Family Name: ' + profile.getFamilyName());
-		console.log('Image URL: ' + profile.getImageUrl());
-		console.log('Email: ' + profile.getEmail());
-		*/
+		//var profile = auth2.currentUser.get().getBasicProfile();
+		console.log('Google Logout');
 
 		auth2.signOut().then(function () {
-			console.log('User signed out.');
-	
+			jbDeleteCookie('google-idtoken');
+			jbDeleteCookie('email');
+			
 			//disconnect from the server and then redirect to homepage
-			$.post( BASE_DIR+"rest/user/logout", {id_token:id_token,email:profile.getEmail()}, function( result ) {
-				window.location.href = window.location.protocol+"//"+window.location.hostname;
+			$.post( BASE_DIR+"rest/user/logout", {email:email}, function( result ) {
+				if(result.success){
+					window.location.href = window.location.protocol+"//"+window.location.hostname;
+				}else{
+					console.log(result);
+				}
 			});
 		});
 	}else{
-		//disconnect from the server and then redirect to homepage
-		$.post( BASE_DIR+"rest/user/logout", function( result ) {
-			window.location.href = window.location.protocol+"//"+window.location.hostname;
-		});
+
+		if(email){
+			console.log('Mad City Logout');
+			//disconnect from the server and then redirect to homepage
+			$.post( BASE_DIR+"rest/user/logout", {email:email}, function( result ) {
+				jbDeleteCookie('email');
+
+				if(result.success){
+					window.location.href = window.location.protocol+"//"+window.location.hostname;
+				}else{
+					console.log(result);
+				}
+			});
+		}
 	}
+	
 
 }
 
@@ -658,7 +673,6 @@ function onLoad() {
 		gapi.auth2.init();
 	});
 
-	
 }
 
 /**
@@ -677,6 +691,7 @@ function jbUserFormSend(script, data, $form){
 				$form.find('.alert-danger').addClass('hidden');
 				$form.find('.alert-success').html(result.success).removeClass('hidden');
 			}else{
+				jbSetCookie('email', data.email, 1);
 				window.location.href = window.location.protocol+"//"+window.location.hostname+"/character/";
 			}
 

@@ -36,7 +36,7 @@ function jbGetCookie(cname) {
  * @param string cname  Cookie Name
  */
 function jbDeleteCookie(cname) {
-	setCookie(cname, '', -1);
+	jbSetCookie(cname, '', -1);
 }
 
 /**
