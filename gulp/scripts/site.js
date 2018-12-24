@@ -1,6 +1,3 @@
-//hack to close address bar on mobile devices right away if not launching from the home screen
-window.scrollTo(0,1);
-
 //used around the site for post calls and stuff
 var BASE_DIR = '/';
 

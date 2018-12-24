@@ -10984,7 +10984,7 @@ body a {
 .btn {
   font-size: 1.2rem;
   font-family: "Evil Genius", sans-serif;
-  padding: 6px 20px; }
+  padding: 10px 20px; }
   @media print {
     .btn {
       display: none; } }

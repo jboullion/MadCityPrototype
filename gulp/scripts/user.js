@@ -34,43 +34,43 @@ function googleSignIn(googleUser) {
 function jbSignOut(e, email) {
 	e.preventDefault();
 	
-	var auth2 = gapi.auth2.getAuthInstance();
+	if(gapi.auth2){
+		var auth2 = gapi.auth2.getAuthInstance();
 
-	if (auth2.isSignedIn.get()) {
-		//var profile = auth2.currentUser.get().getBasicProfile();
-		console.log('Google Logout');
-
-		auth2.signOut().then(function () {
-			jbDeleteCookie('google-idtoken');
-			jbDeleteCookie('email');
-			
-			//disconnect from the server and then redirect to homepage
-			$.post( BASE_DIR+"rest/user/logout", {email:email}, function( result ) {
-				if(result.success){
-					window.location.href = window.location.protocol+"//"+window.location.hostname;
-				}else{
-					console.log(result);
-				}
-			});
-		});
-	}else{
-
-		if(email){
-			console.log('Mad City Logout');
-			//disconnect from the server and then redirect to homepage
-			$.post( BASE_DIR+"rest/user/logout", {email:email}, function( result ) {
-				jbDeleteCookie('email');
-
-				if(result.success){
-					window.location.href = window.location.protocol+"//"+window.location.hostname;
-				}else{
-					console.log(result);
-				}
-			});
-		}
-	}
+		if (auth2.isSignedIn.get()) {
+			//var profile = auth2.currentUser.get().getBasicProfile();
 	
+			auth2.signOut().then(function () {
+				jbDeleteSession(email);
+			});
+		}else{
+			jbDeleteSession(email);
+		}
+	}else{
+		jbDeleteSession(email);
+	}
 
+}
+
+/**
+ * Delete a user's session and inform the server
+ * 
+ * @param string email Email address of user to log out
+ */
+function jbDeleteSession(email){
+	jbDeleteCookie('google-idtoken');
+	jbDeleteCookie('email');
+
+	if(email){
+		//disconnect from the server and then redirect to homepage
+		$.post( BASE_DIR+"rest/user/logout", {email:email}, function( result ) {
+			if(result.success){
+				window.location.href = window.location.protocol+"//"+window.location.hostname;
+			}else{
+				console.log(result);
+			}
+		});
+	}
 }
 
 /**
@@ -84,6 +84,7 @@ function onLoad() {
 	});
 
 }
+
 
 /**
  * Send data to our rest API and respond accordingly

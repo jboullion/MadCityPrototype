@@ -1,6 +1,5 @@
-
-<i id="dice-result" class="fal fa-comment-alt"><span>5</span></i>
-<div id="action-dice"> 
+<i id="dice-result" class="fal fa-comment-alt"><span></span></i>
+<div id="action-dice">
 	<div id="d4" data-value="4" class="action-dice">
 		<i class="fal fa-dice-d4"></i>
 	</div>
@@ -20,10 +19,3 @@
 		<i class="fal fa-dice-d20"></i>
 	</div>
 </div>
-<?php 
-/*
-<div id="d100" class="action-dice">
-	<i class="fal fa-dice-d10"></i>
-	<i class="fal fa-dice-d10"></i>
-</div>
-*/

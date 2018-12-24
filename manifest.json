@@ -41,5 +41,8 @@
 	],
 	"start_url": "index.php",
 	"display": "standalone",
-	"orientation": "portrait"
+	"orientation": "portrait",
+	"description": "Character management for the Mad City tabletop RPG",
+	"related_applications": [],
+	"theme_color": "#333"
 }

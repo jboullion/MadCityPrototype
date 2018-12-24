@@ -152,9 +152,6 @@ $.fn.serializeObject = function() {
 	return o;
 };
 
-//hack to close address bar on mobile devices right away if not launching from the home screen
-window.scrollTo(0,1);
-
 //used around the site for post calls and stuff
 var BASE_DIR = '/';
 
@@ -692,42 +689,42 @@ function googleSignIn(googleUser) {
 function jbSignOut(e, email) {
 	e.preventDefault();
 	
-	var auth2 = gapi.auth2.getAuthInstance();
+	if(gapi.auth2){
+		var auth2 = gapi.auth2.getAuthInstance();
 
-	if (auth2.isSignedIn.get()) {
-		//var profile = auth2.currentUser.get().getBasicProfile();
-		console.log('Google Logout');
-
-		auth2.signOut().then(function () {
-			jbDeleteCookie('google-idtoken');
-			jbDeleteCookie('email');
-			
-			//disconnect from the server and then redirect to homepage
-			$.post( BASE_DIR+"rest/user/logout", {email:email}, function( result ) {
-				if(result.success){
-					window.location.href = window.location.protocol+"//"+window.location.hostname;
-				}else{
-					console.log(result);
-				}
-			});
-		});
-	}else{
-
-		if(email){
-			console.log('Mad City Logout');
-			//disconnect from the server and then redirect to homepage
-			$.post( BASE_DIR+"rest/user/logout", {email:email}, function( result ) {
+		if (auth2.isSignedIn.get()) {
+			//var profile = auth2.currentUser.get().getBasicProfile();
+			console.log('Google Logout');
+	
+			auth2.signOut().then(function () {
+				jbDeleteCookie('google-idtoken');
 				jbDeleteCookie('email');
-
-				if(result.success){
-					window.location.href = window.location.protocol+"//"+window.location.hostname;
-				}else{
-					console.log(result);
-				}
+				
+				//disconnect from the server and then redirect to homepage
+				$.post( BASE_DIR+"rest/user/logout", {email:email}, function( result ) {
+					if(result.success){
+						window.location.href = window.location.protocol+"//"+window.location.hostname;
+					}else{
+						console.log(result);
+					}
+				});
 			});
 		}
 	}
-	
+
+	if(email){
+		console.log('Mad City Logout');
+		//disconnect from the server and then redirect to homepage
+		$.post( BASE_DIR+"rest/user/logout", {email:email}, function( result ) {
+			jbDeleteCookie('email');
+
+			if(result.success){
+				window.location.href = window.location.protocol+"//"+window.location.hostname;
+			}else{
+				console.log(result);
+			}
+		});
+	}
 
 }
 
