@@ -1,0 +1,140 @@
+
+<!doctype html>
+<html lang="en">
+	<head>
+	<title>Mad City: Evolution</title>
+	<meta name="Description" content="Table Top RPG by James Boullion">
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
+	<meta http-equiv="Cache-control" content="public">
+
+	<!-- icons -->
+	<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="/favicons/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="/favicons/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+	<meta name="msapplication-TileColor" content="#333">
+	<meta name="msapplication-TileImage" content="/favicons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#333">
+
+	<!-- PWA Manifest -->
+	<link rel="manifest" href="/manifest.json">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Mad City">
+
+	<!-- Custom Styles -->
+	<link rel="stylesheet" href="/css/live.css?v=1545635223" >
+
+	<!-- jQuery 3 -->
+	<script
+		src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous"></script>
+
+	<!-- Google APIs -->
+	<!-- https://developers.google.com/identity/sign-in/web/sign-in -->
+	<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+	<meta name="google-signin-client_id" content="63734584828-cpm6irahebhdeq12o019v5ep90lmlrkf.apps.googleusercontent.com">
+
+</head>	<body>
+		<section id="main-navigation">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+
+									<div class="text-center">
+						<h1>Mad City</h1>
+					</div>
+								
+			</div>
+		</div>
+	</div>
+</section>
+
+<div id="menu-shade"></div>
+<div id="menu" class="d-print-none">
+	<div class="menu-toggle">
+		<i class="fal fa-times"></i>
+	</div>
+	<ul>
+		<li><a href="#"><i class="fal fa-fw fa-users"></i> Characters</a></li>
+		<li><a href="#"><i class="fal fa-fw fa-fist-raised"></i> Powers</a></li>
+		<li><a href="#"><i class="fal fa-fw fa-glasses-alt"></i> Skills</a></li>
+		<li><a href="#"><i class="fal fa-fw fa-books"></i> Rules</a></li>
+		<li><a href="#"><i class="fal fa-fw fa-user-circle"></i> Profile</a></li>
+	</ul>
+</div>		<section id="login-page">
+	<div class="container">
+		<div class="row">
+			<div class="offset-lg-3 offset-md-2 col-lg-6 col-md-8">
+				<div class="login-form-wrapper">
+					<form action="" method="post" id="signin-form" class="login-form open">
+	<div class="g-signin2 float-right" data-onsuccess="googleSignIn"></div>
+	<h5>Sign In</h5>
+	
+	<div class="alert alert-danger hidden" role="alert"></div>
+	<div class="form-group">
+		<!-- <label for="exampleInputEmail1">Email address</label> -->
+		<input type="email" class="form-control" id="signin-email" name="email" placeholder="Email" required>
+	</div>
+	<div class="form-group">
+		<!-- <label for="exampleInputPassword1">Password</label> -->
+		<input type="password" class="form-control" id="signin-password" name="password" placeholder="Password" required>
+	</div>
+	<!-- 
+		<div class="form-group form-check">
+			<input type="checkbox" class="form-check-input" id="exampleCheck1">
+			<label class="form-check-label" for="exampleCheck1">Remember Me</label>
+		</div>
+	-->
+	<button type="submit" class="btn btn-primary">Sign In</button>
+
+	<a href="#" class="btn btn-default float-right signup-btn">Sign Up</a>
+
+	<div class="clearfix"></div>
+
+	<a href="#" class="btn btn-default btn-center forgot-btn">Forgot Password?</a>
+	
+</form>					<form action="" method="post" id="signup-form" class="login-form">
+	<h5>Sign Up</h5>
+
+	
+	<div class="form-group">
+		<input type="email" class="form-control" id="signup-email" name="email" aria-describedby="emailHelp" placeholder="Email" required>
+		<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+	</div>
+	<div class="form-group">
+		<input type="password" class="form-control" id="signup-password" name="password" placeholder="Password" required>
+	</div>
+	<button type="submit" class="btn btn-primary">Sign Up</button>	
+	<a href="#" class="btn btn-default float-right signin-btn">Sign In</a>
+</form>					<form action="" method="post" id="forgot-form" class="login-form">
+	<h5>Forgot Password</h5>
+
+		<div class="alert alert-success hidden" role="alert"></div>
+	<div class="form-group">
+		<input type="email" class="form-control" id="forgot-email" name="email" placeholder="Email" required>
+	</div>
+	<button type="submit" class="btn btn-primary">Get New Password</button>
+	<a href="#" class="btn btn-default float-right signin-btn">Sign In</a>
+</form>				</div>
+			</div>
+		</div>
+	</div>
+</section>		<!-- Custom JS -->
+<script src="/js/live.js?v=1545635223"></script>
+
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nosifer|Roboto:400,700">
+	</body>
+</html>

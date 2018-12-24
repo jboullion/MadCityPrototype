@@ -5,7 +5,7 @@
 	<meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
 	<meta http-equiv="Cache-control" content="public">
 
-	<!-- Favicons -->
+	<!-- icons -->
 	<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-icon-57x57.png">
 	<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-icon-60x60.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-icon-72x72.png">
@@ -25,15 +25,20 @@
 
 	<!-- PWA Manifest -->
 	<link rel="manifest" href="/manifest.json">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Mad City">
 
 	<!-- Custom Styles -->
-	<link rel="stylesheet" href="/css/live.css?v=<?php echo time(); ?>" >
+	<link rel="stylesheet" href="/css/live.css?v=<?php echo (ENVIRONMENT ==='dev'?time():date('ymd')); ?>" >
 
 	<!-- jQuery 3 -->
+	<!--
 	<script
 		src="https://code.jquery.com/jquery-3.3.1.min.js"
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 		crossorigin="anonymous"></script>
+-->
 
 	<!-- Google APIs -->
 	<!-- https://developers.google.com/identity/sign-in/web/sign-in -->

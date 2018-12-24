@@ -49,6 +49,7 @@ Temporary Items
 # Custom
 node_modules
 assets
+debug
 vendor
 
 .editorconfig

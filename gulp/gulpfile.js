@@ -56,7 +56,7 @@ gulp.task('sass-styles', function() {
 gulp.task('scripts', function() {
     console.log('Scripting...');
 
-    return gulp.src([SRC_PATH+'scripts/functions.js',SRC_PATH+'scripts/site.js', SCRIPTS_PATH])
+    return gulp.src([SRC_PATH+'scripts/jquery-3.3.1.min.js', SRC_PATH+'scripts/functions.js',SRC_PATH+'scripts/site.js', SCRIPTS_PATH])
         .pipe(plumber(function(err){
           //this function will run WHEN an error occurs in this task
           console.log('Styles Task Error');

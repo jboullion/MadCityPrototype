@@ -427,7 +427,7 @@ class Character {
 				</tbody>
 			</table>
 
-			<button id="add-power" class="btn btn-default no-print"><i class="fal fa-plus-circle"></i> Add Power</button>
+			<button id="add-power" class="btn btn-default no-print w-100"><i class="fal fa-plus-circle"></i> Add Power</button>
 		</div>
 		<?php
 	}
@@ -476,7 +476,7 @@ class Character {
 				</tbody>
 			</table>
 
-			<button id="add-equipment" class="btn btn-default no-print"><i class="fal fa-plus-circle"></i> Add Equipment</button>
+			<button id="add-equipment" class="btn btn-default no-print w-100"><i class="fal fa-plus-circle"></i> Add Equipment</button>
 		</div>
 		<?php 
 	}

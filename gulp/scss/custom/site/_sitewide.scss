@@ -1,11 +1,12 @@
 /* SITE WIDE */   
-html, body					{ width: 100%; display:block; margin: 0; }
+html, body					{ width: 100%; display:block; margin: 0; position:fixed;top:0px;bottom:0px;left:0px; right:0px; }
 html 						{ position: relative; /* font-size: $root-font-size; */ }
 body 						{ background-color: $body-color; transition: background-color $menu-transition;
 								overflow-y:scroll; 
 								overflow-x:hidden; 
 								position:relative; 
-								padding-bottom: 120px;
+								
+								
 								@extend .txt-antialiased;
 
 								

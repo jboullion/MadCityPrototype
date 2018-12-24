@@ -10566,6 +10566,25 @@ readers do not read off random characters that represent icons */
   font-display: swap;
   src: url("./fonts/evilgeniusbb_reg.otf"); }
 
+@font-face {
+  font-family: 'Roboto';
+  font-display: swap;
+  src: url("./fonts/Roboto-Regular.ttf");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Roboto';
+  font-display: swap;
+  src: url("./fonts/Roboto-Bold.ttf");
+  font-weight: bold;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Nosifer';
+  font-display: swap;
+  src: url("./fonts/Nosifer-Regular.ttf"); }
+
 /*
 *  Used to horizontally and vertically center an element. 
 *  
@@ -11125,7 +11144,12 @@ input[type=number]::-webkit-outer-spin-button {
 html, body {
   width: 100%;
   display: block;
-  margin: 0; }
+  margin: 0;
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px; }
 
 html {
   position: relative;
@@ -11136,8 +11160,7 @@ body {
   transition: background-color 0.2s;
   overflow-y: scroll;
   overflow-x: hidden;
-  position: relative;
-  padding-bottom: 120px; }
+  position: relative; }
 
 /*
 body {
@@ -11290,6 +11313,9 @@ blockquote {
   #menu-shade.open {
     visibility: visible;
     background: rgba(0, 0, 0, 0.5); }
+
+#character-sheet {
+  padding-bottom: 120px; }
 
 #powers #power-table tbody th {
   width: 30%; }

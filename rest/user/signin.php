@@ -67,20 +67,3 @@ if (password_verify($_POST['password'], $user['user_password'])) {
 	echo json_encode(array('error' => 'Incorrect Password'));
 	exit;
 }
-
-
- 
-
-
-
-
-
-if ($payload) {
-  $userid = $payload['sub'];
-  // If request specified a G Suite domain:
-  //$domain = $payload['hd'];
-  echo json_encode(array('success' => 'Valid ID token'));
-} else {
-  // Invalid ID token
-  echo json_encode(array('error' => 'Invalid ID token'));
-}
