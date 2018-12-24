@@ -5,7 +5,7 @@
 
 session_start();
 
-if(empty($_SESSION['email'])){
+if(empty($_SESSION['email']) || empty($_SESSION['user_id'])){
 	jb_redirect('/');
 	exit;
 }

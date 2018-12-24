@@ -8,8 +8,8 @@ header("content-type:application/json");
 
 session_start();
 
-require_once __DIR__.'/../../includes/database.php';
-require_once __DIR__.'/../../includes/functions.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/includes/database.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/includes/functions.php';
 
 if(empty($_POST) || empty($_POST['email']) || empty($_POST['password'])) {
 	echo json_encode(array('error' => 'Info Missing'));
@@ -45,6 +45,7 @@ $result = $stmt->execute(
 if($result){
 	echo json_encode(array('success' => 'Account Created'));
 	$_SESSION['email'] = $_POST['email'];
+	//$_SESSION['user_id'] = ;
 }else{
 	echo json_encode(array('error' => 'Unable to create account'));
 }

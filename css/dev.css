@@ -11233,9 +11233,11 @@ blockquote {
   #main-navigation #user-info {
     float: right;
     padding: 9px 3% 0 0; }
-    @media (max-width: 575px) {
+  @media (max-width: 575px) {
+    #main-navigation {
+      padding: 15px 0; }
       #main-navigation #user-info {
-        display: none; } }
+        padding: 9px 0 0 0; } }
 
 .menu-toggle {
   cursor: pointer;
@@ -11462,6 +11464,9 @@ blockquote {
   right: 30px; }
   #start-turn i {
     font-size: 3.6rem; }
+
+#add-character {
+  margin-top: 50px; }
 
 @media print {
   #powers #power-table th {

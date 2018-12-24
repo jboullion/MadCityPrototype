@@ -13,8 +13,8 @@ if(empty($_POST['character_id']) || ! is_numeric($_POST['character_id'])
 header("content-type:application/json");
 
 //require_once('../includes/classes/Utilities.php');
-require_once(__DIR__.'/../../includes/database.php');
-require_once(__DIR__.'/../../includes/classes/Character.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/includes/database.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/includes/classes/Character.php');
 
 //$utility = new Utilities();
 $CHARACTER = new Character($PDO, $_POST['character_id'], $_POST['user_id']);

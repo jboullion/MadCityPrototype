@@ -7,8 +7,8 @@
 header("content-type:application/json");
 
 
-require_once __DIR__.'/../../includes/database.php';
-require_once __DIR__.'/../../includes/functions.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/includes/database.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/includes/functions.php';
 
 session_start();
 

@@ -8,9 +8,9 @@ session_start();
 
 header("content-type:application/json");
 
-require_once __DIR__.'/../../includes/database.php';
-require_once __DIR__.'/../../includes/functions.php';
-require_once __DIR__.'/../../vendor/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/includes/database.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/includes/functions.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
 
 
 if(empty($_POST['email'])) {

@@ -10,15 +10,29 @@ function jb_print($data){
 	echo '<pre class="jb-print">'.print_r($data, true).'</pre>';
 }
 
+
+/**
+ * Send a user to a specific location
+ * 
+ * @param string $url the URL of the redirect
+ * @param bool $permanent 301 vs 302 redirect
+ */
 function jb_redirect($url, $permanent = false){
 	header('Location: ' . $url, true, $permanent ? 301 : 302);
 	exit();
 }
 
+
+/**
+ * Generate a random password
+ * 
+ * @param int $length The length of the random password
+ */
 function jb_random_password( $length = 8 ) {
 	$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*?";
 	return substr( str_shuffle( $chars ), 0, $length );
 }
+
 
 /**
  * Return an array of stats used throughout the site
@@ -40,7 +54,6 @@ function rules_get_stats(PDO $PDO){
 		return false;
 	}
 }
-
 
 
 /**
@@ -93,7 +106,9 @@ function jbGoogleSignIn(PDO $PDO, $id_token, $email){
 		// One a google user and one a custom user?
 		if(! empty($user)){
 			//User Exists, log into it
-			$_SESSION['email'] = $email;
+			$_SESSION['email'] = $_POST['email'];
+			$_SESSION['user_id'] = $user['user_id'];
+			
 			return json_encode(array('success' => 'Sign in Successful'));
 		}else{
 			//User Doesn't Exist...Sign them up!
@@ -102,7 +117,7 @@ function jbGoogleSignIn(PDO $PDO, $id_token, $email){
 			$result = $stmt->execute( 
 				array(
 					'email' => $email,
-					'user_google_token' => $id_token 
+					'user_google_token' => $id_token //TODO: Should update this everytime they log in? Not really something we have to track
 				)
 			);
 
@@ -118,4 +133,67 @@ function jbGoogleSignIn(PDO $PDO, $id_token, $email){
 		// Invalid ID token
 		return json_encode(array('error' => 'Invalid ID token'));
 	}
+}
+
+
+/**
+ * Check if a user exists
+ * 
+ * @param string $email Check if this email exists
+ */
+function jb_user_exists(PDO $PDO, $email){
+	$select = "SELECT * FROM users WHERE user_email = :email LIMIT 1";
+	$stmt = $PDO->prepare($select);
+	$stmt->execute( 
+		array(
+			'email' => $email
+		)
+	);
+
+	return $stmt->fetch();
+}
+
+
+/**
+ * Return a list of all characters for a particular user
+ * 
+ * @param int $user_id
+ */
+function jb_get_characters(PDO $PDO, $user_id){
+	$select = "SELECT * FROM characters WHERE user_id = :user_id";
+	$stmt = $PDO->prepare($select);
+	$stmt->execute( 
+		array(
+			'user_id' => $user_id
+		)
+	);
+
+	return $stmt->fetchAll();
+}
+
+
+/**
+ * Display a single character on the listing page
+ * 
+ * @param array $character a character array returned from the database
+ */
+function jb_display_character($character){
+	if(empty($character['last_updated'])){
+		$days_ago = 'Today';
+	}else{
+		$last_updated = new \DateTime($character['last_updated']);
+		$today = new \DateTime;
+
+		$days_ago = $last_updated->diff($today)->days.' days ago';
+	}
+	
+
+	echo '<a href="/character/?id='.$character['character_id'].'" class="list-group-item list-group-item-action flex-column align-items-start">
+			<div class="d-flex w-100 justify-content-between">
+				<h5 class="mb-1">'.$character['character_name'].'</h5>
+				<small>'.$character['character_xp'].'xp</small>
+			</div>
+			<p class="mb-1">'.$character['character_power_type'].'</p>
+			<small>'.$days_ago.'</small>
+		</a>';
 }

@@ -1,8 +1,10 @@
 #main-navigation 					{ padding: 15px;
 	#logo 							{ float: left; }
 
-	#user-info 						{ float: right; padding: 9px 3% 0 0;
-		@media (max-width: $screen-xs-max)  { display: none; }
+	#user-info 						{ float: right; padding: 9px 3% 0 0; }
+
+	@media (max-width: $screen-xs-max)  { padding: 15px 0; 
+		#user-info 						{ padding: 9px 0 0 0; }
 	}
 }
 
