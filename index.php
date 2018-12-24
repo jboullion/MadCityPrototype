@@ -28,9 +28,6 @@ if(! empty($_COOKIE['google-idtoken']) && ! empty($_COOKIE['email'])){
 
 // All Classes loaded here
 require_once('includes/classes.php');
-
-// Database connection 
-require_once('includes/setup.php');
 ?>
 <!doctype html>
 <html lang="en">

@@ -1,6 +1,15 @@
 /**
  * Controls the actions and tracks the data on the character page
  */
+
+//Prevent the user from hitting enter and submitting the form
+$(window).keydown(function(event){
+	if(event.keyCode == 13) {
+		event.preventDefault();
+		return false;
+	}
+});
+
 jQuery(document).ready(function($){
 
 	$body = $('body');

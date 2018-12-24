@@ -1,6 +1,3 @@
-<?php 
-
-?>
 <div id="character-modal" class="action-modal">
 	<div class="action-content">
 		<form id="character-form" action="" method="post">

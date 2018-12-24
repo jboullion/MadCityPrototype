@@ -1,4 +1,6 @@
 <?php
+// database setup
+require_once($_SERVER['DOCUMENT_ROOT'].'/includes/database.php');
 
 // functions used throuhgout the site
 require_once($_SERVER['DOCUMENT_ROOT'].'/includes/functions.php');
@@ -8,9 +10,6 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/session.php');
 
 // All Classes loaded here
 require_once($_SERVER['DOCUMENT_ROOT'].'/includes/classes.php');
-
-// Database connection 
-require_once($_SERVER['DOCUMENT_ROOT'].'/includes/setup.php');
 ?>
 <!doctype html>
 <html lang="en">
