@@ -13,14 +13,13 @@
 							}
 						}
 					?>
-					
 				</div>
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="col-12">
-				<button class="btn btn-primary" id="add-character">+ Add Character</button>
+				<button class="btn btn-primary w-100" id="add-character">+ Add Character</button>
 			</div>
 		</div>
 	</div>
