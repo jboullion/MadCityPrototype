@@ -1,14 +1,14 @@
 <?php
-
-if(empty($_GET['id'])){
-	jb_redirect('/character/');
-}
-
 // database setup
 require_once($_SERVER['DOCUMENT_ROOT'].'/includes/database.php');
 
 // functions used throuhgout the site
 require_once($_SERVER['DOCUMENT_ROOT'].'/includes/functions.php');
+
+if(empty($_GET['id'])){
+	jb_redirect('/parties/');
+	exit;
+}
 
 // check user sessions
 require_once($_SERVER['DOCUMENT_ROOT'].'/includes/session.php');
@@ -21,10 +21,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/classes.php');
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/common/header.php'); ?>
 	<body>
 		<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/common/navigation.php'); ?>
-		<?php 
-			require_once($_SERVER['DOCUMENT_ROOT'].'/templates/character/sheet.php');
-			require_once($_SERVER['DOCUMENT_ROOT'].'/templates/character/actions/actions.php');
-		?>
+		<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/party/display.php'); ?>
 		<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/common/footer.php'); ?>
 	</body>
 </html>

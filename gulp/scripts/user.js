@@ -63,7 +63,7 @@ function jbDeleteSession(email){
 
 	if(email){
 		//disconnect from the server and then redirect to homepage
-		$.post( BASE_DIR+"rest/user/logout", {email:email}, function( result ) {
+		jQuery.post( BASE_DIR+"rest/user/logout", {email:email}, function( result ) {
 			if(result.success){
 				window.location.href = window.location.protocol+"//"+window.location.hostname;
 			}else{
