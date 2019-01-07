@@ -14,39 +14,31 @@
 				
 				<table>
 					<tr>
-						<th>Slot</th>
-						<td>
-							<div class="mad-style">
-								<select id="equipment-slot" name="slot" required>
-									<?php 
-										foreach($CHARACTER->slots as $slot => $name){
-											echo '<option value="'.$name.'">'.$name.'</option>';
-										}
-									?>
-								</select>
-							</div>
-						</td>
-					</tr>
-					<tr>
 						<th>Name</th>
 						<td><input type="text" id="equipment-name" name="name" class="form-control" required/></td>
 					</tr>
 					<tr>
+						<th>Slot</th>
+						<td>
+							<?php 
+								$CHARACTER->displaySelect('slots', 'equipment-slot', 'slot');
+							?>
+						</td>
+					</tr>
+					<tr>
 						<th>Bonus</th>
-						<td><input type="number" id="equipment-bonus" name="bonus" class="form-control" required/></td>
+						<td>
+							<?php 
+								$CHARACTER->displaySelect('levels', 'equipment-bonus', 'bonus');
+							?>
+						</td>
 					</tr>
 					<tr>
 						<th>Stat</th>
 						<td>
-							<div class="mad-style">
-								<select id="equipment-stat" name="stat" required>
-									<?php 
-										$CHARACTER->optionStat('vitals');
-										$CHARACTER->optionStat('stats');
-										$CHARACTER->optionStat('skills');
-									?>
-								</select>
-							</div>
+							<?php 
+								$CHARACTER->displaySelect('combinedstats', 'equipment-stat', 'stat');
+							?>
 						</td>
 					</tr>
 					<tr>
@@ -64,10 +56,18 @@
 	</div>
 </div>
 <!-- when adding a new power we will use this template -->
+<?php 
+	$item = array(
+		"name" => '<%name%>',
+		"slot" => '<%slot%>',
+		"bonus" => '<%bonus%>',
+		"stat" => '<%stat%>',
+		"desc" => '<%desc%>',
+		"object" => '<%object%>'
+	);
+?>
 <script id="equipment-template" type="text/template">
-	<tr id="equipment-<%key%>" data-key="<%key%>" data-object='<%object%>'>
-		<th class="slot edit-equipment pointer"><i class="fal fa-fw fa-info-circle no-print"></i> <%slot%></th>
-		<td class="name edit-equipment pointer"><%name%></td>
-		<td class="bonus" >+<%bonus%> <%stat%></td>
-	</tr>
+<?php 
+	$CHARACTER->displayItem('<%key%>', $item);
+?>
 </script>

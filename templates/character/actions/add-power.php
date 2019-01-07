@@ -16,7 +16,11 @@
 				<table>
 					<tr>
 						<th>Type</th>
-						<td><input type="text" id="power-type" name="type" class="form-control" required/></td>
+						<td>
+							<?php 
+								$CHARACTER->displaySelect('types', 'power-type', 'type');
+							?>
+						</td>
 					</tr>
 					<tr>
 						<th>Name</th>
@@ -24,24 +28,34 @@
 					</tr>
 					<tr>
 						<th>Damage</th>
-						<td><input type="number" id="power-damage" name="damage" class="form-control number-control" pattern="[0-9]{3}" min="0" max="100" maxlength="3" /></td>
+						<td>
+							<?php 
+								$CHARACTER->displaySelect('damage', 'power-damage', 'damage');
+							?>
+						</td>
 					</tr>
 					<tr>
 						<th>Effect</th>
-						<td><input type="text" id="power-effect" name="effect" class="form-control" /></td>
+						<td>
+							<?php 
+								$CHARACTER->displaySelect('effects', 'power-effect', 'effect');
+							?>
+						</td>
 					</tr>
 					<tr>
 						<th>Stat</th>
 						<td>
-							<div class="mad-style">
-								<select id="power-stat" name="stat" required>
-									<?php 
-										$CHARACTER->optionStat('vitals');
-										$CHARACTER->optionStat('stats');
-										$CHARACTER->optionStat('skills');
-									?>
-								</select>
-							</div>
+							<?php 
+								$CHARACTER->displaySelect('combinedstats', 'power-stat', 'stat');
+							?>
+						</td>
+					</tr>
+					<tr>
+						<th>Duration</th>
+						<td>
+							<?php 
+								$CHARACTER->displaySelect('levels', 'power-duration', 'duration');
+							?>
 						</td>
 					</tr>
 					<tr>
@@ -59,8 +73,24 @@
 	</div>
 </div>
 <!-- when adding a new power we will use this template -->
+<?php 
+	$power = array(
+		"name" => '<%name%>',
+		"type" => '<%type%>',
+		"damage" => '<%damage%>',
+		"effect" => '<%effect%>',
+		"object" => '<%object%>'
+	);
+?>
+<script id="power-template" type="text/template">
+<?php 
+	$CHARACTER->displayPower('<%key%>', $power);
+?>
+</script>
+
 <!-- <td class="dice roller"><i class="fal fa-dice-d20"></i></td> -->
 <!-- <td class="dice mutate"><i class="fal fa-atom"></i></td> -->
+<!-- 
 <script id="power-template" type="text/template">
 	<tr id="power-<%key%>" class="edit-power pointer" data-key="<%key%>" data-object='<%object%>'>
 		<th class="type"><i class="fal fa-fw fa-info-circle no-print"></i> <%type%></th>
@@ -69,3 +99,4 @@
 		<td class="effect"><%effect%></td>
 	</tr>
 </script>
+-->

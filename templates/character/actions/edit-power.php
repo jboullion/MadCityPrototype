@@ -15,24 +15,48 @@
 				<input type="hidden" id="edit-power-key" name="power_key" value="" />
 				<table>
 					<tr>
-						<th>Level</th>
-						<td><input type="number" id="edit-power-level" name="level" class="form-control number-control" pattern="[0-9]{3}" min="0" max="10" maxlength="1" /></td>
-					</tr>
-					<tr>
-						<th>Type</th>
-						<td><input type="text" id="edit-power-type" name="type" class="form-control" /></td>
-					</tr>
-					<tr>
 						<th>Name</th>
 						<td><input type="text" id="edit-power-name" name="name" class="form-control" /></td>
 					</tr>
 					<tr>
+						<th>Type</th>
+						<td>
+							<?php 
+								$CHARACTER->displaySelect('types', 'edit-power-type', 'type');
+							?>
+						</td>
+					</tr>
+					<tr>
 						<th>Damage</th>
-						<td><input type="number" id="edit-power-damage" name="damage" class="form-control number-control" pattern="[0-9]{3}" min="0" max="100" maxlength="3" /></td>
+						<td>
+							<?php 
+								$CHARACTER->displaySelect('damage', 'edit-power-damage', 'damage');
+							?>
+						</td>
 					</tr>
 					<tr>
 						<th>Effect</th>
-						<td><input type="text" id="edit-power-effect" name="effect" class="form-control" /></td>
+						<td>
+							<?php 
+								$CHARACTER->displaySelect('effects', 'edit-power-effect', 'effect');
+							?>
+						</td>
+					</tr>
+					<tr>
+						<th>Stat</th>
+						<td>
+							<?php 
+								$CHARACTER->displaySelect('combinedstats', 'edit-power-stat', 'stat');
+							?>
+						</td>
+					</tr>
+					<tr>
+						<th>Duration</th>
+						<td>
+							<?php 
+								$CHARACTER->displaySelect('levels', 'edit-power-duration', 'duration');
+							?>
+						</td>
 					</tr>
 					<tr>
 						<th>Description</th>

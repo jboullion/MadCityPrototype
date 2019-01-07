@@ -15,39 +15,31 @@
 				<input type="hidden" id="edit-equipment-key" name="equipment_key" value="" />
 				<table>
 					<tr>
-						<th>Slot</th>
-						<td>
-							<div class="mad-style">
-								<select id="edit-equipment-slot" name="slot" required>
-									<?php 
-										foreach($CHARACTER->slots as $slot => $name){
-											echo '<option value="'.$name.'">'.$name.'</option>';
-										}
-									?>
-								</select>
-							</div>
-						</td>
-					</tr>
-					<tr>
 						<th>Name</th>
 						<td><input type="text" id="edit-equipment-name" name="name" class="form-control" /></td>
 					</tr>
 					<tr>
+						<th>Slot</th>
+						<td>
+							<?php 
+								$CHARACTER->displaySelect('slots', 'equipment-slot', 'slot');
+							?>
+						</td>
+					</tr>
+					<tr>
 						<th>Bonus</th>
-						<td><input type="number" id="edit-equipment-bonus" name="bonus" class="form-control number-control" pattern="[0-9]{1}" min="0" max="9" maxlength="1" /></td>
+						<td>
+							<?php 
+								$CHARACTER->displaySelect('levels', 'equipment-bonus', 'bonus');
+							?>
+						</td>
 					</tr>
 					<tr>
 						<th>Stat</th>
 						<td>
-							<div class="mad-style">
-								<select id="edit-equipment-stat" name="stat" required>
-									<?php 
-										$CHARACTER->optionStat('vitals');
-										$CHARACTER->optionStat('stats');
-										$CHARACTER->optionStat('skills');
-									?>
-								</select>
-							</div>
+							<?php 
+								$CHARACTER->displaySelect('combinedstats', 'equipment-stat', 'stat');
+							?>
 						</td>
 					</tr>
 					<tr>

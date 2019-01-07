@@ -1,5 +1,10 @@
 <form action="" method="post" id="signin-form" class="login-form open">
-	<div class="g-signin2 float-right" data-onsuccess="googleSignIn"></div>
+	<?php 
+		if(ENVIRONMENT != 'dev'){
+			echo '<div class="g-signin2 float-right" data-onsuccess="googleSignIn"></div>';
+		}
+	?>
+
 	<h5>Sign In</h5>
 	
 	<?php require_once('alert.php'); ?>

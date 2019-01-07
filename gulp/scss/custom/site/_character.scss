@@ -5,12 +5,17 @@
 // POWER AND EQUIPMENT TABLES
 #powers 				{
 	#power-table 		{ 
-		tbody th 		{ width:30%; }
+		tbody th 		{ width:25%; }
 		th 				{ vertical-align: middle; }
-		td 				{ text-align: center; vertical-align: middle;
-			&.name 		{ text-align: left; }
+		td 				{ vertical-align: middle;
+			&.name 		{ }
+			&.damage 	{ }
 
 			&.dice 		{ font-size: 2rem; }
+		}
+
+		th,td 			 {
+			&:last-child { text-align: right; }
 		}
 	}
 
@@ -73,7 +78,7 @@
 
 
 // ACTION DICE
-#action-dice 			{ position: fixed; bottom: 0; padding: 30px 0; display: flex; justify-content: space-around; width: 100%;
+#action-dice 			{ position: fixed; background-color: white; bottom: 0; padding: 15px 0; display: flex; justify-content: space-around; width: 100%;
 	.action-dice 		{ background-color: #fefefe; border-radius: 50%; border: 1px solid $dark-gray; cursor: pointer; padding: 10px; text-align: center; position: relative; height: 6rem; width: 6rem;
 		i 				{ @include center(); font-size: 3.4rem; }
 	}

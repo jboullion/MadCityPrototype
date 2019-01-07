@@ -41,11 +41,12 @@ $result = $stmt->execute(
 	)
 );
 
+
 // return our results
 if($result){
 	echo json_encode(array('success' => 'Account Created'));
 	$_SESSION['email'] = $_POST['email'];
-	//$_SESSION['user_id'] = ;
+	$_SESSION['user_id'] = $PDO->lastInsertId();
 }else{
 	echo json_encode(array('error' => 'Unable to create account'));
 }

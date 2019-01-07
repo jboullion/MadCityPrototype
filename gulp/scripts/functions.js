@@ -87,6 +87,36 @@ String.prototype.capitalize = function() {
 
 
 /**
+ * Create a default string function to allow replacing all characters in a string
+ * 
+ * @param string search What are we trying to replace
+ * @param string replacement Replace it with what?
+ */
+String.prototype.replaceAll = function(search, replacement) {
+	return this.replace(new RegExp(search, 'g'), replacement);
+};
+
+/**
+ * Replace all non standard characters with a space
+ * 
+ * @param string this we are targeting itself
+ */
+String.prototype.sanitize = function() {
+	return this.replaceAll('/[^a-zA-Z0-9]/', ' ');
+};
+
+
+/**
+ * Use a number to get a random value bewteen that number and 0
+ * usage: Number.random();
+ */
+Number.prototype.random = function(){
+	var min = 1;
+	var max = Math.floor(this);
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+/**
  * Format a float as currency
  * usage: floatvalue.jbFormatMoney(0, '.', ',');
  */
@@ -100,24 +130,6 @@ Number.prototype.jbFormatMoney = function(c, d, t){
 		j = (j = i.length) > 3 ? j % 3 : 0;
 
 	return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
-};
-
-/**
- * Create a default string function to allow replacing all characters in a string
- */
-String.prototype.replaceAll = function(search, replacement) {
-	return this.replace(new RegExp(search, 'g'), replacement);
-};
-
-
-/**
- * Use a number to get a random value bewteen that number and 0
- * usage: Number.random();
- */
-Number.prototype.random = function(){
-	var min = 1;
-	var max = Math.floor(this);
-	return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 /**

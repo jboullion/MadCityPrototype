@@ -108,6 +108,7 @@ class Character {
 	// dynamic sets of abilities
 	var $powers;
 	var $equipment;
+
 	var $slots = array(
 		'head' => 'Head',
 		'torso' => 'Torso',
@@ -117,6 +118,46 @@ class Character {
 		'accessory'  => 'Accessory'
 	);
 
+	// 'one_hand'  => '1 Hand',
+	// 'two_hand'  => '2 Hands',
+
+	var $effects = array(
+		'None',
+		'Blind',
+		'Bloodlust',
+		'Burned',
+		'Charm',
+		'Confuse',
+		'Crippled',
+		'Disable',
+		'Infected',
+		'Insanity',
+		'Mind Control'
+	);
+
+	var $damage = array(0,4,8,12,16,20);
+
+	var $types = array(
+		'Air',
+		'Animal',
+		'Blood',
+		'Earth',
+		'Fire',
+		'Gravity',
+		'Illusion',
+		'Light',
+		'Psychic',
+		'Physical',
+		'Radiation',
+		'Shape Shift',
+		'Speed',
+		'Water',
+		'Weather'
+	);
+
+	var $levels = array(1,2,3,4,5);
+
+	var $combinedstats = array();
 
 	/**
 	 * @param array $character The results of a 
@@ -159,6 +200,25 @@ class Character {
 			$this->{$key} = $value;
 		}
 
+		foreach($this->vitals as $type){
+			foreach($type as $key => $value){
+				$this->combinedstats[$key] = $value;
+			}
+		}
+
+		foreach($this->stats as $type){
+			foreach($type as $key => $value){
+				$this->combinedstats[$key] = $value;
+			}
+		}
+
+		foreach($this->skills as $type){
+			foreach($type as $key => $value){
+				$this->combinedstats[$key] = $value;
+			}
+		}
+
+		asort($this->combinedstats);
 	}
 
 
@@ -421,6 +481,7 @@ class Character {
 				<tbody>
 				<?php 
 					foreach($this->powers as $key => $power) {
+						$power['object'] = htmlspecialchars(json_encode($power), ENT_QUOTES, 'UTF-8');
 						$this->displayPower($key, $power);
 					}
 				?>
@@ -439,7 +500,7 @@ class Character {
 		//<td class="dice roller"><i class="fal fa-dice-d20"></i></td>
 		//<td class="dice mutate"><i class="fal fa-atom"></i></td>
 
-		echo '<tr id="power-'.$key.'" class="edit-power pointer" data-key="'.$key.'" data-object="'.htmlspecialchars(json_encode($power), ENT_QUOTES, 'UTF-8').'">
+		echo '<tr id="power-'.$key.'" class="edit-power pointer" data-key="'.$key.'" data-object=\''.$power['object'].'\'>
 				<th class="type"><i class="fal fa-fw fa-info-circle no-print"></i> <span>'.$power['type'].'</span></th>
 				<td class="name">'.$power['name'].'</td>
 				<td class="damage">'.$power['damage'].'</td>
@@ -466,11 +527,8 @@ class Character {
 				<tbody>
 				<?php 
 					foreach($this->equipment as $key => $item){
-						echo '<tr id="equipment-'.$key.'" class="edit-equipment pointer" data-key="'.$key.'" data-bonus="'.$item['bonus'].'" data-stat="'.$item['stat'].'" data-object="'.htmlspecialchars(json_encode($item), ENT_QUOTES, 'UTF-8').'">
-								<th class="slot"><i class="fal fa-fw fa-info-circle info no-print"></i> <span>'.ucwords($item['slot']).'</span></th>
-								<td class="name">'.$item['name'].'</td>
-								<td class="bonus" data-bonus="'.$item['bonus'].'" data-stat="'.$item['stat'].'">+'.$item['bonus'].' '.ucwords($item['stat']).'</td>
-							</tr>';
+						$item['object'] = htmlspecialchars(json_encode($item), ENT_QUOTES, 'UTF-8');
+						$this->displayItem($key, $item);
 					}
 				?>
 				</tbody>
@@ -478,6 +536,41 @@ class Character {
 
 			<button id="add-equipment" class="btn btn-default no-print w-100"><i class="fal fa-plus-circle"></i> Add Equipment</button>
 		</div>
+		<?php 
+	}
+
+	/**
+	 * Display a single equipment element
+	 */
+	function displayItem($key, $item){
+		echo '<tr id="equipment-'.$key.'" class="edit-equipment pointer" data-key="'.$key.'" data-bonus="'.$item['bonus'].'" data-stat="'.$item['stat'].'" data-object=\''.$item['object'].'\'">
+				<th class="slot"><i class="fal fa-fw fa-info-circle info no-print"></i> <span>'.ucwords($item['slot']).'</span></th>
+				<td class="name">'.$item['name'].'</td>
+				<td class="bonus" data-bonus="'.$item['bonus'].'" data-stat="'.$item['stat'].'">+'.$item['bonus'].' '.ucwords($item['stat']).'</td>
+			</tr>';
+	}
+
+	/**
+	 * Display a styled select option with an array.
+	 * 
+	 * @param array $array Array to display in the select statement
+	 * @param string $id The CSS ID for this element
+	 * @param string $name The HTML name for this element
+	 * @param string $classes The CSS Classes for this element
+	 * @param array $assc Is this an associated array?
+	 */
+	function displaySelect($array, $id = '', $name = '', $classes = '', $assc = false){
+		?>
+			<div class="mad-style">
+				<select id="<?php echo $id; ?>" name="<?php echo $name; ?>" class="<?php echo $classes; ?>">
+					<?php 
+						// TODO: May want to actually setup a key for these values so we are not referencing strings?
+						foreach($this->{$array} as $key => $value){
+							echo '<option value="'.($assc?$key:$value).'">'.$value.'</option>';
+						}
+					?>
+				</select>
+			</div>
 		<?php 
 	}
 

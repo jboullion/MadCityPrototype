@@ -5,6 +5,7 @@
 	src: url('#{$fa-font-path}/evilgeniusbb_reg.otf');
 }
 
+/*
 @font-face { 
 	font-family: 'Roboto';
 	font-display: swap;
@@ -26,7 +27,7 @@
 	font-display: swap;
 	src: url('#{$fa-font-path}/Nosifer-Regular.ttf');
 }
-
+*/
 
 //bootstrap variable conversion
 $screen-xs-min: map-get($grid-breakpoints, xs);

@@ -139,6 +139,7 @@ function jbGoogleSignIn(PDO $PDO, $id_token, $email){
 /**
  * Check if a user exists
  * 
+ * @param PDO $PDO PDO Object
  * @param string $email Check if this email exists
  */
 function jb_user_exists(PDO $PDO, $email){

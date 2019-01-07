@@ -10566,25 +10566,29 @@ readers do not read off random characters that represent icons */
   font-display: swap;
   src: url("./fonts/evilgeniusbb_reg.otf"); }
 
-@font-face {
-  font-family: 'Roboto';
-  font-display: swap;
-  src: url("./fonts/Roboto-Regular.ttf");
-  font-weight: normal;
-  font-style: normal; }
+/*
+@font-face { 
+	font-family: 'Roboto';
+	font-display: swap;
+	src: url('./fonts/Roboto-Regular.ttf');
+	font-weight: normal;
+	font-style: normal;
+}
 
-@font-face {
-  font-family: 'Roboto';
-  font-display: swap;
-  src: url("./fonts/Roboto-Bold.ttf");
-  font-weight: bold;
-  font-style: normal; }
+@font-face { 
+	font-family: 'Roboto';
+	font-display: swap;
+	src: url('./fonts/Roboto-Bold.ttf');
+	font-weight: bold;
+	font-style: normal;
+}
 
-@font-face {
-  font-family: 'Nosifer';
-  font-display: swap;
-  src: url("./fonts/Nosifer-Regular.ttf"); }
-
+@font-face { 
+	font-family: 'Nosifer';
+	font-display: swap;
+	src: url('./fonts/Nosifer-Regular.ttf');
+}
+*/
 /*
 *  Used to horizontally and vertically center an element. 
 *  
@@ -11314,18 +11318,18 @@ blockquote {
   padding-bottom: 120px; }
 
 #powers #power-table tbody th {
-  width: 30%; }
+  width: 25%; }
 
 #powers #power-table th {
   vertical-align: middle; }
 
 #powers #power-table td {
-  text-align: center;
   vertical-align: middle; }
-  #powers #power-table td.name {
-    text-align: left; }
   #powers #power-table td.dice {
     font-size: 2rem; }
+
+#powers #power-table th:last-child, #powers #power-table td:last-child {
+  text-align: right; }
 
 @media (max-width: 767px) {
   #powers {
@@ -11411,8 +11415,9 @@ blockquote {
 
 #action-dice {
   position: fixed;
+  background-color: white;
   bottom: 0;
-  padding: 30px 0;
+  padding: 15px 0;
   display: flex;
   justify-content: space-around;
   width: 100%; }

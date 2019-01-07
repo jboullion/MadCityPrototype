@@ -11,6 +11,7 @@ $(window).keydown(function(event){
 });
 
 jQuery(document).ready(function($){
+	ANIMATION_DURATION = 300;
 
 	$body = $('body');
 	$characterSheet = $('#character-sheet');
@@ -76,18 +77,21 @@ jQuery(document).ready(function($){
 		var power = $(this).data('object');
 		var key = $(this).data('key');
 
+		/*
 		if(power.level){
 			var level = power.level;
 		}else{
 			var level = 1;
 		}
+		*/
 
 		//setup all the data from this power
-		$('#edit-power-level').val(level);
-		$('#edit-power-type').val(power.type);
 		$('#edit-power-name').val(power.name);
+		$('#edit-power-type').val(power.type);
+		$('#edit-power-stat').val(power.stat);
 		$('#edit-power-damage').val(power.damage);
 		$('#edit-power-effect').val(power.effect);
+		$('#edit-power-duration').val(power.duration);
 		$('#edit-power-desc').val(power.desc);
 		$editPowerKey.val(key);
 
@@ -99,6 +103,7 @@ jQuery(document).ready(function($){
 	$body.on('click','.edit-equipment', function(e){
 		var equipment = $(this).data('object');
 		var key = $(this).data('key');
+
 
 		//setup all the data from this equipment
 		$('#edit-equipment-slot').val(equipment.slot);
@@ -189,6 +194,8 @@ jQuery(document).ready(function($){
 		var dataPost = $(this).serializeArray();
 		var dataObject = $(this).serializeObject();
 
+		console.log(dataObject);
+
 		//prevent double submission
 		$buttons.prop('disabled', true);
 
@@ -196,7 +203,7 @@ jQuery(document).ready(function($){
 
 			if(result.success != null){
 				//reset form and close form on success
-				$powerForm.trigger("reset");
+				resetForm($powerForm);
 				$powerForm.find('.action-close').first().trigger('click');
 
 				var newPower = JBTemplateEngine(powerTemplate, {
@@ -209,6 +216,7 @@ jQuery(document).ready(function($){
 				});
 
 				$powerTable.append(newPower);
+
 			}else if(result.error != null){
 				//inform the user on failure
 				alert('Error: '+result.error);
@@ -233,10 +241,8 @@ jQuery(document).ready(function($){
 		$.post( BASE_DIR+"rest/character/powers/edit", dataPost, function( result ) {
 
 			if(result.success != null){
-				//TODO: This is where React is going to be amazing. Now I have to do so bullshit to update the table, but React would do that automagically
-
-				//reset form and close form on success
-				$editPowerForm.trigger("reset");
+				//reset form after animation completes
+				resetForm($editPowerForm);
 				$editPowerForm.find('.action-close').first().trigger('click');
 
 				var $editedPower = $('#power-'+editKey);
@@ -260,6 +266,8 @@ jQuery(document).ready(function($){
 	$deletePower.click(function(e){
 		e.preventDefault();
 
+		if (! confirmDelete("Are you sure you want to delete this power?")) return false;
+
 		var deleteKey = $editPowerKey.val();
 		var dataObject = $editPowerForm.serializeObject();
 		
@@ -271,10 +279,11 @@ jQuery(document).ready(function($){
 
 			if(result.success != null){
 				//reset form and close form on success
-				$editPowerForm.trigger("reset");
 				$editPowerForm.find('.action-close').first().trigger('click');
-				
-				$('#power-'+deleteKey).fadeOut('normal');
+
+				resetForm($editPowerForm);
+
+				$('#power-'+deleteKey).fadeOut(ANIMATION_DURATION);
 
 			}else if(result.error != null){
 				//inform the user on failure
@@ -300,8 +309,10 @@ jQuery(document).ready(function($){
 		$.post( BASE_DIR+"rest/character/equipment/add", dataPost, function( result ) {
 
 			if(result.success != null){
-				//reset form and close form on success
-				$equipmentForm.trigger("reset");
+				//reset form after animation completes
+				resetForm($equipmentForm);
+				
+				//close form on success
 				$equipmentForm.find('.action-close').first().trigger('click');
 
 				var newEquipment = JBTemplateEngine(equipmentTemplate, {
@@ -314,6 +325,7 @@ jQuery(document).ready(function($){
 				});
 
 				$equipmentTable.append(newEquipment);
+
 			}else if(result.error != null){
 				//inform the user on failure
 				alert('Error: '+result.error);
@@ -341,7 +353,7 @@ jQuery(document).ready(function($){
 				//TODO: This is where React is going to be amazing. Now I have to do so bullshit to update the table, but React would do that automagically
 
 				//reset form and close form on success
-				$editEquipmentForm.trigger("reset");
+				resetForm($editEquipmentForm);
 				$editEquipmentForm.find('.action-close').first().trigger('click');
 
 				var $editedEquipment = $('#equipment-'+editKey);
@@ -364,6 +376,8 @@ jQuery(document).ready(function($){
 	// delete a equipment
 	$deleteEquipment.click(function(e){
 		e.preventDefault();
+
+		if (! confirmDelete("Are you sure you want to delete this equipment?")) return false;
 
 		var deleteKey = $editEquipmentKey.val();
 		var dataObject = $editEquipmentForm.serializeObject();
@@ -390,4 +404,25 @@ jQuery(document).ready(function($){
 		}, 'json');
 	});
 
+
+	/**
+	 * CHARACTER FUNCTIONS
+	 */
+	
+	/**
+	 * Reset a form element after the close animation completes
+	 * @param element $formElement The jQuery form element
+	 */
+	function resetForm($formElement){
+		setTimeout(function(){
+			$formElement.trigger("reset");
+		}, ANIMATION_DURATION);
+	}
+
+	/**
+	 * 
+	 */
+	function confirmDelete($message){
+		return confirm($message);
+	}
 });
