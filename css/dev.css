@@ -11039,15 +11039,25 @@ label {
   padding: 0;
   text-align: center; }
 
+.input-group-append,
+.input-group-prepend {
+  margin: 0; }
+
+.input-group-append:active .decrement {
+  padding-top: 4px; }
+
+.input-group-prepend:active .increment {
+  padding-bottom: 4px; }
+
 .input-group-text {
   background-color: white;
-  border: 0;
+  border: 1px solid #999;
   border-radius: 0;
   color: black;
   cursor: pointer;
-  font-size: 2.4rem;
-  line-height: 1.2;
-  padding: 0 2px; }
+  font-size: 2rem;
+  line-height: 1;
+  padding: 0 6px; }
 
 .form-check .form-check-label {
   cursor: pointer;
@@ -11269,6 +11279,32 @@ blockquote {
   padding: 5px 15px 0 0;
   user-select: none; }
 
+/*
+#menu 								{ background-color: $white; transition: all $menu-transition cubic-bezier(0.39, 0.575, 0.565, 1); padding: 15px; position: absolute; top: 100%; right: 0; width: 280px; z-index: 100;
+	
+	-webkit-backface-visibility: hidden;
+	-webkit-transform:scale(0.8);
+	transform: scale(0.8);
+	visibility: hidden;
+
+	&.open 							{ 
+		-webkit-transform:scale(1);
+		transform: scale(1);
+		visibility: visible;
+	}
+	
+	.menu-toggle 					{ font-size: 3.5rem; }
+
+	ul 								{ padding: 0; margin-top: 80px; 
+		li 							{ list-style: none; 
+			a 						{ display: block; font-size: 2.4rem; padding: 10px 5px; 
+				i 					{ font-size: 2rem; }
+				&:hover 			{ text-decoration: none; }
+			}
+		}
+	}
+}
+*/
 #menu {
   background-color: white;
   transition: all 0.2s cubic-bezier(0.39, 0.575, 0.565, 1);
@@ -11413,15 +11449,129 @@ blockquote {
       .action-modal .action-content .action-footer .btn.btn-outline-default {
         border-color: #333; }
 
+/*
+// ACTION DICE
+$base: #A5E2F3;
+
+.menu {
+  padding: 0;
+  list-style: none;
+  position: relative;
+  margin: 30px auto;
+  width: 70%;
+  height: 0;
+  padding-top: 70%;
+}
+@media all and (max-width: 320px) {
+  .menu {
+    width: 230px;
+    height: 230px;
+    padding: 0;
+  }
+}
+@media all and (min-width: 700px) {
+  .menu {
+    width: 500px;
+    height: 500px;
+    padding: 0;
+  }
+}
+.menu li { 
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  clip-path: url(#sector);
+
+  a {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  
+  &:hover {
+    background-color: gold;
+  }
+}
+.one {
+  transform: rotate(0deg);
+}
+.two {
+  transform: rotate(-60deg);
+}
+.three {
+  transform: rotate(-120deg);
+}
+.four {
+  transform: rotate(-180deg);
+}
+.five {
+  transform: rotate(-240deg);
+}
+.six {
+  transform: rotate(-300deg);
+}
+
+#d4 				{ background-color: rgb(196, 117, 241); }
+#d6 				{ background-color: gold; }
+#d8 				{ background-color: dodgerblue; }
+#d10 				{ background-color: darkseagreen; }
+#d12 				{ background-color: coral; }
+#d20 				{ background-color: pink; }
+
+.icon {
+  position: absolute;
+  right: 30%;
+  top: 36%;
+  transform: rotate(60deg);
+
+  color: darken($base, 60%);
+  font-family: Indie Flower;
+  font-size: 25px;
+}
+
+p {
+  text-align: center;
+  width: 80%;
+  margin: 0 auto;
+}
+
+#action-dice 			{ position: fixed; background-color: white; border: 1px solid #999; border-radius: 50%; padding: 15px; bottom: -180px; right: -180px; height: 360px; width: 360px; 
+	.action-dice 		{ background-color: #fefefe; border-radius: 50%; border: 1px solid $dark-gray; cursor: pointer; text-align: center; position: relative; height: 3rem; width: 3rem;
+		i 				{ @include center(); font-size: 2rem; }
+	}
+
+	#d4 				{ background-color: rgb(196, 117, 241); }
+	#d6 				{ background: gold; }
+	#d8 				{ background: dodgerblue; }
+	#d10 				{ background: darkseagreen; }
+	#d12 				{ background: coral; }
+	#d20 				{ background: pink; }
+}
+*/
 #action-dice {
   position: fixed;
-  background-color: white;
+  display: flex;
   bottom: 0;
   padding: 15px 0;
-  display: flex;
-  justify-content: space-around;
   width: 100%; }
-  #action-dice .action-dice {
+  #action-dice #dice-toggle {
+    width: 14%;
+    display: flex;
+    justify-content: space-around; }
+  #action-dice #dice-shelf {
+    width: 86%;
+    display: flex;
+    justify-content: space-around;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.2s; }
+    #action-dice #dice-shelf.open {
+      visibility: visible;
+      opacity: 1; }
+  #action-dice .dice-style {
     background-color: #fefefe;
     border-radius: 50%;
     border: 1px solid #333;
@@ -11431,7 +11581,7 @@ blockquote {
     position: relative;
     height: 6rem;
     width: 6rem; }
-    #action-dice .action-dice i {
+    #action-dice .dice-style i {
       position: absolute;
       top: 50%;
       left: 50%;

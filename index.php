@@ -15,18 +15,16 @@ if(! empty($_SESSION['email']) ){
 	exit;
 }
 
-/*
+
 //check our google cookie to see if we can redirect before loading the page
 if(! empty($_COOKIE['google-idtoken']) && ! empty($_COOKIE['email'])){
-	// jb_print('_COOKIE');
-	// jb_print($_COOKIE);
 	$result = json_decode(jbGoogleSignIn($PDO, $_COOKIE['google-idtoken'], $_COOKIE['email']), TRUE);
 	if(! empty($result['success'])){
 		jb_redirect('/character/');
 		exit;
 	}
 }
-*/
+
 
 // All Classes loaded here
 require_once('includes/classes.php');

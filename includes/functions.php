@@ -188,7 +188,6 @@ function jb_display_character($character){
 		$days_ago = $last_updated->diff($today)->days.' days ago';
 	}
 
-
 	echo '<a href="/character/?id='.$character['character_id'].'" class="list-group-item list-group-item-action flex-column align-items-start">
 			<div class="d-flex w-100 justify-content-between">
 				<h5 class="mb-1">'.$character['character_name'].'</h5>

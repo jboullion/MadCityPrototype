@@ -1,4 +1,9 @@
 <?php
+
+if(empty($_GET['id'])){
+	jb_redirect('/character/');
+}
+
 // database setup
 require_once($_SERVER['DOCUMENT_ROOT'].'/includes/database.php');
 
@@ -17,13 +22,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/classes.php');
 	<body>
 		<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/common/navigation.php'); ?>
 		<?php 
-			// TODO: set this to check for a Character object. A Character object will only be set if we found a character for this ID
-			if(! empty($_GET['id'])){
-				require_once($_SERVER['DOCUMENT_ROOT'].'/templates/character/sheet.php');
-				require_once($_SERVER['DOCUMENT_ROOT'].'/templates/character/actions/actions.php');
-			}else{
-				require_once($_SERVER['DOCUMENT_ROOT'].'/templates/character/list.php');
-			}
+			require_once($_SERVER['DOCUMENT_ROOT'].'/templates/character/sheet.php');
+			require_once($_SERVER['DOCUMENT_ROOT'].'/templates/character/actions/actions.php');
 		?>
 		<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/common/footer.php'); ?>
 	</body>

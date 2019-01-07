@@ -270,6 +270,8 @@ jQuery(document).ready(function($){
 	$increment = $('.increment');
 	$decrement = $('.decrement');
 
+	$diceToggle = $('#dice-toggle');
+	$diceShelf = $('#dice-shelf');
 	$actionDice = $('.action-dice');
 	$actionDiceResult = $('#dice-result');
 
@@ -287,6 +289,10 @@ jQuery(document).ready(function($){
 	// Open the Power modal
 	$addPower.click(function(e){
 		$powerModal.addClass('open');
+	});
+
+	$diceToggle.click(function(e){
+		$diceShelf.toggleClass('open');
 	});
 
 	// Open the Edit Power modal
