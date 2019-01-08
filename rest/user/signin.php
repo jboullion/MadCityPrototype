@@ -31,6 +31,7 @@ if (password_verify($_POST['password'], $user['user_password'])) {
 	// Login successful.
 	$_SESSION['email'] = $_POST['email'];
 	$_SESSION['user_id'] = $user['user_id'];
+	$_SESSION['party_ids'] = explode(',', $user['party_ids']);
 
 	if (password_needs_rehash($user['user_password'], PASSWORD_DEFAULT)) {
 		// Recalculate a new password_hash() and overwrite the one we stored previously

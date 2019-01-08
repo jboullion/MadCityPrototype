@@ -1,4 +1,48 @@
 <?php 
+	/**
+	 * Return a list of all characters for a particular user
+	 * 
+	 * @param int $user_id
+	 */
+	function jb_get_characters(PDO $PDO, $user_id){
+		$select = "SELECT * FROM characters WHERE user_id = :user_id";
+		$stmt = $PDO->prepare($select);
+		$stmt->execute( 
+			array(
+				'user_id' => $user_id
+			)
+		);
+
+		return $stmt->fetchAll();
+	}
+
+	/**
+	 * Display a single character on the listing page
+	 * 
+	 * @param array $character a character array returned from the database
+	 */
+	function jb_display_character($character){
+		if(empty($character['last_updated'])){
+			$days_ago = 'Today';
+		}else{
+			$last_updated = new \DateTime($character['last_updated']);
+			$today = new \DateTime;
+
+			$days_ago = $last_updated->diff($today)->days.' days ago';
+		}
+
+		echo '<a href="/character/?id='.$character['character_id'].'" class="list-group-item list-group-item-action flex-column align-items-start">
+				<div class="d-flex w-100 justify-content-between">
+					<h5 class="mb-1">'.$character['character_name'].'</h5>
+					<small>'.$character['character_xp'].'xp</small>
+				</div>
+				<p class="mb-1">'.$character['character_power_type'].'</p>
+				<small>'.$days_ago.'</small>
+			</a>';
+	}
+
+
+
 	$characters = jb_get_characters($PDO, $_SESSION['user_id']);
 ?>
 <section id="character-list">
