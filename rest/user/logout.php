@@ -14,8 +14,8 @@ unset($_SESSION['user_id']);
 session_destroy();
 
 //Destroy Cookies: Nom Nom
-setcookie("google-idtoken", "", time() - 3600);
-setcookie("email", "", time() - 3600);
+setcookie("google-idtoken", "");
+setcookie("email", "");
 
 //not needed
 unset($_COOKIE['google-idtoken']);
@@ -29,13 +29,21 @@ try{
 	$stmt = $PDO->prepare($update);
 
 	$result = $stmt->execute( 
-	array(
-	'email' => $_POST['email']
-	)
+		array(
+			'email' => $_POST['email']
+		)
 	);	
+
+	if($result){
+		echo json_encode(array('success' => 'User Logged Out'));
+		exit;
+	}else{
+		echo json_encode(array('error' => 'Could not log user out'));
+		exit;
+	}
 }catch(PDOException $e){
-	//echo $sql . "<br>" . $e->getMessage();
+	//echo json_encode(array('error' => $e->getMessage()));
 }
 
-
-echo json_encode(array('success' => 'User Logged Out'));
+echo json_encode(array('error' => 'Could not log user out'));
+exit;

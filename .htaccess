@@ -994,9 +994,9 @@ FileETag None
 <IfModule mod_rewrite.c>
     RewriteEngine on
     RewriteBase /
-    RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ /paths/$1
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ /paths/$1 [NC,L]
 
 #   RewriteRule ^madcity/(.*)$ /$1 [R=302,NC,L]
  </IfModule>

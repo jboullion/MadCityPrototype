@@ -962,6 +962,7 @@ function jbSignOut(e, email) {
 			//var profile = auth2.currentUser.get().getBasicProfile();
 	
 			auth2.signOut().then(function () {
+				auth2.disconnect();
 				jbDeleteSession(email);
 			});
 		}else{
@@ -971,6 +972,7 @@ function jbSignOut(e, email) {
 		jbDeleteSession(email);
 	}
 
+	return false;
 }
 
 /**
