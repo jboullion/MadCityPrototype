@@ -228,8 +228,9 @@ jQuery(document).ready(function($){
 				alert('Error: '+result.error);
 			}
 
+		}, 'json').done(function() {
 			$buttons.prop('disabled', false);
-		}, 'json');
+		});;
 	});
 
 	// Handle the user editing a power
@@ -264,8 +265,9 @@ jQuery(document).ready(function($){
 				alert('Error: '+result.error);
 			}
 
+		}, 'json').done(function() {
 			$buttons.prop('disabled', false);
-		}, 'json');
+		});;
 	});
 
 	// delete a power
@@ -296,8 +298,9 @@ jQuery(document).ready(function($){
 				alert('Error: '+result.error);
 			}
 
+		}, 'json').done(function() {
 			$buttons.prop('disabled', false);
-		}, 'json');
+		});;
 	});
 
 
@@ -337,8 +340,9 @@ jQuery(document).ready(function($){
 				alert('Error: '+result.error);
 			}
 
+		}, 'json').done(function() {
 			$buttons.prop('disabled', false);
-		}, 'json');
+		});;
 	});
 
 	// Handle the user editing a equipment
@@ -375,8 +379,9 @@ jQuery(document).ready(function($){
 				alert('Error: '+result.error);
 			}
 
+		}, 'json').done(function() {
 			$buttons.prop('disabled', false);
-		}, 'json');
+		});;
 	});
 
 	// delete a equipment
@@ -406,8 +411,9 @@ jQuery(document).ready(function($){
 				alert('Error: '+result.error);
 			}
 
+		}, 'json').done(function() {
 			$buttons.prop('disabled', false);
-		}, 'json');
+		});;
 	});
 
 });

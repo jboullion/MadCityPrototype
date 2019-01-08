@@ -31,14 +31,16 @@
 			$days_ago = $last_updated->diff($today)->days.' days ago';
 		}
 
-		echo '<a href="/character/?id='.$character['character_id'].'" class="list-group-item list-group-item-action flex-column align-items-start">
+		echo '<a href="/character/?id='.$character['character_id'].'" id="character-'.$character['character_id'].'"  class="list-group-item list-group-item-action flex-column align-items-start">
 				<div class="d-flex w-100 justify-content-between">
 					<h5 class="mb-1">'.$character['character_name'].'</h5>
-					<small>'.$character['character_xp'].'xp</small>
+					<div class="delete-character list-edit" data-id="'.$character['character_id'].'"><i class="fal fa-cross"></i></div>
 				</div>
 				<p class="mb-1">'.$character['character_power_type'].'</p>
-				<small>'.$days_ago.'</small>
+				<small>'.$character['character_xp'].'xp</small>
 			</a>';
+		
+		//<small>'.$days_ago.'</small>
 	}
 
 

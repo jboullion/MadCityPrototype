@@ -26,11 +26,11 @@ label 							{ margin-bottom: 0; font-size: 1.4rem; font-weight: bold; }
 
 .form-check 					{ 
 	.form-check-label 			{ cursor:pointer; font-family: $body-font; user-select: none; padding: 2px 0 2px 10px;
-		&:before				{ content: "\f0c8"; font-family: $fontAwesome; font-weight: normal; position: absolute; left: 0px; }
+		&:before				{ content: "\f132"; font-family: $fontAwesome; font-weight: normal; position: absolute; left: 0px; }
 	}
 
 	.form-check-input 			{ display: none;
-		&:checked + label:before { content: "\f14a"; margin-right: 6.5px;}
+		&:checked + label:before { content: "\f2f7"; margin-right: 6.5px;}
 	}
 }
 

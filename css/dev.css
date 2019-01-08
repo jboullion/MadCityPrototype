@@ -11065,7 +11065,7 @@ label {
   user-select: none;
   padding: 2px 0 2px 10px; }
   .form-check .form-check-label:before {
-    content: "\f0c8";
+    content: "\f132";
     font-family: "Font Awesome 5 Pro", "FontAwesome";
     font-weight: normal;
     position: absolute;
@@ -11074,7 +11074,7 @@ label {
 .form-check .form-check-input {
   display: none; }
   .form-check .form-check-input:checked + label:before {
-    content: "\f14a";
+    content: "\f2f7";
     margin-right: 6.5px; }
 
 .mad-style select:focus {
@@ -11645,8 +11645,16 @@ p {
   #start-turn i {
     font-size: 3.6rem; }
 
+.list-edit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 15px; }
+  .list-edit i {
+    font-size: 2rem; }
+
 .list-controls {
-  margin: 50px 0; }
+  margin: 50px -15px; }
 
 @media print {
   #powers #power-table th {

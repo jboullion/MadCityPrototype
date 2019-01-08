@@ -8,19 +8,34 @@
 	function jb_get_parties(PDO $PDO){
 
 		$party_ids = implode(',',$_SESSION['party_ids']);
+		// IN statements don't work well with PDO
 		$select = "SELECT * FROM parties WHERE party_id IN ( {$party_ids} )"; //:party_ids
 		
 		$stmt = $PDO->prepare($select);
-		$stmt->execute( 
-			
-		);
+		$stmt->execute( );
 		/*
 			array(
 				'party_ids' => $party_ids
 			)
 		*/
 
-		return $stmt->fetchAll();
+		$parties = $stmt->fetchAll();
+
+		/*
+		//get the party user information
+		if(! empty($parties)){
+			foreach($parties as $key => $party){
+				$select = "SELECT `user_id`, `user_email` FROM users WHERE user_id IN ( {$party['user_ids']} )";
+
+				$stmt = $PDO->prepare($select);
+				$stmt->execute( );
+
+				$parties[$key]['users'] = $stmt->fetchAll();
+			}
+		}
+		*/
+		
+		return $parties;
 	}
 
 	/**
@@ -28,7 +43,7 @@
 	 * 
 	 * @param array $party a party array returned from the database
 	 */
-	function jb_display_party($party){
+	function jb_display_party($party, $create = false){
 		if(empty($party['last_online'])){
 			$days_ago = 'Today';
 		}else{
@@ -40,20 +55,41 @@
 			}else{
 				$days_ago = $last_updated->diff($today)->days.' days ago';
 			}
-			
 		}
 
-		echo '<a href="/party/?id='.$party['party_id'].'" class="list-group-item list-group-item-action flex-column align-items-start">
+		
+		//data-users=\''.json_encode($party['users']).'\' 
+
+		// DM controls vs player controls
+		if($create || $_SESSION['user_id'] === $party['dm_id'] ){
+			$controls = '<div class="edit-party list-edit" data-id="'.$party['party_id'].'" data-name="'.$party['party_name'].'" ><i class="fal fa-pencil"></i></div>';
+		}else{
+			$controls = '<div class="leave-party list-edit" data-id="'.$party['party_id'].'"><i class="fal fa-user-times"></i></div>';
+		}
+
+		if($create){
+			$dm = $party['dm_email'];
+			$party_name = $party['party_name'];
+		}else{
+			$dm = mc_get_userinfo($party['dm_id'], 'user_email');
+			$party_name = htmlspecialchars($party['party_name']);
+		}
+
+		echo '<a href="/party/?id='.$party['party_id'].'" id="party-'.$party['party_id'].'" class="list-group-item list-group-item-action flex-column align-items-start">
 				<div class="d-flex w-100 justify-content-between">
-					<h5 class="mb-1">'.$party['party_name'].'</h5>
-					<small>DM: '.mc_get_userinfo($party['dm_id'], 'user_email').'</small>
+					<h5 class="mb-1">'.$party_name.'</h5>
+					'.$controls.'
 				</div>';
+		/*
 		if(! empty($party['next_session'])){
 			echo '<p class="mb-1">Next Session: '.date('m/d/Y @ g:ia', strtotime($party['next_session'])).'</p>';
 		}
-				
-		echo '	<small>Last Online: '.$days_ago.'</small>
+		*/
+
+		echo '<p class="mb-1">DM: '.$dm.'</p>
 			</a>';
+		
+		//echo '<small>Last Online: '.$days_ago.'</small>
 	}
 
 	/**
@@ -78,8 +114,6 @@
 		return $result[$column];
 
 	}
-
-
 
 	$parties = jb_get_parties($PDO, $_SESSION['party_ids']);
 ?>
@@ -115,13 +149,14 @@
 	$party = array(
 		'party_id' => '<%party_id%>',
 		'party_name' => '<%party_name%>',
-		'dm_id' => '<%dm_id%>',
+		'dm_email' => '<%dm_email%>',
 		'next_session' => '',
 		'last_online' => ''
 	);
 
-	jb_display_party($party);
+	jb_display_party($party, true);
 ?>
 </script>
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/party/actions/join.php'); ?>
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/party/actions/create.php'); ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/party/actions/edit.php'); ?>

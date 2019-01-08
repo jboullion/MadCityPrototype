@@ -235,7 +235,12 @@ p {
 }
 
 
-.list-controls 			{ margin: 50px 0; }
+.list-edit 				{ position: absolute; top: 0; right: 0; padding: 15px;
+	i 					{ font-size: 2rem; }
+}
+
+
+.list-controls 			{ margin: 50px -15px; }
 
 
 @media print			{ 
