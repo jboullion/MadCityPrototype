@@ -31,19 +31,24 @@ if(! empty($user)){
 	$newPassword = jb_random_password();
 	$newHash = password_hash($newPassword, PASSWORD_DEFAULT);
 
-	$update = "UPDATE `users` 
-				SET `user_password` = :user_password
-				WHERE `user_id` = :user_id";
+	try{
+		$update = "UPDATE `users` 
+		SET `user_password` = :user_password
+		WHERE `user_id` = :user_id";
 
-	$stmt = $PDO->prepare($update);
+		$stmt = $PDO->prepare($update);
 
-	$result = $stmt->execute( 
-		array(
-			'user_password' => $newHash,
-			'user_id' => $user['user_id']
-		)
-	);
-	
+		$result = $stmt->execute( 
+			array(
+				'user_password' => $newHash,
+				'user_id' => $user['user_id']
+			)
+		);
+	}catch(PDOException $e){
+		//echo $sql . "<br>" . $e->getMessage();
+	}
+
+
 	$msg = "Here is your new password: {$newPassword}. You can update this password on your account page.";
 	if (jb_smtpmailer($_POST['email'], ADMIN_EMAIL, 'Mad City', 'Forgot Password', $msg)) {
 		// do something

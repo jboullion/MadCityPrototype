@@ -21,16 +21,21 @@ setcookie("email", "", time() - 3600);
 unset($_COOKIE['google-idtoken']);
 unset($_COOKIE['email']);
 
-$update = "UPDATE `users` 
-			SET `user_is_online` = 0
-			WHERE `user_email` = :email";
+try{
+	$update = "UPDATE `users` 
+	SET `user_is_online` = 0
+	WHERE `user_email` = :email";
 
-$stmt = $PDO->prepare($update);
+	$stmt = $PDO->prepare($update);
 
-$result = $stmt->execute( 
+	$result = $stmt->execute( 
 	array(
-		'email' => $_POST['email']
+	'email' => $_POST['email']
 	)
-);
+	);	
+}catch(PDOException $e){
+	//echo $sql . "<br>" . $e->getMessage();
+}
+
 
 echo json_encode(array('success' => 'User Logged Out'));

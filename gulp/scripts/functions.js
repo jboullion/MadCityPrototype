@@ -170,6 +170,8 @@ $.fn.serializeObject = function() {
  * @param element $formElement The jQuery form element
  */
 function resetForm($formElement){
+	$formElement.find('.action-close').first().trigger('click');
+
 	setTimeout(function(){
 		$formElement.trigger("reset");
 	}, ANIMATION_DURATION);

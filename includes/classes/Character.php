@@ -228,34 +228,41 @@ class Character {
 	 * @param array $data The character form data
 	 */
 	function updateStats($data){
-		$update = 
-		"UPDATE `characters`   
-			SET `character_name` = :character_name,
-				`character_mutant_name` = :character_mutant_name,
-				`character_power_type` = :character_power_type,
-				`character_xp` = :character_xp,
-				`character_stats` = :character_stats,
-				`last_updated` = :last_updated
-			WHERE `user_id` = :user_id 
-				AND `character_id` = :character_id";
 
-		$stmt = $this->PDO->prepare($update);
+		try{
+			$update = 
+			"UPDATE `characters`   
+				SET `character_name` = :character_name,
+					`character_mutant_name` = :character_mutant_name,
+					`character_power_type` = :character_power_type,
+					`character_xp` = :character_xp,
+					`character_stats` = :character_stats,
+					`last_updated` = :last_updated
+				WHERE `user_id` = :user_id 
+					AND `character_id` = :character_id";
 
-		$stmt->execute( 
-			array(
-				'character_name' => $data['character']['name'],
-				'character_mutant_name' => $data['character']['mutant_name'],
-				'character_power_type' => $data['character']['power_type'],
-				'character_xp' => $data['character']['xp'],
-				'character_stats' => json_encode($data['stats']),
-				'last_updated' => date('Y-m-d H:i:s'),
-				'user_id' => $data['user_id'],
-				'character_id' => $data['character_id'],
-				
-			)
-		);
+			$stmt = $this->PDO->prepare($update);
 
-		return $stmt->rowCount();
+			$stmt->execute( 
+				array(
+					'character_name' => $data['character']['name'],
+					'character_mutant_name' => $data['character']['mutant_name'],
+					'character_power_type' => $data['character']['power_type'],
+					'character_xp' => $data['character']['xp'],
+					'character_stats' => json_encode($data['stats']),
+					'last_updated' => date('Y-m-d H:i:s'),
+					'user_id' => $data['user_id'],
+					'character_id' => $data['character_id'],
+					
+				)
+			);
+
+			return $stmt->rowCount();
+		}catch(PDOException $e){
+			//echo $sql . "<br>" . $e->getMessage();
+		}
+
+		return false;
 	}
 
 	/**
@@ -265,26 +272,32 @@ class Character {
 	 * $CHARACTER->updatePowers();
 	 */
 	function updatePowers(){
-		$update = 
-		"UPDATE `characters`   
-			SET `character_powers` = :character_powers,
-				`last_updated` = :last_updated
-			WHERE `user_id` = :user_id 
-				AND `character_id` = :character_id";
+		try{
+			$update = 
+			"UPDATE `characters`   
+				SET `character_powers` = :character_powers,
+					`last_updated` = :last_updated
+				WHERE `user_id` = :user_id 
+					AND `character_id` = :character_id";
 
-		$stmt = $this->PDO->prepare($update);
+			$stmt = $this->PDO->prepare($update);
 
-		$stmt->execute( 
-			array(
-				'character_powers' => json_encode($this->powers),
-				'last_updated' => date('Y-m-d H:i:s'),
-				'user_id' => $this->user_id,
-				'character_id' => $this->character_id,
-				
-			)
-		);
+			$stmt->execute( 
+				array(
+					'character_powers' => json_encode($this->powers),
+					'last_updated' => date('Y-m-d H:i:s'),
+					'user_id' => $this->user_id,
+					'character_id' => $this->character_id,
+					
+				)
+			);
 
-		return $stmt->rowCount();
+			return $stmt->rowCount();
+		}catch(PDOException $e){
+			//echo $sql . "<br>" . $e->getMessage();
+		}
+		
+		return false;
 	}
 
 	/**
@@ -294,26 +307,33 @@ class Character {
 	 * $CHARACTER->updateEquipment();
 	 */
 	function updateEquipment(){
-		$update = 
-		"UPDATE `characters` 
-			SET `character_equipment` = :character_equipment,
-				`last_updated` = :last_updated
-			WHERE `user_id` = :user_id 
-				AND `character_id` = :character_id";
+		try{
+			$update = 
+			"UPDATE `characters` 
+				SET `character_equipment` = :character_equipment,
+					`last_updated` = :last_updated
+				WHERE `user_id` = :user_id 
+					AND `character_id` = :character_id";
 
-		$stmt = $this->PDO->prepare($update);
+			$stmt = $this->PDO->prepare($update);
 
-		$stmt->execute( 
-			array(
-				'character_equipment' => json_encode($this->equipment),
-				'last_updated' => date('Y-m-d H:i:s'),
-				'user_id' => $this->user_id,
-				'character_id' => $this->character_id,
-				
-			)
-		);
+			$stmt->execute( 
+				array(
+					'character_equipment' => json_encode($this->equipment),
+					'last_updated' => date('Y-m-d H:i:s'),
+					'user_id' => $this->user_id,
+					'character_id' => $this->character_id,
+					
+				)
+			);
 
-		return $stmt->rowCount();
+			return $stmt->rowCount();
+		}catch(PDOException $e){
+			//echo $sql . "<br>" . $e->getMessage();
+		}
+		
+		return false;
+		
 	}
 
 	/**

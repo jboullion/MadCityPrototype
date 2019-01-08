@@ -210,7 +210,6 @@ jQuery(document).ready(function($){
 			if(result.success != null){
 				//reset form and close form on success
 				resetForm($powerForm);
-				$powerForm.find('.action-close').first().trigger('click');
 
 				var newPower = JBTemplateEngine(powerTemplate, {
 					key: $powerTable.find('tr').length,
@@ -250,7 +249,6 @@ jQuery(document).ready(function($){
 			if(result.success != null){
 				//reset form after animation completes
 				resetForm($editPowerForm);
-				$editPowerForm.find('.action-close').first().trigger('click');
 
 				var $editedPower = $('#power-'+editKey);
 
@@ -286,9 +284,6 @@ jQuery(document).ready(function($){
 		$.post( BASE_DIR+"rest/character/powers/delete", {delete_key:deleteKey, user_id: dataObject.user_id, character_id: dataObject.character_id}, function( result ) {
 
 			if(result.success != null){
-				//reset form and close form on success
-				$editPowerForm.find('.action-close').first().trigger('click');
-
 				resetForm($editPowerForm);
 
 				$('#power-'+deleteKey).fadeOut(ANIMATION_DURATION);
@@ -320,9 +315,6 @@ jQuery(document).ready(function($){
 			if(result.success != null){
 				//reset form after animation completes
 				resetForm($equipmentForm);
-				
-				//close form on success
-				$equipmentForm.find('.action-close').first().trigger('click');
 
 				var newEquipment = JBTemplateEngine(equipmentTemplate, {
 					key: $equipmentTable.find('tr').length,
@@ -364,7 +356,6 @@ jQuery(document).ready(function($){
 
 				//reset form and close form on success
 				resetForm($editEquipmentForm);
-				$editEquipmentForm.find('.action-close').first().trigger('click');
 
 				var $editedEquipment = $('#equipment-'+editKey);
 
@@ -401,8 +392,7 @@ jQuery(document).ready(function($){
 
 			if(result.success != null){
 				//reset form and close form on success
-				$editEquipmentForm.trigger("reset");
-				$editEquipmentForm.find('.action-close').first().trigger('click');
+				resetForm($editEquipmentForm);
 				
 				$('#equipment-'+deleteKey).fadeOut('normal');
 

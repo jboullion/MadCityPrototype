@@ -10,16 +10,20 @@ if(empty($_POST) || empty($_POST['user_id']) || empty($_POST['character_name']))
 	echo json_encode(array('error' => 'Info Missing'));
 }
 
+try{
+	$insert = "INSERT INTO `characters`(`user_id`, `character_name`) 
+	VALUES (:user_id,:character_name)";
+	$stmt = $PDO->prepare($insert);
+	$result = $stmt->execute( 
+		array(
+			'user_id' => $_POST['user_id'],
+			'character_name' => $_POST['character_name']
+		)
+	);
 
-$insert = "INSERT INTO `characters`(`user_id`, `character_name`) 
-VALUES (:user_id,:character_name)";
-$stmt = $PDO->prepare($insert);
-$result = $stmt->execute( 
-	array(
-		'user_id' => $_POST['user_id'],
-		'character_name' => $_POST['character_name']
-	)
-);
+}catch(PDOException $e){
+	//echo $sql . "<br>" . $e->getMessage();
+}
 
 
 if(! empty($result)){

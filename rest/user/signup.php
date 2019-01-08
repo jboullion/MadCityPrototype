@@ -32,15 +32,18 @@ if(! empty($user)){
 //Insert our new account
 $passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-$insert = "INSERT INTO users (user_email, user_password, user_is_online) VALUES(:email, :password, 1)";
-$stmt = $PDO->prepare($insert);
-$result = $stmt->execute( 
-	array(
-		'email' => $_POST['email'],
-		'password' => $passwordHash 
-	)
-);
-
+try{
+	$insert = "INSERT INTO users (user_email, user_password, user_is_online) VALUES(:email, :password, 1)";
+	$stmt = $PDO->prepare($insert);
+	$result = $stmt->execute( 
+		array(
+			'email' => $_POST['email'],
+			'password' => $passwordHash 
+		)
+	);
+}catch(PDOException $e){
+	//echo $sql . "<br>" . $e->getMessage();
+}
 
 // return our results
 if($result){

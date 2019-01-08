@@ -170,6 +170,8 @@ $.fn.serializeObject = function() {
  * @param element $formElement The jQuery form element
  */
 function resetForm($formElement){
+	$formElement.find('.action-close').first().trigger('click');
+
 	setTimeout(function(){
 		$formElement.trigger("reset");
 	}, ANIMATION_DURATION);
@@ -445,7 +447,6 @@ jQuery(document).ready(function($){
 			if(result.success != null){
 				//reset form and close form on success
 				resetForm($powerForm);
-				$powerForm.find('.action-close').first().trigger('click');
 
 				var newPower = JBTemplateEngine(powerTemplate, {
 					key: $powerTable.find('tr').length,
@@ -485,7 +486,6 @@ jQuery(document).ready(function($){
 			if(result.success != null){
 				//reset form after animation completes
 				resetForm($editPowerForm);
-				$editPowerForm.find('.action-close').first().trigger('click');
 
 				var $editedPower = $('#power-'+editKey);
 
@@ -521,9 +521,6 @@ jQuery(document).ready(function($){
 		$.post( BASE_DIR+"rest/character/powers/delete", {delete_key:deleteKey, user_id: dataObject.user_id, character_id: dataObject.character_id}, function( result ) {
 
 			if(result.success != null){
-				//reset form and close form on success
-				$editPowerForm.find('.action-close').first().trigger('click');
-
 				resetForm($editPowerForm);
 
 				$('#power-'+deleteKey).fadeOut(ANIMATION_DURATION);
@@ -555,9 +552,6 @@ jQuery(document).ready(function($){
 			if(result.success != null){
 				//reset form after animation completes
 				resetForm($equipmentForm);
-				
-				//close form on success
-				$equipmentForm.find('.action-close').first().trigger('click');
 
 				var newEquipment = JBTemplateEngine(equipmentTemplate, {
 					key: $equipmentTable.find('tr').length,
@@ -599,7 +593,6 @@ jQuery(document).ready(function($){
 
 				//reset form and close form on success
 				resetForm($editEquipmentForm);
-				$editEquipmentForm.find('.action-close').first().trigger('click');
 
 				var $editedEquipment = $('#equipment-'+editKey);
 
@@ -636,8 +629,7 @@ jQuery(document).ready(function($){
 
 			if(result.success != null){
 				//reset form and close form on success
-				$editEquipmentForm.trigger("reset");
-				$editEquipmentForm.find('.action-close').first().trigger('click');
+				resetForm($editEquipmentForm);
 				
 				$('#equipment-'+deleteKey).fadeOut('normal');
 
@@ -725,20 +717,21 @@ jQuery(document).ready(function($){
 
 	$editPartyModal = $('#edit-party-modal');
 	$editPartyForm = $('#edit-party-form');
+	$editPartyID = $('#edit-party-id');
 
 	partyTemplate = $('#party-template').html();
 	partyUserTemplate = $('#party-user-template').html();
 
-	//TODO: need to setup a delete party
-	//$deleteparty = $('#delete-party');
+	$deleteParty = $('#delete-party');
 
-	// Open the Party modal
+
+	// OPEN Create Party modal
 	$createParty.click(function(e){
 		$partyModal.addClass('open');
 	});
 
 
-	// Open the Edit Equipment modal
+	// OPEN Edit Party modal
 	$body.on('click','.edit-party', function(e){
 		e.preventDefault();
 		e.stopPropagation();
@@ -790,7 +783,6 @@ jQuery(document).ready(function($){
 			if(result.success != null){
 				//reset form and close form on success
 				resetForm($partyForm);
-				$partyForm.find('.action-close').first().trigger('click');
 
 				var newparty = JBTemplateEngine(partyTemplate, {
 					party_id: result.party_id,
@@ -811,6 +803,7 @@ jQuery(document).ready(function($){
 		});;
 	});
 
+
 	// EDIT party
 	$editPartyForm.submit(function(e){
 		e.preventDefault();
@@ -827,11 +820,7 @@ jQuery(document).ready(function($){
 			if(result.success != null){
 				//reset form and close form on success
 				resetForm($editPartyForm);
-				$editPartyForm.find('.action-close').first().trigger('click');
 
-				console.log(result.party.party_name);
-				console.log(result.party);
-				console.log(partyTemplate);
 				var updatedParty = JBTemplateEngine(partyTemplate, {
 					party_id: result.party.party_id,
 					party_name: result.party.party_name,
@@ -839,8 +828,6 @@ jQuery(document).ready(function($){
 					next_session: '',
 					last_online: '',
 				});
-
-				console.log(updatedParty);
 
 				$('#party-'+result.party.party_id).replaceWith(updatedParty);
 			}else if(result.error != null){
@@ -853,6 +840,37 @@ jQuery(document).ready(function($){
 		});;
 	});
 
+
+	// DELETE PARTY
+	$deleteParty.click(function(e){
+		e.preventDefault();
+
+		if (! confirmDelete("Are you sure you want to delete this party?")) return false;
+
+		var party_id = $editPartyID.val();
+		var dataObject = $editPartyForm.serializeObject();
+		
+		//prevent double submission
+		var $buttons = $editEquipmentForm.find('button');
+		$buttons.prop('disabled', true);
+
+		$.post( BASE_DIR+"rest/party/delete", {party_id: party_id, user_id: dataObject.user_id, party_password: dataObject.party_password}, function( result ) {
+
+			if(result.success != null){
+				//reset form and close form on success
+				resetForm($editPartyForm);
+	
+				$('#party-'+party_id).fadeOut('normal');
+
+			}else if(result.error != null){
+				//inform the user on failure
+				alert('Error: '+result.error);
+			}
+
+		}, 'json').done(function() {
+			$buttons.prop('disabled', false);
+		});;
+	});
 });
 var deferredPrompt;
 //var addToHomeScreenBtns = document.querySelector('.action-dice');

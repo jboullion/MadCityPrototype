@@ -37,21 +37,25 @@ if (password_verify($_POST['password'], $user['user_password'])) {
 		// Recalculate a new password_hash() and overwrite the one we stored previously
 		$newHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-		$update = "UPDATE `users` 
+		try{
+			$update = "UPDATE `users` 
 					SET `user_password` = :user_password
 					WHERE `user_id` = :user_id";
 
-		$stmt = $PDO->prepare($update);
+			$stmt = $PDO->prepare($update);
 
-		$result = $stmt->execute( 
-			array(
-				'user_password' => $newHash,
-				'user_id' => $user['user_id']
-			)
-		);
+			$result = $stmt->execute( 
+				array(
+					'user_password' => $newHash,
+					'user_id' => $user['user_id']
+				)
+			);
+		}catch(PDOException $e){
+			//echo $sql . "<br>" . $e->getMessage();
+		}
 
 		if(DEBUG){
-			if($result){
+			if(! empty($result)){
 				//updated password
 				echo json_encode(array('success' => 'Password Refreshed'));
 			}else{
