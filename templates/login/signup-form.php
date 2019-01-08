@@ -5,7 +5,7 @@
 
 	<div class="form-group">
 		<input type="email" class="form-control" id="signup-email" name="email" aria-describedby="emailHelp" placeholder="Email" required>
-		<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+		<small class="form-text text-muted">We'll never share your email with anyone else.</small>
 	</div>
 	<div class="form-group">
 		<input type="password" class="form-control" id="signup-password" name="password" placeholder="Password" required>

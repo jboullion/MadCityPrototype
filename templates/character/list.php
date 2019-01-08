@@ -61,7 +61,7 @@
 			</div>
 		</div>
 
-		<div class="row">
+		<div class="row list-controls">
 			<div class="col-12">
 				<button class="btn btn-primary w-100" id="add-character">+ Add Character</button>
 			</div>

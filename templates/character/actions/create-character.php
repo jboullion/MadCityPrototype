@@ -10,7 +10,7 @@
 				<table>
 					<tr>
 						<th>Name</th>
-						<td><input type="text" id="character-name" name="character_name" class="form-control" required/></td>
+						<td><input type="text" id="character-name" name="character_name" class="form-control" maxlength="50" required/></td>
 					</tr>
 				</table>
 			</div>

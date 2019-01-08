@@ -37,7 +37,7 @@ jQuery(document).ready(function($){
 
 			if(result.success != null){
 				//reset form and close form on success
-				$characterForm.trigger("reset");
+				resetForm($characterForm);
 				$characterForm.find('.action-close').first().trigger('click');
 
 				var newCharacter = JBTemplateEngine(characterTemplate, {

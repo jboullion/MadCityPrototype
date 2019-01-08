@@ -15,6 +15,7 @@ jQuery(document).ready(function($){
 
 	// menu toggle
 	$toggle.click(function(e){
+		console.log('toggle menu?');
 		$menu.toggleClass('open');
 		$shade.toggleClass('open');
 	});
@@ -47,4 +48,5 @@ jQuery(document).ready(function($){
 	});
 
 });
+
 

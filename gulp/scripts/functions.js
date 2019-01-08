@@ -163,3 +163,21 @@ $.fn.serializeObject = function() {
 	});
 	return o;
 };
+
+
+/**
+ * Reset a form element after the close animation completes
+ * @param element $formElement The jQuery form element
+ */
+function resetForm($formElement){
+	setTimeout(function(){
+		$formElement.trigger("reset");
+	}, ANIMATION_DURATION);
+}
+
+/**
+ * 
+ */
+function confirmDelete($message){
+	return confirm($message);
+}

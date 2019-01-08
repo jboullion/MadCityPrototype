@@ -11645,8 +11645,8 @@ p {
   #start-turn i {
     font-size: 3.6rem; }
 
-#add-character {
-  margin-top: 50px; }
+.list-controls {
+  margin: 50px 0; }
 
 @media print {
   #powers #power-table th {

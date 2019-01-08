@@ -24,7 +24,7 @@
 					</tr>
 					<tr>
 						<th>Name</th>
-						<td><input type="text" id="power-name" name="name" class="form-control" required/></td>
+						<td><input type="text" id="power-name" name="name" class="form-control" maxlength="30" required/></td>
 					</tr>
 					<tr>
 						<th>Damage</th>

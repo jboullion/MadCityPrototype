@@ -15,7 +15,7 @@
 				<table>
 					<tr>
 						<th>Name</th>
-						<td><input type="text" id="equipment-name" name="name" class="form-control" required/></td>
+						<td><input type="text" id="equipment-name" name="name" class="form-control" maxlength="30" required/></td>
 					</tr>
 					<tr>
 						<th>Slot</th>
