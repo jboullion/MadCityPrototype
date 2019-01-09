@@ -5,7 +5,7 @@
 	 * @param int $user_id
 	 */
 	function jb_get_characters(PDO $PDO, $user_id){
-		$select = "SELECT * FROM characters WHERE user_id = :user_id";
+		$select = "SELECT * FROM characters WHERE active = 1 AND user_id = :user_id";
 		$stmt = $PDO->prepare($select);
 		$stmt->execute( 
 			array(
@@ -34,7 +34,7 @@
 		echo '<a href="/character/?id='.$character['character_id'].'" id="character-'.$character['character_id'].'"  class="list-group-item list-group-item-action flex-column align-items-start">
 				<div class="d-flex w-100 justify-content-between">
 					<h5 class="mb-1">'.$character['character_name'].'</h5>
-					<div class="delete-character list-edit" data-id="'.$character['character_id'].'"><i class="fal fa-cross"></i></div>
+					<div class="delete-character list-edit" data-id="'.$character['character_id'].'" data-name="'.$character['character_name'].'"><i class="fal fa-cross"></i></div>
 				</div>
 				<p class="mb-1">'.$character['character_power_type'].'</p>
 				<small>'.$character['character_xp'].'xp</small>
@@ -70,4 +70,5 @@
 		</div>
 	</div>
 </section>
-<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/character/actions/create-character.php'); ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/character/actions/create.php'); ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/character/actions/delete.php'); ?>

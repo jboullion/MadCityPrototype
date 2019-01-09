@@ -13,14 +13,6 @@
 						<th>Name</th>
 						<td><input type="text" id="edit-party-name" name="party_name" class="form-control" maxlength="50" required /></td>
 					</tr>
-					<tr>
-						<th>Passphrase</th>
-						<td>
-							<input type="text" id="edit-party-password" name="party_password" maxlength="30" class="form-control" />
-							<small class="form-text text-muted">Leave blank to keep</small>
-						</td>
-					</tr>
-					
 				</table>
 			</div>
 			<div class="action-footer">
@@ -32,6 +24,16 @@
 </div>
 <?php 
 /*
+
+<tr>
+	<th>Passphrase</th>
+	<td>
+		<input type="text" id="edit-party-password" name="party_password" maxlength="30" class="form-control" />
+		<small class="form-text text-muted">Leave blank to keep</small>
+	</td>
+</tr>
+
+
 // If you want to list users in the edit panel. I think we will remove users on the single party page instead
 <script id="party-user-template" type="text/template">
 	<div class="form-check">

@@ -134,13 +134,16 @@
 		</div>
 
 		<div class="row list-controls">
-			<div class="col-6">
+			<div class="col-12">
 				<button class="btn btn-primary w-100" id="create-party"><i class="fal fa-scroll-old"></i> Create Party</button>
 			</div>
+			
+		</div>
+		<!-- 
 			<div class="col-6">
 				<button class="btn btn-primary w-100" id="join-party"><i class="fal fa-search"></i> Join Party</button>
 			</div>
-		</div>
+		-->
 	</div>
 </section>
 <!-- when adding a new party we will use this template -->

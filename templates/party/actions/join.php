@@ -1,6 +1,6 @@
-<div id="party-join-modal" class="action-modal">
+<div id="join-party-modal" class="action-modal">
 	<div class="action-content">
-		<form id="party-join-form" action="" method="post">
+		<form id="join-party-form" action="" method="post">
 			<div class="action-title">
 				Join Party
 				<i class="fal fa-times-circle action-close"></i>
@@ -10,9 +10,11 @@
 				<table>
 					<tr>
 						<th>Search</th>
-						<td><input type="text" id="party-search" name="party_search" class="form-control" required/></td>
+						<td><input type="text" id="join-party-search" name="party_search" class="form-control" required/></td>
 					</tr>
 				</table>
+				<ul class="list-group">
+				</ul>
 			</div>
 			<div class="action-footer">
 				<button type="submit" class="btn btn-outline-success">Create</button>
@@ -20,3 +22,6 @@
 		</form>
 	</div>
 </div>
+<script id="party-join-template" type="text/template">
+	<li class="list-group-item join-search-result" data-id="<%party_id%>"><%party_name%></li>
+</script>

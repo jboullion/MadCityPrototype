@@ -254,10 +254,15 @@ jQuery(document).ready(function($){
 	$characterSheet = $('#character-sheet');
 	$inputSaves = $('.character-save');
 
+	/*
 	$rollers = $('.roller');
 	$rollerModal = $('#roller-modal');
 	$mutate = $('.mutate');
 	$mutateModal = $('#mutate-modal');
+	*/
+
+	$deleteCharacterModal = $('#delete-character-modal');
+	$deleteCharacterForm = $('#delete-character-form');
 
 	// Power
 	$addPower = $('#add-power');
@@ -297,6 +302,7 @@ jQuery(document).ready(function($){
 
 
 	// Open the roller modal
+	/*
 	$rollers.click(function(e){
 		$rollerModal.addClass('open');
 	});
@@ -305,6 +311,7 @@ jQuery(document).ready(function($){
 	$mutate.click(function(e){
 		$mutateModal.addClass('open');
 	});
+	*/
 
 	// Open the Power modal
 	$addPower.click(function(e){
@@ -314,6 +321,7 @@ jQuery(document).ready(function($){
 	$diceToggle.click(function(e){
 		$diceShelf.toggleClass('open');
 	});
+
 
 	// Open the Edit Power modal
 	$body.on('click','.edit-power', function(e){
@@ -357,6 +365,23 @@ jQuery(document).ready(function($){
 		$editEquipmentKey.val(key);
 
 		$editEquipmentModal.addClass('open');
+	});
+
+	// OPEN delete charater modal
+	$body.on('click','.delete-character', function(e){
+		e.preventDefault();
+		e.stopPropagation();
+
+		var character_id = $(this).data('id');
+		var character_name = $(this).data('name');
+
+		//attach data to party edit modal
+		$('#delete-character-id').val(character_id);
+		$('#delete-character-name').html(character_name);
+
+		$deleteCharacterModal.addClass('open');
+
+		return false;
 	});
 
 
@@ -643,6 +668,38 @@ jQuery(document).ready(function($){
 		});;
 	});
 
+
+	// DELETE Character
+	$deleteCharacterForm.submit(function(e){
+		e.preventDefault();
+
+		if (! confirmDelete("Are you sure you want to delete this character?")) return false;
+
+		var $buttons = $(this).find('button');
+		var dataPost = $(this).serializeArray();
+		var dataObject = $(this).serializeObject();
+
+		//prevent double submission
+		$buttons.prop('disabled', true);
+
+		$.post( BASE_DIR+"rest/character/delete", dataPost, function( result ) {
+
+			if(result.success != null){
+				//reset form and close form on success
+				resetForm($deleteCharacterForm);
+
+				$('#character-'+dataObject.character_id).fadeOut(ANIMATION_DURATION);
+			}else if(result.error != null){
+				//inform the user on failure
+				alert('Error: '+result.error);
+			}
+
+		}, 'json').done(function() {
+			$buttons.prop('disabled', false);
+		});;
+
+		return false;
+	});
 });
 /**
  * Controls the actions on the character listing page
