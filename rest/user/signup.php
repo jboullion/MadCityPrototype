@@ -22,7 +22,7 @@ if (! filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 }
 
 //Does this email Exist?
-$user = jb_user_exists($PDO, $_POST['email']);
+$user = mc_user_exists($PDO, $_POST['email']);
 
 if(! empty($user)){
 	echo json_encode(array('error' => 'Email Address already Exists'));

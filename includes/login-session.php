@@ -10,7 +10,7 @@ require_once 'database.php';
 session_start();
 
 if(! empty($_SESSION['email'])){
-	jb_redirect('/character/');
+	mc_redirect('/character/');
 	exit;
 }
 
@@ -34,7 +34,7 @@ if ($payload) {
 	}
 
 	//Does this email Exist already?
-	$user = jb_user_exists($PDO, $_POST['email']);
+	$user = mc_user_exists($PDO, $_POST['email']);
 
 	// TODO: Should we separate the Google account from other accounts? 
 	// Would we allow 2 of the same emails if so?

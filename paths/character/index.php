@@ -8,7 +8,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/database.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/includes/functions.php');
 
 if(empty($_GET['id'])){
-	jb_redirect('/characters/');
+	mc_redirect('/characters/');
 	exit;
 }
 

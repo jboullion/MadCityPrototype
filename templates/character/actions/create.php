@@ -31,6 +31,6 @@
 		'character_xp' => 0
 	);
 
-	jb_display_character($character);
+	mc_display_character($character);
 ?>
 </script>

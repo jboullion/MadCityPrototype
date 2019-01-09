@@ -19,7 +19,7 @@ $passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
 //query our db for a user with this password
 //we are returning our password here so we can check against it later
-$user = jb_user_exists($PDO, $_POST['email']);
+$user = mc_user_exists($PDO, $_POST['email']);
 
 if(empty($user)){
 	echo json_encode(array('error' => 'We could not find a user with that email.'));

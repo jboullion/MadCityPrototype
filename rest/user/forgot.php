@@ -24,11 +24,11 @@ if (! filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 }
 
 //Does this email Exist?
-$user = jb_user_exists($PDO, $_POST['email']);
+$user = mc_user_exists($PDO, $_POST['email']);
 
 if(! empty($user)){
 
-	$newPassword = jb_random_password();
+	$newPassword = mc_random_password();
 	$newHash = password_hash($newPassword, PASSWORD_DEFAULT);
 
 	try{
@@ -50,7 +50,7 @@ if(! empty($user)){
 
 
 	$msg = "Here is your new password: {$newPassword}. You can update this password on your account page.";
-	if (jb_smtpmailer($_POST['email'], ADMIN_EMAIL, 'Mad City', 'Forgot Password', $msg)) {
+	if (mc_smtpmailer($_POST['email'], ADMIN_EMAIL, 'Mad City', 'Forgot Password', $msg)) {
 		// do something
 		echo json_encode(array('success' => 'Please check your email for your new password'));
 		exit;

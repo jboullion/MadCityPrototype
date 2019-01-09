@@ -6,7 +6,7 @@
  * 
  * @param mixed $data Any PHP variable you want to debug
  */
-function jb_print($data){
+function mc_print($data){
 	echo '<pre class="jb-print">'.print_r($data, true).'</pre>';
 }
 
@@ -17,7 +17,7 @@ function jb_print($data){
  * @param string $url the URL of the redirect
  * @param bool $permanent 301 vs 302 redirect
  */
-function jb_redirect($url, $permanent = false){
+function mc_redirect($url, $permanent = false){
 	header('Location: ' . $url, true, $permanent ? 301 : 302);
 	exit();
 }
@@ -28,7 +28,7 @@ function jb_redirect($url, $permanent = false){
  * 
  * @param int $length The length of the random password
  */
-function jb_random_password( $length = 8 ) {
+function mc_random_password( $length = 8 ) {
 	$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*?";
 	return substr( str_shuffle( $chars ), 0, $length );
 }
@@ -43,9 +43,9 @@ function jb_random_password( $length = 8 ) {
  * 
  * TODO: Setup a User Class and return that
  */
-function site_get_user(PDO $PDO, $user_id){
+function mc_get_user(PDO $PDO, $user_id){
 	try{
-		$stmt = $PDO->prepare("SELECT user_email FROM users WHERE user_id = {$user_id} LIMIT 1");
+		$stmt = $PDO->prepare("SELECT `user_id`, `user_email`, `user_is_online`, `user_image`, `user_created` FROM users WHERE user_id = {$user_id} LIMIT 1");
 		$stmt->execute();
 		return $stmt->fetch();
 	}catch(PDOException $e){
@@ -53,6 +53,33 @@ function site_get_user(PDO $PDO, $user_id){
 	}
 	
 	return false;
+}
+
+/**
+ * Get information about a user.
+ * 
+ * @param int $user_id The ID of the user to get info about
+ * @param string $column The column name of the info you want 
+ */
+function mc_get_userinfo($user_id, $column){
+	global $PDO;
+
+	if($column === 'user_password'){
+		return $result['error'] = 'Cannot return password';
+	}
+
+	$select = "SELECT $column FROM users WHERE user_id = :user_id LIMIT 1";
+	$stmt = $PDO->prepare($select);
+	$stmt->execute( 
+		array(
+			'user_id' => $user_id
+		)
+	);
+
+	$result = $stmt->fetch();
+
+	return $result[$column];
+
 }
 
 
@@ -83,7 +110,7 @@ function jbGoogleSignIn(PDO $PDO, $id_token, $email){
 		}
 
 		//Does this email Exist already?
-		$user = jb_user_exists($PDO, $email);
+		$user = mc_user_exists($PDO, $email);
 
 		// TODO: Should we separate the Google account from other accounts? 
 		// Would we allow 2 of the same emails if so?
@@ -127,7 +154,7 @@ function jbGoogleSignIn(PDO $PDO, $id_token, $email){
  * @param PDO $PDO PDO Object
  * @param string $email Check if this email exists
  */
-function jb_user_exists(PDO $PDO, $email){
+function mc_user_exists(PDO $PDO, $email){
 	try{
 		$select = "SELECT * FROM users WHERE user_email = :email LIMIT 1";
 		$stmt = $PDO->prepare($select);

@@ -4,7 +4,7 @@
 	 * 
 	 * @param int $user_id
 	 */
-	function jb_get_characters(PDO $PDO, $user_id){
+	function mc_get_characters(PDO $PDO, $user_id){
 		$select = "SELECT * FROM characters WHERE active = 1 AND user_id = :user_id";
 		$stmt = $PDO->prepare($select);
 		$stmt->execute( 
@@ -21,7 +21,7 @@
 	 * 
 	 * @param array $character a character array returned from the database
 	 */
-	function jb_display_character($character){
+	function mc_display_character($character){
 		if(empty($character['last_updated'])){
 			$days_ago = 'Today';
 		}else{
@@ -45,7 +45,7 @@
 
 
 
-	$characters = jb_get_characters($PDO, $_SESSION['user_id']);
+	$characters = mc_get_characters($PDO, $_SESSION['user_id']);
 ?>
 <section id="character-list">
 	<div class="container">
@@ -55,7 +55,7 @@
 					<?php 
 						if(! empty($characters)){
 							foreach($characters as $character){
-								jb_display_character($character);
+								mc_display_character($character);
 							}
 						}
 					?>

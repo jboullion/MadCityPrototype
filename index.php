@@ -9,9 +9,9 @@ require_once('includes/functions.php');
 
 //Log in if our sessions is still set
 if(! empty($_SESSION['email']) ){
-	// jb_print('_SESSION');
-	// jb_print($_SESSION);
-	jb_redirect('/character/');
+	// mc_print('_SESSION');
+	// mc_print($_SESSION);
+	mc_redirect('/character/');
 	exit;
 }
 
@@ -20,7 +20,7 @@ if(! empty($_SESSION['email']) ){
 if(! empty($_COOKIE['google-idtoken']) && ! empty($_COOKIE['email'])){
 	$result = json_decode(jbGoogleSignIn($PDO, $_COOKIE['google-idtoken'], $_COOKIE['email']), TRUE);
 	if(! empty($result['success'])){
-		jb_redirect('/character/');
+		mc_redirect('/character/');
 		exit;
 	}
 }

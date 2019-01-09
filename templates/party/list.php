@@ -5,7 +5,7 @@
 	 * @param int $user_id
 	 */
 
-	function jb_get_parties(PDO $PDO){
+	function mc_get_parties(PDO $PDO){
 
 		$party_ids = implode(',',$_SESSION['party_ids']);
 		// IN statements don't work well with PDO
@@ -43,7 +43,7 @@
 	 * 
 	 * @param array $party a party array returned from the database
 	 */
-	function jb_display_party($party, $create = false){
+	function mc_display_party($party, $create = false){
 		if(empty($party['last_online'])){
 			$days_ago = 'Today';
 		}else{
@@ -92,30 +92,7 @@
 		//echo '<small>Last Online: '.$days_ago.'</small>
 	}
 
-	/**
-	 * Get information about a user.
-	 * 
-	 * @param int $user_id The ID of the user to get info about
-	 * @param string $column The column name of the info you want 
-	 */
-	function mc_get_userinfo($user_id, $column){
-		global $PDO;
-
-		$select = "SELECT $column FROM users WHERE user_id = :user_id LIMIT 1";
-		$stmt = $PDO->prepare($select);
-		$stmt->execute( 
-			array(
-				'user_id' => $user_id
-			)
-		);
-
-		$result = $stmt->fetch();
-
-		return $result[$column];
-
-	}
-
-	$parties = jb_get_parties($PDO, $_SESSION['party_ids']);
+	$parties = mc_get_parties($PDO, $_SESSION['party_ids']);
 ?>
 <section id="party-list">
 	<div class="container">
@@ -125,7 +102,7 @@
 					<?php 
 						if(! empty($parties)){
 							foreach($parties as $party){
-								jb_display_party($party);
+								mc_display_party($party);
 							}
 						}
 					?>
@@ -157,7 +134,7 @@
 		'last_online' => ''
 	);
 
-	jb_display_party($party, true);
+	mc_display_party($party, true);
 ?>
 </script>
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/party/actions/join.php'); ?>

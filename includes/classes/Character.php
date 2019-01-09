@@ -168,31 +168,35 @@ class Character {
 		$this->character_id = $character_id;
 		$this->user_id = $user_id;
 
-		$stmt = $this->PDO->prepare("SELECT * FROM characters WHERE character_id = :character_id AND user_id = :user_id LIMIT 1");
-		$stmt->execute( array('character_id' => $character_id, 'user_id' => $user_id) );
-		$data = $stmt->fetch();
+		try{
+			$stmt = $this->PDO->prepare("SELECT * FROM characters WHERE character_id = :character_id AND user_id = :user_id LIMIT 1");
+			$stmt->execute( array('character_id' => $character_id, 'user_id' => $user_id) );
+			$character = $stmt->fetch();
+		}catch(PDOException $e){
+			//echo $sql . "<br>" . $e->getMessage();
+		}
 
-		$this->name = $data['character_name'];
-		$this->mutant_name = $data['character_mutant_name'];
-		$this->power_type = $data['character_power_type'];
-		$this->xp = $data['character_xp'];
+		$this->name = $character['character_name'];
+		$this->mutant_name = $character['character_mutant_name'];
+		$this->power_type = $character['character_power_type'];
+		$this->xp = $character['character_xp'];
 
-		if(empty($data['character_stats'])){
+		if(empty($character['character_stats'])){
 			$character_stats = array();
 		}else{
-			$character_stats = json_decode($data['character_stats'], true);
+			$character_stats = json_decode($character['character_stats'], true);
 		}
 
-		if(empty($data['character_powers'])){
+		if(empty($character['character_powers'])){
 			$this->powers = array();
 		}else{
-			$this->powers = json_decode($data['character_powers'], true);
+			$this->powers = json_decode($character['character_powers'], true);
 		}
 
-		if(empty($data['character_equipment'])){
+		if(empty($character['character_equipment'])){
 			$this->equipment = array();
 		}else{
-			$this->equipment = json_decode($data['character_equipment'], true);
+			$this->equipment = json_decode($character['character_equipment'], true);
 		}
 
 		//dynamically assign our values...clever or dangerous?...BOTH! ;)
