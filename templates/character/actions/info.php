@@ -5,7 +5,7 @@
 	<div id="info" class="action-content">
 		<div class="action-title">
 			Information
-			<i class="fal fa-times-circle action-close"></i>
+			<i class="far fa-times-circle action-close"></i>
 		</div>
 		<div class="action-body">
 			<h5>Equipment Name</h5>

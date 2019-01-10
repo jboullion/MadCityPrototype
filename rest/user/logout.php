@@ -42,7 +42,7 @@ try{
 		exit;
 	}
 }catch(PDOException $e){
-	//echo json_encode(array('error' => $e->getMessage()));
+	error_log($e->getMessage(), 0);
 }
 
 echo json_encode(array('error' => 'Could not log user out'));

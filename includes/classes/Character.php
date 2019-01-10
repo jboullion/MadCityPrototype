@@ -11,6 +11,7 @@ class Character {
 	// The IDs of the character and user in the database
 	var $character_id;
 	var $user_id;
+	var $view;
 
 	// name
 	var $name; 
@@ -162,18 +163,33 @@ class Character {
 	/**
 	 * @param array $character The results of a 
 	 */
-	function __construct($PDO, $character_id, $user_id) {
+	function __construct($PDO, $character_id, $user_id = 0) {
 		$this->PDO = $PDO;
 
 		$this->character_id = $character_id;
 		$this->user_id = $user_id;
 
-		try{
-			$stmt = $this->PDO->prepare("SELECT * FROM characters WHERE character_id = :character_id AND user_id = :user_id LIMIT 1");
-			$stmt->execute( array('character_id' => $character_id, 'user_id' => $user_id) );
-			$character = $stmt->fetch();
-		}catch(PDOException $e){
-			//echo $sql . "<br>" . $e->getMessage();
+		if(! empty($user_id)){
+			//Edit Character
+			$this->view = false;
+			try{
+				$stmt = $this->PDO->prepare("SELECT * FROM characters WHERE character_id = :character_id AND user_id = :user_id LIMIT 1");
+				$stmt->execute( array('character_id' => $character_id, 'user_id' => $user_id) );
+				$character = $stmt->fetch();
+			}catch(PDOException $e){
+				error_log($e->getMessage(), 0);
+			}
+		}else{
+			//View character
+			$this->view = true;
+			try{
+				$stmt = $this->PDO->prepare("SELECT * FROM characters WHERE character_id = :character_id LIMIT 1");
+				$stmt->execute( array('character_id' => $character_id) );
+				$character = $stmt->fetch();
+			}catch(PDOException $e){
+				error_log($e->getMessage(), 0);
+			}
+
 		}
 
 		$this->name = $character['character_name'];
@@ -263,7 +279,7 @@ class Character {
 
 			return $stmt->rowCount();
 		}catch(PDOException $e){
-			//echo $sql . "<br>" . $e->getMessage();
+			//error_log($e->getMessage(), 0);
 		}
 
 		return false;
@@ -298,7 +314,7 @@ class Character {
 
 			return $stmt->rowCount();
 		}catch(PDOException $e){
-			//echo $sql . "<br>" . $e->getMessage();
+			//error_log($e->getMessage(), 0);
 		}
 		
 		return false;
@@ -333,7 +349,7 @@ class Character {
 
 			return $stmt->rowCount();
 		}catch(PDOException $e){
-			//echo $sql . "<br>" . $e->getMessage();
+			//error_log($e->getMessage(), 0);
 		}
 		
 		return false;
@@ -359,6 +375,10 @@ class Character {
 		$this->{$prop_name} = $value;
 	}
 
+	function disabled(){
+		return $this->view?'disabled readonly':'';
+	}
+
 	/**
 	 * Display the Name and XP
 	 * 
@@ -374,14 +394,16 @@ class Character {
 			<div class="container">
 				<div class="row">
 
-		<?php foreach($display_names as $prop => $display_name): ?>
-			<div class="col-12 col-sm-6">
-				<div class="form-group">
-					<label for="character_<?php echo $prop; ?>"><?php echo $display_name; ?></label>
-					<input type="text" class="form-control character-save" id="character_<?php echo $prop; ?>" name="character[<?php echo $prop; ?>]" value="<?php echo $this->getProp($prop); ?>">
-				</div>
-			</div>
-		<?php endforeach; ?>
+		<?php foreach($display_names as $prop => $display_name){
+			echo '<div class="col-12 col-sm-6">
+					<div class="form-group">
+						<label for="character_'.$prop.'">'.$display_name.'</label>
+						<input type="text" class="form-control character-save" id="character_'.$prop.'" name="character['.$prop.']" value="'.$this->getProp($prop).'" '.$this->disabled().'>
+					</div>
+				</div>';
+				
+			}
+		?>
 
 				</div>
 			</div>
@@ -445,21 +467,22 @@ class Character {
 				<label for="'.$id.'">'.ucwords($name).'</label>
 				<div class="input-group">';
 		
-		if(! $roll && $increment){
+		//&& ! $roll
+		if(! $this->view && $increment){
 			echo '<div class="input-group-prepend d-print-none">
 					<span class="input-group-text increment" data-target="'.$id.'">
-						<i class="fal fa-chevron-up"></i>
+						<i class="far fa-chevron-up"></i>
 					</span>
 				</div>';
 		}
 	
-		echo '	<input type="number" class="form-control number-control character-save" id="'.$id.'" name="stats['.$id.']" value="'.(empty($value)?0:$value).'" aria-describedby="'.$id.'-label" pattern="[0-9]{3}" min="0" max="999" maxlength="3">
+		echo '	<input type="number" class="form-control number-control character-save" id="'.$id.'" name="stats['.$id.']" value="'.(empty($value)?0:$value).'" aria-describedby="'.$id.'-label" pattern="[0-9]{3}" min="0" max="999" maxlength="3" '.$this->disabled().'>
 				<div class="input-group-append d-print-none">';
 		
 		if($roll){
-			//echo '<span class="input-group-text roller"><i class="fal fa-dice-d20"></i></span>';
-		}else if($increment){
-			echo '<span class="input-group-text decrement" data-target="'.$id.'"><i class="fal fa-chevron-down"></i></span>';
+			//echo '<span class="input-group-text roller"><i class="far fa-dice-d20"></i></span>';
+		}else if(! $this->view && $increment){
+			echo '<span class="input-group-text decrement" data-target="'.$id.'"><i class="far fa-chevron-down"></i></span>';
 		}
 		
 		echo '		</div>
@@ -512,7 +535,9 @@ class Character {
 				</tbody>
 			</table>
 
-			<button id="add-power" class="btn btn-default no-print w-100"><i class="fal fa-plus-circle"></i> Add Power</button>
+			<?php if(! $this->view): ?>
+				<button id="add-power" class="btn btn-default no-print w-100"><i class="far fa-plus-circle"></i> Add Power</button>
+			<?php endif; ?>
 		</div>
 		<?php
 	}
@@ -521,11 +546,11 @@ class Character {
 	 * Display A Single power
 	 */
 	function displayPower($key, $power){
-		//<td class="dice roller"><i class="fal fa-dice-d20"></i></td>
-		//<td class="dice mutate"><i class="fal fa-atom"></i></td>
+		//<td class="dice roller"><i class="far fa-dice-d20"></i></td>
+		//<td class="dice mutate"><i class="far fa-atom"></i></td>
 
 		echo '<tr id="power-'.$key.'" class="edit-power pointer" data-key="'.$key.'" data-object=\''.$power['object'].'\'>
-				<th class="type"><i class="fal fa-fw fa-info-circle no-print"></i> <span>'.$power['type'].'</span></th>
+				<th class="type">'.(!$this->view?'<i class="far fa-fw fa-info-circle no-print"></i> ':'').'<span>'.$power['type'].'</span></th>
 				<td class="name">'.$power['name'].'</td>
 				<td class="damage">'.$power['damage'].'</td>
 				<td class="effect">'.$power['effect'].'</td>
@@ -558,7 +583,10 @@ class Character {
 				</tbody>
 			</table>
 
-			<button id="add-equipment" class="btn btn-default no-print w-100"><i class="fal fa-plus-circle"></i> Add Equipment</button>
+			<?php if(! $this->view): ?>
+				<button id="add-equipment" class="btn btn-default no-print w-100"><i class="far fa-plus-circle"></i> Add Equipment</button>
+			<?php endif; ?>
+			
 		</div>
 		<?php 
 	}
@@ -567,8 +595,8 @@ class Character {
 	 * Display a single equipment element
 	 */
 	function displayItem($key, $item){
-		echo '<tr id="equipment-'.$key.'" class="edit-equipment pointer" data-key="'.$key.'" data-bonus="'.$item['bonus'].'" data-stat="'.$item['stat'].'" data-object=\''.$item['object'].'\'">
-				<th class="slot"><i class="fal fa-fw fa-info-circle info no-print"></i> <span>'.ucwords($item['slot']).'</span></th>
+		echo '<tr id="equipment-'.$key.'" class="edit-equipment pointer"  data-key="'.$key.'" data-bonus="'.$item['bonus'].'" data-stat="'.$item['stat'].'" data-object=\''.$item['object'].'\'">
+				<th class="slot">'.(!$this->view?'<i class="far fa-fw fa-info-circle no-print"></i> ':'').'<span>'.ucwords($item['slot']).'</span></th>
 				<td class="name">'.$item['name'].'</td>
 				<td class="bonus" data-bonus="'.$item['bonus'].'" data-stat="'.$item['stat'].'">+'.$item['bonus'].' '.ucwords($item['stat']).'</td>
 			</tr>';
@@ -584,18 +612,16 @@ class Character {
 	 * @param array $assc Is this an associated array?
 	 */
 	function displaySelect($array, $id = '', $name = '', $classes = '', $assc = false){
-		?>
-			<div class="mad-style">
-				<select id="<?php echo $id; ?>" name="<?php echo $name; ?>" class="<?php echo $classes; ?>">
-					<?php 
-						// TODO: May want to actually setup a key for these values so we are not referencing strings?
-						foreach($this->{$array} as $key => $value){
-							echo '<option value="'.($assc?$key:$value).'">'.$value.'</option>';
-						}
-					?>
-				</select>
-			</div>
-		<?php 
+		echo '<div class="mad-style '.($this->view?'disabled':'').'">
+			<select id="'.$id.'" name="'.$name.'" class="'.$classes.'" '.$this->disabled().'>';
+			
+		// TODO: May want to actually setup a key for these values so we are not referencing strings?
+		foreach($this->{$array} as $key => $value){
+			echo '<option value="'.($assc?$key:$value).'">'.$value.'</option>';
+		}
+		echo '</select>
+		</div>';
+
 	}
 
 }

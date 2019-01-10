@@ -49,7 +49,7 @@ function mc_get_user(PDO $PDO, $user_id){
 		$stmt->execute();
 		return $stmt->fetch();
 	}catch(PDOException $e){
-		//echo $sql . "<br>" . $e->getMessage();
+		//error_log($e->getMessage(), 0);
 	}
 	
 	return false;
@@ -166,7 +166,7 @@ function mc_user_exists(PDO $PDO, $email){
 	
 		return $stmt->fetch();
 	}catch(PDOException $e){
-		//echo $sql . "<br>" . $e->getMessage();
+		//error_log($e->getMessage(), 0);
 	}
 	
 	return false;

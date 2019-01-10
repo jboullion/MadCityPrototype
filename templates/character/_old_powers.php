@@ -24,20 +24,20 @@
 		foreach($powers as $power){
 			// <h6 class="card-subtitle mb-2 text-muted">'.$mutation['damage'].'</h6>
 
-			// <i class="fal fa-fw fa-info-circle info no-print"></i> '.$power['type'].'
+			// <i class="far fa-fw fa-info-circle info no-print"></i> '.$power['type'].'
 
-			// <td class="dice roller"><i class="fal fa-dice-d20"></i></td>
-			// <td class="dice mutate"><i class="fal fa-atom"></i></td>
+			// <td class="dice roller"><i class="far fa-dice-d20"></i></td>
+			// <td class="dice mutate"><i class="far fa-atom"></i></td>
 
 			echo '<tr data-damage="">
-					<th class="type"><i class="fal fa-fw fa-info-circle info no-print"></i> '.$power['type'].'</th>
+					<th class="type"><i class="far fa-fw fa-info-circle info no-print"></i> '.$power['type'].'</th>
 					<td class="name">'.$power['name'].'</td>
-					<td class="dice roller"><i class="fal fa-dice-d20"></i></td>
-					<td class="dice mutate"><i class="fal fa-atom"></i></td>
+					<td class="dice roller"><i class="far fa-dice-d20"></i></td>
+					<td class="dice mutate"><i class="far fa-atom"></i></td>
 				</tr>';
 		}
 	?>
 	</table>
 
-	<button id="add-power" class="btn btn-default no-print w-100"><i class="fal fa-plus-circle"></i> Add Power</button>
+	<button id="add-power" class="btn btn-default no-print w-100"><i class="far fa-plus-circle"></i> Add Power</button>
 </div>

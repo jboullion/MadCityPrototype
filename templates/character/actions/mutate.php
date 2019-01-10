@@ -5,7 +5,7 @@
 	<div id="mutate" class="action-content">
 		<div class="action-title">
 			Mutate
-			<i class="fal fa-times-circle action-close"></i>
+			<i class="far fa-times-circle action-close"></i>
 		</div>
 		<div class="action-body">
 			<h6>Please select a mutation:</h6>

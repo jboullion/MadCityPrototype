@@ -6,7 +6,7 @@
 		<form id="power-form" action="" method="post">
 			<div class="action-title">
 				Add Power
-				<i class="fal fa-times-circle action-close"></i>
+				<i class="far fa-times-circle action-close"></i>
 			</div>
 			<div class="action-body">
 				
@@ -88,12 +88,12 @@
 ?>
 </script>
 
-<!-- <td class="dice roller"><i class="fal fa-dice-d20"></i></td> -->
-<!-- <td class="dice mutate"><i class="fal fa-atom"></i></td> -->
+<!-- <td class="dice roller"><i class="far fa-dice-d20"></i></td> -->
+<!-- <td class="dice mutate"><i class="far fa-atom"></i></td> -->
 <!-- 
 <script id="power-template" type="text/template">
 	<tr id="power-<%key%>" class="edit-power pointer" data-key="<%key%>" data-object='<%object%>'>
-		<th class="type"><i class="fal fa-fw fa-info-circle no-print"></i> <%type%></th>
+		<th class="type"><i class="far fa-fw fa-info-circle no-print"></i> <%type%></th>
 		<td class="name"><%name%></td>
 		<td class="damage"><%damage%></td>
 		<td class="effect"><%effect%></td>

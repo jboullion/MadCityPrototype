@@ -5,21 +5,18 @@ if( ! empty($_GET['id']) && is_numeric($_GET['id']) && ! empty($_SESSION['user_i
 	die('No Party Found');
 }
 
-mc_print($PARTY);
+//mc_print($PARTY);
 ?>
-<form id="party" action="" method="post">
-	<input type="hidden" name="character_id" value="<?php //echo $CHARACTER->character_id; ?>" />
-	<input type="hidden" name="user_id" value="<?php //echo $CHARACTER->user_id; ?>" />
-
-	<?php //$CHARACTER->displayNames(); ?>
-	<?php //$CHARACTER->displayStats(); ?>
+<div id="party">
+	<?php $PARTY->displayNames(); ?>
 
 	<section class="wrapper">
 		<div class="container">
 			<div class="row">
+				<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/party/sections/players.php'); ?>
 				<?php //$CHARACTER->displayPowers(); ?>
 				<?php //$CHARACTER->displayEquipment(); ?>
 			</div>
 		</div>
 	</section>
-</form>
+</div>

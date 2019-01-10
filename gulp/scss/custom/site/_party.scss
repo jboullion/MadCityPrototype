@@ -1,0 +1,12 @@
+#party 								{
+	#party-players 					{
+
+		.player 					{ padding: 15px;
+			h5 						{ margin: 0; }
+
+			.player-edit 			{ cursor: pointer; float: right; font-size: 1.8rem; line-height: 1.5; padding: 10px; }
+		}
+
+		#add-player 				{ margin-top: 50px; }
+	}
+}

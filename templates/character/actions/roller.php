@@ -5,7 +5,7 @@
 	<div id="roller" class="action-content">
 		<div class="action-title">
 			Results
-			<i class="fal fa-times-circle action-close"></i>
+			<i class="far fa-times-circle action-close"></i>
 		</div>
 		<div class="action-body">
 			<table class="table roller-table">

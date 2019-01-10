@@ -62,9 +62,9 @@
 
 		// DM controls vs player controls
 		if($create || $_SESSION['user_id'] === $party['dm_id'] ){
-			$controls = '<div class="edit-party list-edit" data-id="'.$party['party_id'].'" data-name="'.$party['party_name'].'" ><i class="fal fa-pencil"></i></div>';
+			$controls = '<div class="edit-party list-edit" data-id="'.$party['party_id'].'" data-name="'.$party['party_name'].'" ><i class="far fa-pencil"></i></div>';
 		}else{
-			$controls = '<div class="leave-party list-edit" data-id="'.$party['party_id'].'"><i class="fal fa-user-times"></i></div>';
+			$controls = '<div class="leave-party list-edit" data-id="'.$party['party_id'].'"><i class="far fa-user-times"></i></div>';
 		}
 
 		if($create){
@@ -112,13 +112,13 @@
 
 		<div class="row list-controls">
 			<div class="col-12">
-				<button class="btn btn-primary w-100" id="create-party"><i class="fal fa-scroll-old"></i> Create Party</button>
+				<button class="btn btn-primary w-100" id="create-party"><i class="far fa-scroll-old"></i> Create Party</button>
 			</div>
 			
 		</div>
 		<!-- 
 			<div class="col-6">
-				<button class="btn btn-primary w-100" id="join-party"><i class="fal fa-search"></i> Join Party</button>
+				<button class="btn btn-primary w-100" id="join-party"><i class="far fa-search"></i> Join Party</button>
 			</div>
 		-->
 	</div>

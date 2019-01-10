@@ -22,7 +22,7 @@ try{
 	);
 
 }catch(PDOException $e){
-	//echo $sql . "<br>" . $e->getMessage();
+	error_log($e->getMessage(), 0);
 }
 
 

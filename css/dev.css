@@ -10546,14 +10546,13 @@ readers do not read off random characters that represent icons */
 @font-face {
   font-family: 'Font Awesome 5 Pro';
   font-style: normal;
-  font-display: swap;
-  font-weight: 300;
-  src: url("./fonts/fa-light-300.eot");
-  src: url("./fonts/fa-light-300.eot?#iefix") format("embedded-opentype"), url("./fonts/fa-light-300.woff2") format("woff2"), url("./fonts/fa-light-300.woff") format("woff"), url("./fonts/fa-light-300.ttf") format("truetype"), url("./fonts/fa-light-300.svg#fontawesome") format("svg"); }
+  font-weight: 400;
+  src: url("./fonts/fa-regular-400.eot");
+  src: url("./fonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("./fonts/fa-regular-400.woff2") format("woff2"), url("./fonts/fa-regular-400.woff") format("woff"), url("./fonts/fa-regular-400.ttf") format("truetype"), url("./fonts/fa-regular-400.svg#fontawesome") format("svg"); }
 
-.fal {
+.far {
   font-family: 'Font Awesome 5 Pro';
-  font-weight: 300; }
+  font-weight: 400; }
 
 /*
 @import 'brands';
@@ -11023,17 +11022,20 @@ label {
 .form-control {
   border: 0;
   border-radius: 0;
-  border-bottom: 1px solid #aaa;
+  border-bottom: 1px solid #333;
   color: #333;
   font-size: 2rem;
   padding: 2px 0; }
   .form-control:focus {
     background-color: transparent;
     border: 0;
-    border-bottom: 1px solid #aaa;
+    border-bottom: 1px solid #333;
     color: #333;
     outline: 0;
     box-shadow: none; }
+  .form-control:disabled, .form-control[readonly] {
+    background-color: white;
+    opacity: 1; }
 
 .input-group input {
   padding: 0;
@@ -11051,7 +11053,7 @@ label {
 
 .input-group-text {
   background-color: white;
-  border: 1px solid #999;
+  border: 1px solid #333;
   border-radius: 0;
   color: black;
   cursor: pointer;
@@ -11085,21 +11087,23 @@ label {
   position: relative;
   max-width: 450px; }
   .mad-style:before {
-    content: "\f0d7";
-    color: #6b613d;
+    content: "\f107";
+    color: #333;
     font-size: 1.5rem;
     font-family: "Font Awesome 5 Pro", "FontAwesome";
     font-weight: bold;
     pointer-events: none;
     position: absolute;
-    right: 20px;
-    top: 8px; }
+    right: 10px;
+    top: 6px; }
+  .mad-style.disabled:before {
+    content: ''; }
   .mad-style select {
     background-color: #FFFFFF;
     cursor: pointer;
     display: inline-block;
     border: 0;
-    border-bottom: 1px solid #aaa;
+    border-bottom: 1px solid #333;
     border-radius: 0;
     padding: 6px 40px 4px 2px;
     font-size: 2rem;
@@ -11116,6 +11120,9 @@ label {
       padding: 4px 15px; }
       .mad-style select option:disabled {
         display: none; }
+    .mad-style select:disabled, .mad-style select[readonly] {
+      color: #333;
+      cursor: default; }
 
 /* Remove controls from Firefox */
 input[type=number] {
@@ -11166,10 +11173,10 @@ html {
 
 body {
   background-color: white;
-  transition: background-color 0.2s;
   overflow-y: scroll;
   overflow-x: hidden;
-  position: relative; }
+  position: relative;
+  color: #333; }
 
 /*
 body {
@@ -11254,6 +11261,16 @@ blockquote {
 
 .white-back {
   background-color: #fff; }
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-bottom: 1px solid #333; }
+
+.table thead th {
+  border-top: 0;
+  border-bottom: 2px solid #333; }
 
 /**
  * FOOTER
@@ -11538,7 +11555,7 @@ p {
   margin: 0 auto;
 }
 
-#action-dice 			{ position: fixed; background-color: white; border: 1px solid #999; border-radius: 50%; padding: 15px; bottom: -180px; right: -180px; height: 360px; width: 360px; 
+#action-dice 			{ position: fixed; background-color: white; border: 1px solid $border-color; border-radius: 50%; padding: 15px; bottom: -180px; right: -180px; height: 360px; width: 360px; 
 	.action-dice 		{ background-color: #fefefe; border-radius: 50%; border: 1px solid $dark-gray; cursor: pointer; text-align: center; position: relative; height: 3rem; width: 3rem;
 		i 				{ @include center(); font-size: 2rem; }
 	}
@@ -11574,7 +11591,7 @@ p {
   #action-dice .dice-style {
     background-color: #fefefe;
     border-radius: 50%;
-    border: 1px solid #333;
+    border: 2px solid #333;
     cursor: pointer;
     padding: 10px;
     text-align: center;
@@ -11661,6 +11678,20 @@ p {
     width: 40%; }
   #powers #power-table td {
     width: 60%; } }
+
+#party #party-players .player {
+  padding: 15px; }
+  #party #party-players .player h5 {
+    margin: 0; }
+  #party #party-players .player .player-edit {
+    cursor: pointer;
+    float: right;
+    font-size: 1.8rem;
+    line-height: 1.5;
+    padding: 10px; }
+
+#party #party-players #add-player {
+  margin-top: 50px; }
 
 #login-page {
   min-height: 350px; }

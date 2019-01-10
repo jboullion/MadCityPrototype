@@ -3,10 +3,10 @@
 ?>
 <div id="edit-power-modal" class="action-modal">
 	<div class="action-content">
-		<form id="edit-power-form" action="" method="post">
+		<?php echo $CHARACTER->view?'<div id="edit-power-form">':'<form id="edit-power-form" action="" method="post">'; ?>
 			<div class="action-title">
 				Edit Power
-				<i class="fal fa-times-circle action-close"></i>
+				<i class="far fa-times-circle action-close"></i>
 			</div>
 			<div class="action-body">
 
@@ -16,7 +16,7 @@
 				<table>
 					<tr>
 						<th>Name</th>
-						<td><input type="text" id="edit-power-name" name="name" class="form-control" maxlength="30" required/></td>
+						<td><input type="text" id="edit-power-name" name="name" class="form-control" maxlength="30" required <?php echo $CHARACTER->disabled(); ?>/></td>
 					</tr>
 					<tr>
 						<th>Type</th>
@@ -60,16 +60,19 @@
 					</tr>
 					<tr>
 						<th>Description</th>
-						<td><textarea id="edit-power-desc" name="desc" class="form-control" maxlength="200"></textarea></td>
+						<td><textarea id="edit-power-desc" name="desc" class="form-control" maxlength="200" <?php echo $CHARACTER->disabled(); ?>></textarea></td>
 					</tr>
 				</table>
 
 			</div>
 			<div class="action-footer">
-				<button type="button" class="btn btn-outline-danger float-left" id="delete-power">Delete</button>
-				<!--  <button type="button" class="btn btn-outline-default action-close">Close</button> -->				
-				<button type="submit" class="btn btn-outline-success">Edit</button>
+				<?php if($CHARACTER->view): ?>
+					<button type="button" class="btn btn-outline-default action-close">Close</button>
+				<?php else: ?>
+					<button type="button" class="btn btn-outline-danger float-left" id="delete-power">Delete</button>
+					<button type="submit" class="btn btn-outline-success">Edit</button>
+				<?php endif; ?>
 			</div>
-		</form>
+		<?php echo $CHARACTER->view?'</div>':'</form>'; ?>
 	</div>
 </div>

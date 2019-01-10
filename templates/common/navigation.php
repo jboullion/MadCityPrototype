@@ -20,7 +20,7 @@
 					*/
 				?>
 				<div class="menu-toggle d-print-none">
-					<i class="fal fa-bars"></i>
+					<i class="far fa-bars"></i>
 					<?php //require_once('menu.php'); ?>
 				</div>
 				<?php endif; ?>

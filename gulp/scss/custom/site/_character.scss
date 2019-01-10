@@ -165,7 +165,7 @@ p {
   margin: 0 auto;
 }
 
-#action-dice 			{ position: fixed; background-color: white; border: 1px solid #999; border-radius: 50%; padding: 15px; bottom: -180px; right: -180px; height: 360px; width: 360px; 
+#action-dice 			{ position: fixed; background-color: white; border: 1px solid $border-color; border-radius: 50%; padding: 15px; bottom: -180px; right: -180px; height: 360px; width: 360px; 
 	.action-dice 		{ background-color: #fefefe; border-radius: 50%; border: 1px solid $dark-gray; cursor: pointer; text-align: center; position: relative; height: 3rem; width: 3rem;
 		i 				{ @include center(); font-size: 2rem; }
 	}
@@ -187,7 +187,7 @@ p {
 		&.open 			{ visibility: visible; opacity: 1; }
 	}
 
-	.dice-style 		{ background-color: #fefefe; border-radius: 50%; border: 1px solid $dark-gray; cursor: pointer; padding: 10px; text-align: center; position: relative; height: 6rem; width: 6rem;
+	.dice-style 		{ background-color: #fefefe; border-radius: 50%; border: 2px solid $dark-gray; cursor: pointer; padding: 10px; text-align: center; position: relative; height: 6rem; width: 6rem;
 		i 				{ @include center(); font-size: 3.4rem; }
 	}
 

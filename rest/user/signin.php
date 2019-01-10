@@ -51,7 +51,7 @@ if (password_verify($_POST['password'], $user['user_password'])) {
 				)
 			);
 		}catch(PDOException $e){
-			//echo $sql . "<br>" . $e->getMessage();
+			error_log($e->getMessage(), 0);
 		}
 
 		if(DEBUG){

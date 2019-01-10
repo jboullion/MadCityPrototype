@@ -1,11 +1,12 @@
 /* SITE WIDE */   
 html, body					{ width: 100%; display:block; margin: 0; }
 html 						{ position: relative; /* font-size: $root-font-size; */ }
-body 						{ background-color: $body-color; transition: background-color $menu-transition;
+body 						{ background-color: $body-color; 
 								overflow-y:scroll; 
 								overflow-x:hidden; 
 								position:relative; 
 								@extend .txt-antialiased;
+								color: $text-color;
 }
 
 /*
@@ -95,6 +96,15 @@ blockquote 					{ background: #f1f1f1; border-left: 10px solid $upgrayddd; margi
 
 //most common background colors, often applied to the wrapper
 .white-back 				{ background-color: #fff; }
+
+
+//override default bootstrap tables
+.table th,
+.table td 					{ padding: 0.75rem; vertical-align: top; border-bottom: 1px solid $border-color; }
+
+.table thead th 			{ border-top: 0; border-bottom: 2px solid $border-color; }
+
+
 
 /**
  * FOOTER

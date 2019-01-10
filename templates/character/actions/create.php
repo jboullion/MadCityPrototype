@@ -3,7 +3,7 @@
 		<form id="character-form" action="" method="post">
 			<div class="action-title">
 				Add Character
-				<i class="fal fa-times-circle action-close"></i>
+				<i class="far fa-times-circle action-close"></i>
 			</div>
 			<div class="action-body">
 				<input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>" />

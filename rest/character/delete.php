@@ -37,6 +37,7 @@ try {
 	}
 	
 }catch(PDOException $e){
+	error_log($e->getMessage(), 0);
 	/*
 	if(DEBUG){
 		echo json_encode(array('error' => $e->getMessage()));

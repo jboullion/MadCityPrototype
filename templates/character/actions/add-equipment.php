@@ -8,7 +8,7 @@
 			<input type="hidden" name="user_id" value="<?php echo $CHARACTER->user_id; ?>" />
 			<div class="action-title">
 				Add Equipment
-				<i class="fal fa-times-circle action-close"></i>
+				<i class="far fa-times-circle action-close"></i>
 			</div>
 			<div class="action-body">
 				
