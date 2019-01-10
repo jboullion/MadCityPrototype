@@ -124,10 +124,11 @@ function jbGoogleSignIn(PDO $PDO, $id_token, $email){
 			return json_encode(array('success' => 'Sign in Successful'));
 		}else{
 			//User Doesn't Exist...Sign them up!
-			$insert = "INSERT INTO users (user_email, user_google_token, user_is_online) VALUES(:email, :password, 1)";
+			$insert = "INSERT INTO users (user_name, user_email, user_google_token, user_is_online) VALUES(:user_name, :email, :password, 1)";
 			$stmt = $PDO->prepare($insert);
 			$result = $stmt->execute( 
 				array(
+					'user_name' => $email,
 					'email' => $email,
 					'user_google_token' => $id_token //TODO: Should update this everytime they log in? Not really something we have to track
 				)

@@ -133,9 +133,6 @@ class Party {
 	 * Display a single player
 	 */
 	function displayPlayer($player, $create = false){
-		//TODO need to associate the user with the character they will have in the party
-		$player['character_id'] = 1;
-
 		$controls = '<a href="/character/view/?id='.$player['character_id'].'" class="view-player player-edit" data-id="'.$player['character_id'].'"><i class="far fa-eye"></i></a>';
 
 		// DM controls

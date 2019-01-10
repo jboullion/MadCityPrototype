@@ -781,6 +781,10 @@ jQuery(document).ready(function($){
 
 	$deleteParty = $('#delete-party');
 
+	$removePlayerModal = $('#remove-player-modal');
+	$removePlayerForm = $('#remove-player-form');
+	$removePlayerID = $('#remove-player-id');
+
 
 	// OPEN Create Party modal
 	$createParty.click(function(e){
@@ -795,33 +799,29 @@ jQuery(document).ready(function($){
 
 		var party_id = $(this).data('id');
 		var party_name = $(this).data('name');
-/*
-		var party_users = $(this).data('users');
 
-		var userHTML = '';
-		if(party_users && party_users.length > 0){
-			for(var i = 0; i < party_users.length; i++){
-				console.log(party_users[i].user_id);
-				console.log(party_users[i].user_email);
-
-				userHTML += JBTemplateEngine(partyUserTemplate, {
-					user_id: party_users[i].user_id,
-					user_email: party_users[i].user_email
-				});
-			}
-		}
-*/
 		//attach data to party edit modal
 		$('#edit-party-id').val(party_id);
 		$('#edit-party-name').val(party_name);
-		//$('#edit-party-users').html(userHTML);
-		//$('#edit-party-description').val(party_obj.description);
 
 		$editPartyModal.addClass('open');
 
 		return false;
 	});
 
+	// OPEN Remove Player modal
+	$body.on('click','.remove-player', function(e){
+		e.preventDefault();
+		e.stopPropagation();
+
+		var user_id = $(this).data('id');
+
+		//attach data to party edit modal
+		$removePlayerID.val(user_id);
+		$removePlayerModal .addClass('open');
+
+		return false;
+	});
 
 
 	// CREATE party
@@ -919,6 +919,34 @@ jQuery(document).ready(function($){
 	
 				$('#party-'+party_id).fadeOut('normal');
 
+			}else if(result.error != null){
+				//inform the user on failure
+				alert('Error: '+result.error);
+			}
+
+		}, 'json').done(function() {
+			$buttons.prop('disabled', false);
+		});;
+	});
+
+	// REMOVE Player
+	$removePlayerForm.submit(function(e){
+		e.preventDefault();
+
+		var $buttons = $(this).find('button');
+		var dataPost = $(this).serializeArray();
+		var dataObject = $(this).serializeObject();
+
+		//prevent double submission
+		$buttons.prop('disabled', true);
+
+		$.post( BASE_DIR+"rest/party/remove", dataPost, function( result ) {
+
+			if(result.success != null){
+				//reset form and close form on success
+				resetForm($removePlayerForm);
+
+				$('#player-'+dataObject.user_id).fadeOut(ANIMATION_DURATION);
 			}else if(result.error != null){
 				//inform the user on failure
 				alert('Error: '+result.error);

@@ -20,3 +20,4 @@ if( ! empty($_GET['id']) && is_numeric($_GET['id']) && ! empty($_SESSION['user_i
 		</div>
 	</section>
 </div>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/party/actions/remove-player.php'); ?>

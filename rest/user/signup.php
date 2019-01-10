@@ -33,10 +33,11 @@ if(! empty($user)){
 $passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
 try{
-	$insert = "INSERT INTO users (user_email, user_password, user_is_online) VALUES(:email, :password, 1)";
+	$insert = "INSERT INTO users (user_name, user_email, user_password, user_is_online) VALUES(:user_name, :email, :password, 1)";
 	$stmt = $PDO->prepare($insert);
 	$result = $stmt->execute( 
 		array(
+			'user_name' => $_POST['username'],
 			'email' => $_POST['email'],
 			'password' => $passwordHash 
 		)
