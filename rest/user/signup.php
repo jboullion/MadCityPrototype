@@ -51,7 +51,6 @@ if($result){
 	echo json_encode(array('success' => 'Account Created'));
 	$_SESSION['email'] = $_POST['email'];
 	$_SESSION['user_id'] = $PDO->lastInsertId();
-	$_SESSION['party_ids'] = array();
 }else{
 	echo json_encode(array('error' => 'Unable to create account'));
 }

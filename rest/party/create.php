@@ -35,28 +35,30 @@ try{
 
 
 if(! empty($result)){
-	$_SESSION['party_ids'][] = $PDO->lastInsertId();
-
-	echo json_encode(array('success' => 'Party created successfully', 'party_id' => $PDO->lastInsertId()));
-	
 	try{
-		$update = "UPDATE `users` 
-					SET `party_ids` = :party_ids
-					WHERE `user_id` = :user_id";
+		$insert = "INSERT INTO `party_characters` ( `party_id`, `user_id` ) 
+		VALUES ( :party_id , :user_id  )";
 
-		$stmt = $PDO->prepare($update);
+		$stmt = $PDO->prepare($insert);
 
 		$result = $stmt->execute( 
 			array(
-				'user_id' => $_POST['user_id'],
-				'party_ids' => implode(',',$_SESSION['party_ids'])
+				'party_id' => $PDO->lastInsertId(),
+				'user_id' => $_POST['user_id']
 			)
 		);
+
+		if($result){
+			echo json_encode(array('success' => 'Party created successfully', 'party_id' => $PDO->lastInsertId()));
+		}else{
+			echo json_encode(array('error' => 'Party could not be setup'));
+		}
 	}catch(PDOException $e){
 		error_log($e->getMessage(), 0);
 	}
 
 	
+
 }else{
 	echo json_encode(array('error' => 'Party could not be created'));
 }

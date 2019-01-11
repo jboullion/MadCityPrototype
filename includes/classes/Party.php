@@ -141,11 +141,12 @@ class Party {
 
 		// DM controls
 		if($_SESSION['user_id'] === $this->dm_id && $player['user_id'] !== $this->dm_id ){
-			if(! empty($player['character_id'])){
-				//Some users have not selected the character to use for this party
-				$controls .= '<a href="/character/view/?id='.$player['character_id'].'" class="view-player player-edit" data-id="'.$player['character_id'].'"><i class="far fa-eye"></i></a>';
-			}
 			$controls .= '<div class="remove-player player-edit" data-id="'.$player['user_id'].'" data-email="'.$player['user_email'].'" ><i class="far fa-user-minus"></i></div>';
+		}
+
+		if(! empty($player['character_id'])){
+			//Some users have not selected the character to use for this party
+			$controls .= '<a href="/character/view/?id='.$player['character_id'].'" class="view-player player-edit d-print-none" data-id="'.$player['character_id'].'"><i class="far fa-eye"></i></a>';
 		}
 
 		echo '<div href="#" id="player-'.$player['user_id'].'" class="player list-group-item list-group-item-action">

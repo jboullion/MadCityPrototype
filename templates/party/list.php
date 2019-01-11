@@ -6,36 +6,25 @@
 	 */
 
 	function mc_get_parties(PDO $PDO){
+		try{
+			// IN statements don't work well with PDO
+			$select = "SELECT p.* FROM party_characters AS pc 
+				LEFT JOIN parties AS p ON p.party_id = pc.party_id
+				WHERE pc.user_id = :user_id ";
+			$stmt = $PDO->prepare($select);
+			$stmt->execute( 
+				array(
+					'user_id' => $_SESSION['user_id']
+				)
+			);
 
-		$party_ids = implode(',',$_SESSION['party_ids']);
-		// IN statements don't work well with PDO
-		$select = "SELECT * FROM parties WHERE party_id IN ( {$party_ids} )"; //:party_ids
-		
-		$stmt = $PDO->prepare($select);
-		$stmt->execute( );
-		/*
-			array(
-				'party_ids' => $party_ids
-			)
-		*/
+			$parties = $stmt->fetchAll();
 
-		$parties = $stmt->fetchAll();
-
-		/*
-		//get the party user information
-		if(! empty($parties)){
-			foreach($parties as $key => $party){
-				$select = "SELECT `user_id`, `user_email` FROM users WHERE user_id IN ( {$party['user_ids']} )";
-
-				$stmt = $PDO->prepare($select);
-				$stmt->execute( );
-
-				$parties[$key]['users'] = $stmt->fetchAll();
-			}
+			return $parties;
+		}catch(PDOException $e){
+			error_log($e->getMessage(), 0);
+			return array();
 		}
-		*/
-		
-		return $parties;
 	}
 
 	/**
@@ -80,16 +69,10 @@
 					<h5 class="mb-1">'.$party_name.'</h5>
 					'.$controls.'
 				</div>';
-		/*
-		if(! empty($party['next_session'])){
-			echo '<p class="mb-1">Next Session: '.date('m/d/Y @ g:ia', strtotime($party['next_session'])).'</p>';
-		}
-		*/
 
 		echo '<p class="mb-1">DM: '.$dm.'</p>
 			</a>';
-		
-		//echo '<small>Last Online: '.$days_ago.'</small>
+
 	}
 
 	$parties = mc_get_parties($PDO, $_SESSION['party_ids']);

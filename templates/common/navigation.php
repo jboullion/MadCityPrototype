@@ -12,17 +12,17 @@
 						<h1>Mad City</h1>
 					</div>
 					
-				<?php
-					/*
-					<div id="user-info">
-						<a href="#" onclick="jbSignOut(event, '<?php echo $_SESSION['email']; ?>');" class="btn btn-default">Sign out</a>
+					<?php
+						/*
+						<div id="user-info">
+							<a href="#" onclick="jbSignOut(event, '<?php echo $_SESSION['email']; ?>');" class="btn btn-default">Sign out</a>
+						</div>
+						*/
+					?>
+					<div class="menu-toggle d-print-none">
+						<i class="far fa-bars"></i>
+						<?php //require_once('menu.php'); ?>
 					</div>
-					*/
-				?>
-				<div class="menu-toggle d-print-none">
-					<i class="far fa-bars"></i>
-					<?php //require_once('menu.php'); ?>
-				</div>
 				<?php endif; ?>
 				
 			</div>
