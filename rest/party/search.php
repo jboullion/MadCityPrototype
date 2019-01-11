@@ -16,8 +16,9 @@ if(empty($_GET) || empty($_GET['player_search']) || empty($_GET['party_id']) || 
 
 try {
 	//Find any users who are not already in the party
-	$select = "SELECT u.user_id, u.user_name FROM `users` AS u
-				WHERE u.user_name LIKE :user_name 
+	$select = "SELECT u.user_id, u.user_name, c.character_id, c.character_name FROM `characters` AS c
+				LEFT JOIN users AS u ON u.user_id = c.user_id 
+				WHERE c.character_name LIKE :character_name 
 					AND u.user_id != :user_id 
 				ORDER BY u.user_name LIMIT 20";
 	//OR `user_email` LIKE :user_name 
@@ -25,7 +26,7 @@ try {
 	$stmt = $PDO->prepare($select);
 	$result = $stmt->execute( 
 		array(
-			'user_name' => $_GET['player_search'].'%',
+			'character_name' => $_GET['player_search'].'%',
 			'user_id' => $_GET['user_id'],
 		)
 	);

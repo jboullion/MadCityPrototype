@@ -207,8 +207,9 @@ jQuery(document).ready(function($){
 					for(var i = 0; i < result.users.length; i++){
 
 						var newPlayer = JBTemplateEngine(playerSearchTemplate, {
+							character_id: result.users[i].character_id,
+							character_name: result.users[i].character_name,
 							user_id: result.users[i].user_id,
-							user_name: result.users[i].user_name,
 						});
 
 						$addPlayerSearchTarget.append(newPlayer);
@@ -268,23 +269,29 @@ $playerList = $('#player-list-target');
 
 function addPlayer(element){	
 	var $button = $(element);
-	var user_id = $button.data('id');
-	var party_id = $button.data('party');
+	var character_id = $button.data('id');
+	var user_id = $button.data('user');
+	var party_id = $('#add-player-party-id').val();
+
 
 	//prevent double submission
 	$button.prop('disabled', true);
 
-	$.post( BASE_DIR+"rest/party/add", {party_id:party_id, user_id:user_id}, function( result ) {
+	$.post( BASE_DIR+"rest/party/add", {party_id:party_id, character_id:character_id, user_id:user_id}, function( result ) {
 
 		if(result.success != null){
 			//reset form and close form on success
 			//resetForm($addPlayerForm);
 
+			console.log(result.user);
+
 			var newPlayer = JBTemplateEngine(playerTemplate, {
 				party_id: party_id,
-				user_id: result.user.user_id,
-				user_name: result.user.user_name,
-				user_email: result.user.user_email,
+				user_id: result.player.user_id,
+				user_name: result.player.user_name,
+				user_email: result.player.user_email,
+				character_id: result.player.character_id,
+				character_name: result.player.character_name
 			});
 
 			console.log(newPlayer);
@@ -298,6 +305,8 @@ function addPlayer(element){
 			//inform the user on failure
 			alert('Error: '+result.error);
 			$button.prop('disabled', false);
+		}else{
+			$button.prop('disabled', true);
 		}
 
 	}, 'json');

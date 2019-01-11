@@ -13,7 +13,7 @@
 						<th>Search</th>
 						<td>
 							<input type="text" id="add-player-search" name="player_search" class="form-control" required/>
-							<small class="form-text text-muted">Search by User Name</small>
+							<small class="form-text text-muted">Search by Character Name</small>
 						</td>
 					</tr>
 				</table>
@@ -27,7 +27,7 @@
 	</div>
 </div>
 <script id="player-search-template" type="text/template">
-	<li class="list-group-item"><%user_name%> <button type="button" onclick="addPlayer(this)" class="btn btn-outline-success add-user-to-party float-right" data-id="<%user_id%>" data-party="<?php echo $PARTY->party_id; ?>">Add</button></li>
+	<li class="list-group-item"><%character_name%> <button type="button" onclick="addPlayer(this)" class="btn btn-outline-success add-user-to-party float-right" data-id="<%character_id%>" data-user="<%user_id%>" >Add</button></li>
 </script>
 <script id="player-template" type="text/template">
 <?php 
@@ -36,7 +36,7 @@
 		'user_id' => '<%user_id%>',
 		'user_name' => '<%user_name%>',
 		'user_email' => '<%user_email%>',
-		'character_name' => ''
+		'character_name' => '<%character_name%>'
 	);
 
 	$PARTY->displayPlayer($party, true);
