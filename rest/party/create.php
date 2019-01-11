@@ -12,16 +12,21 @@ if(empty($_POST) || empty($_POST['user_id']) || empty($_POST['party_name'])) {
 	echo json_encode(array('error' => 'Info Missing'));
 }
 
+if(empty($_POST['party_password'])){
+	$password = '';
+}else{
+	$password = $_POST['party_password'];
+}
+
 try{
-	$insert = "INSERT INTO `parties` ( `party_name`, `dm_id`, `user_ids`, `party_password`) 
-	VALUES (:party_name, :dm_id, :user_ids, :party_password)";
+	$insert = "INSERT INTO `parties` ( `party_name`, `dm_id`, `party_password`) 
+	VALUES (:party_name, :dm_id, :party_password)";
 	$stmt = $PDO->prepare($insert);
 	$result = $stmt->execute( 
 		array(
 			'party_name' => $_POST['party_name'],
 			'dm_id' => $_POST['user_id'],
-			'user_ids' => $_POST['user_id'],
-			'party_password' => $_POST['party_password'] //we are storing the party passwords as plain text for now
+			'party_password' => $password //we are storing the party passwords as plain text for now
 		)
 	);
 }catch(PDOException $e){

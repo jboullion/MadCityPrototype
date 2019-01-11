@@ -10,3 +10,11 @@
 		#add-player 				{ margin-top: 50px; }
 	}
 }
+
+#add-player-modal 				{
+	#add-player-search-target 	{ max-height: 200px; overflow-y: scroll;
+		li 						{ font-size: 1.8rem;
+			button.btn 			{ padding: 3px 15px; }
+		}
+	}
+}

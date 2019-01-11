@@ -311,7 +311,10 @@ jQuery(document).ready(function($){
 			if(result.success != null){
 				resetForm($editPowerForm);
 
-				$('#power-'+deleteKey).fadeOut(ANIMATION_DURATION);
+				$('#power-'+deleteKey).fadeOut(ANIMATION_DURATION, function() {
+					// Animation complete.
+					$(this).remove();
+				});
 
 			}else if(result.error != null){
 				//inform the user on failure
@@ -451,7 +454,10 @@ jQuery(document).ready(function($){
 				//reset form and close form on success
 				resetForm($deleteCharacterForm);
 
-				$('#character-'+dataObject.character_id).fadeOut(ANIMATION_DURATION);
+				$('#character-'+dataObject.character_id).fadeOut(ANIMATION_DURATION, function() {
+					// Animation complete.
+					$(this).remove();
+				});
 			}else if(result.error != null){
 				//inform the user on failure
 				alert('Error: '+result.error);

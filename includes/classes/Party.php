@@ -20,10 +20,14 @@ class Party {
 
 		$this->party_id = $party_id;
 
-		// GET the party as lon as this user is a member of the party
+		// GET the party if this user is a member of the party
 		try{
-			$stmt = $this->PDO->prepare("SELECT * FROM parties WHERE party_id = :party_id AND user_ids LIKE :user_id LIMIT 1");
-			$stmt->execute( array('party_id' => $party_id, 'user_id' => '%'.$user_id.'%') );
+			$stmt = $this->PDO->prepare("SELECT * FROM parties AS p
+			LEFT JOIN party_characters AS pc ON pc.party_id = p.party_id
+			WHERE p.party_id = :party_id
+				AND pc.user_id = :user_id
+			LIMIT 1");
+			$stmt->execute( array('party_id' => $party_id, 'user_id' => $user_id) );
 			$party = $stmt->fetch();
 
 		}catch(PDOException $e){
@@ -117,7 +121,7 @@ class Party {
 	 * Display the list of players
 	 */
 	function displayPlayers(){ ?>
-		<div class="list-group" id="party-list-target">
+		<div class="list-group" id="player-list-target">
 			<?php 
 				if(! empty($this->players)){
 					foreach($this->players as $player){
@@ -133,17 +137,21 @@ class Party {
 	 * Display a single player
 	 */
 	function displayPlayer($player, $create = false){
-		$controls = '<a href="/character/view/?id='.$player['character_id'].'" class="view-player player-edit" data-id="'.$player['character_id'].'"><i class="far fa-eye"></i></a>';
+		$controls = '';
 
 		// DM controls
 		if($_SESSION['user_id'] === $this->dm_id && $player['user_id'] !== $this->dm_id ){
+			if(! empty($player['character_id'])){
+				//Some users have not selected the character to use for this party
+				$controls .= '<a href="/character/view/?id='.$player['character_id'].'" class="view-player player-edit" data-id="'.$player['character_id'].'"><i class="far fa-eye"></i></a>';
+			}
 			$controls .= '<div class="remove-player player-edit" data-id="'.$player['user_id'].'" data-email="'.$player['user_email'].'" ><i class="far fa-user-minus"></i></div>';
 		}
 
 		echo '<div href="#" id="player-'.$player['user_id'].'" class="player list-group-item list-group-item-action">
 				<div class="w-100">
 					'.$controls.'
-					<h5 class="mb-1">'.$player['character_name'].'</h5>
+					<h5 class="mb-1">'.($player['user_id'] !== $this->dm_id?$player['character_name']:'<span style="color: #8c0007;">Game Master</span>').'</h5>
 					<small>'.$player['user_name'].'</small>
 				</div>
 			</div>';

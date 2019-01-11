@@ -183,6 +183,24 @@ function resetForm($formElement){
 function confirmDelete($message){
 	return confirm($message);
 }
+
+/**
+ * @link https://davidwalsh.name/javascript-debounce-function
+ */ 
+function debounce(func, wait, immediate) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};
 //used around the site for post calls and stuff
 var BASE_DIR = '/';
 
@@ -548,7 +566,10 @@ jQuery(document).ready(function($){
 			if(result.success != null){
 				resetForm($editPowerForm);
 
-				$('#power-'+deleteKey).fadeOut(ANIMATION_DURATION);
+				$('#power-'+deleteKey).fadeOut(ANIMATION_DURATION, function() {
+					// Animation complete.
+					$(this).remove();
+				});
 
 			}else if(result.error != null){
 				//inform the user on failure
@@ -776,14 +797,27 @@ jQuery(document).ready(function($){
 	$editPartyForm = $('#edit-party-form');
 	$editPartyID = $('#edit-party-id');
 
-	partyTemplate = $('#party-template').html();
-	partyUserTemplate = $('#party-user-template').html();
-
 	$deleteParty = $('#delete-party');
+
+	$playerList = $('#player-list-target');
+
+	$addPlayer = $('#add-player');
+	$addPlayerModal = $('#add-player-modal');
+	$addPlayerForm = $('#add-player-form');
+	addPlayerPartyID = $('#add-player-party-id').val();
+	addPlayerUserID = $('#add-player-user-id').val();
+
+	$addPlayerSearch = $('#add-player-search');
+	$addPlayerSearchTarget = $('#add-player-search-target');
+
 
 	$removePlayerModal = $('#remove-player-modal');
 	$removePlayerForm = $('#remove-player-form');
 	$removePlayerID = $('#remove-player-id');
+
+	partyTemplate = $('#party-template').html();
+	playerTemplate = $('#player-template').html();
+	playerSearchTemplate = $('#player-search-template').html();
 
 
 	// OPEN Create Party modal
@@ -791,9 +825,19 @@ jQuery(document).ready(function($){
 		$partyModal.addClass('open');
 	});
 
+	// OPEN Add Player modal
+	$addPlayer.click(function(e){
+		$addPlayerModal.addClass('open');
+	});
+	
+	// ADD user to party
+	// $('.add-user-to-party').click(function(){
+	// 	console.log('wtf?');
+	// });
 
 	// OPEN Edit Party modal
 	$body.on('click','.edit-party', function(e){
+		console.log('Edit Party');
 		e.preventDefault();
 		e.stopPropagation();
 
@@ -929,6 +973,48 @@ jQuery(document).ready(function($){
 		});;
 	});
 
+	// SEARCH Player
+	var searchPlayer = debounce(function(search) {
+		// All the taxing stuff you do
+
+		if(search.length > 2){
+
+			var dataPost = $addPlayerForm.serializeArray();
+
+			$.get( BASE_DIR+"rest/party/search", dataPost, function( result ) {
+
+				$addPlayerSearchTarget.html('');
+
+				if(result.success != null && result.users.length > 0){
+					
+					for(var i = 0; i < result.users.length; i++){
+
+						var newPlayer = JBTemplateEngine(playerSearchTemplate, {
+							user_id: result.users[i].user_id,
+							user_name: result.users[i].user_name,
+						});
+
+						$addPlayerSearchTarget.append(newPlayer);
+
+					}
+
+				}else if(result.error != null){
+					//inform the user on failure
+					//alert('Error: '+result.error);
+					htmlResult = '<li class="list-group-item">'+result.error+'</li>';
+					$addPlayerSearchTarget.html(htmlResult);
+				}
+
+			}, 'json');
+
+		}
+	}, 250);
+
+	$addPlayerSearch.keyup(function(e){
+		searchPlayer($(this).val());
+	});
+	
+
 	// REMOVE Player
 	$removePlayerForm.submit(function(e){
 		e.preventDefault();
@@ -946,7 +1032,10 @@ jQuery(document).ready(function($){
 				//reset form and close form on success
 				resetForm($removePlayerForm);
 
-				$('#player-'+dataObject.user_id).fadeOut(ANIMATION_DURATION);
+				$('#player-'+dataObject.user_id).fadeOut(ANIMATION_DURATION, function() {
+					// Animation complete.
+					$(this).remove();
+				});
 			}else if(result.error != null){
 				//inform the user on failure
 				alert('Error: '+result.error);
@@ -957,6 +1046,45 @@ jQuery(document).ready(function($){
 		});;
 	});
 });
+
+$playerList = $('#player-list-target');
+
+function addPlayer(element){	
+	var $button = $(element);
+	var user_id = $button.data('id');
+	var party_id = $button.data('party');
+
+	//prevent double submission
+	$button.prop('disabled', true);
+
+	$.post( BASE_DIR+"rest/party/add", {party_id:party_id, user_id:user_id}, function( result ) {
+
+		if(result.success != null){
+			//reset form and close form on success
+			//resetForm($addPlayerForm);
+
+			var newPlayer = JBTemplateEngine(playerTemplate, {
+				party_id: party_id,
+				user_id: result.user.user_id,
+				user_name: result.user.user_name,
+				user_email: result.user.user_email,
+			});
+
+			console.log(newPlayer);
+
+			$playerList.append(newPlayer);
+			$button.parents('.list-group-item').fadeOut(ANIMATION_DURATION, function() {
+				// Animation complete.
+				$(this).remove();
+			});
+		}else if(result.error != null){
+			//inform the user on failure
+			alert('Error: '+result.error);
+			$button.prop('disabled', false);
+		}
+
+	}, 'json');
+}
 var deferredPrompt;
 //var addToHomeScreenBtns = document.querySelector('.action-dice');
 
