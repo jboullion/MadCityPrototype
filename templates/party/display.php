@@ -14,7 +14,7 @@ if( ! empty($_GET['id']) && is_numeric($_GET['id']) && ! empty($_SESSION['user_i
 		<div class="container">
 			<div class="row">
 				<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/party/sections/players.php'); ?>
-				<?php //$CHARACTER->displayPowers(); ?>
+				<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/party/sections/log.php'); ?>
 				<?php //$CHARACTER->displayEquipment(); ?>
 			</div>
 		</div>

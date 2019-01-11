@@ -11272,6 +11272,9 @@ blockquote {
   border-top: 0;
   border-bottom: 2px solid #333; }
 
+.list-group-item {
+  border: 1px solid #333; }
+
 /**
  * FOOTER
  */
@@ -11679,23 +11682,28 @@ p {
   #powers #power-table td {
     width: 60%; } }
 
-#party #party-players .player {
-  padding: 15px; }
-  #party #party-players .player h5 {
-    margin: 0; }
-  #party #party-players .player .player-edit {
-    cursor: pointer;
-    float: right;
-    font-size: 1.8rem;
-    line-height: 1.5;
-    padding: 10px; }
+#party #party-players {
+  margin-bottom: 50px; }
+  #party #party-players .player {
+    padding: 15px; }
+    #party #party-players .player h5 {
+      margin: 0; }
+    #party #party-players .player .player-edit {
+      cursor: pointer;
+      float: right;
+      font-size: 1.8rem;
+      line-height: 1.5;
+      padding: 10px; }
+  #party #party-players #add-player {
+    margin-top: 50px; }
 
-#party #party-players #add-player {
-  margin-top: 50px; }
+#party #party-log {
+  margin-bottom: 50px; }
 
 #add-player-modal #add-player-search-target {
   max-height: 200px;
-  overflow-y: scroll; }
+  overflow-y: auto;
+  overflow-x: hidden; }
   #add-player-modal #add-player-search-target li {
     font-size: 1.8rem; }
     #add-player-modal #add-player-search-target li button.btn {

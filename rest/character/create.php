@@ -17,7 +17,7 @@ try{
 	$result = $stmt->execute( 
 		array(
 			'user_id' => $_POST['user_id'],
-			'character_name' => $_POST['character_name']
+			'character_name' => trim($_POST['character_name'])
 		)
 	);
 

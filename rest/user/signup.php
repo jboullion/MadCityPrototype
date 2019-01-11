@@ -37,7 +37,7 @@ try{
 	$stmt = $PDO->prepare($insert);
 	$result = $stmt->execute( 
 		array(
-			'user_name' => $_POST['username'],
+			'user_name' => trim($_POST['username']),
 			'email' => $_POST['email'],
 			'password' => $passwordHash 
 		)

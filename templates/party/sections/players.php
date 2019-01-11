@@ -1,5 +1,5 @@
 <div id="party-players" class="col-12">
-	<h2 class="text-center">Players</h2>
+	<h2>Players</h2>
 
 	<?php $PARTY->displayPlayers(); ?>
 

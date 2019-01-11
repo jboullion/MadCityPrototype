@@ -14,6 +14,8 @@ class Party {
 	var $name; 
 	var $total_xp; 
 	var $players = array();
+	var $log = '';
+
 
 	function __construct($PDO, $party_id, $user_id) {
 		$this->PDO = $PDO;
@@ -55,6 +57,7 @@ class Party {
 		$this->name = $party['party_name'];
 		$this->total_xp = $party['total_xp'];
 		$this->dm_id = $party['dm_id'];
+		$this->log = $party['party_log'];
 		$this->dm_email = mc_get_userinfo($party['dm_id'], 'user_email');
 
 		
@@ -135,8 +138,10 @@ class Party {
 
 	/**
 	 * Display a single player
+	 * 
+	 * @param array $player Player array from the database
 	 */
-	function displayPlayer($player, $create = false){
+	function displayPlayer($player){
 		$controls = '';
 
 		// DM controls

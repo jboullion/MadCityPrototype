@@ -75,7 +75,7 @@
 
 	}
 
-	$parties = mc_get_parties($PDO, $_SESSION['party_ids']);
+	$parties = mc_get_parties($PDO);
 ?>
 <section id="party-list">
 	<div class="container">

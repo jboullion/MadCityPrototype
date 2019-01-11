@@ -2,6 +2,7 @@
 	<title>Mad City: Evolution</title>
 	<meta name="Description" content="Table Top RPG by James Boullion">
 	<meta charset="utf-8">
+	
 	<meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
 	<meta http-equiv="Cache-control" content="public">
 
@@ -53,17 +54,22 @@
 		*/
 	</style>
 
-	<!-- jQuery 3 ( When using service workers we don't want to have to reach out to an outside site )
+	<!-- jQuery 3 ( we don't want to have to reach out to an outside site When using service workers )
 	<script
 		src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
 		crossorigin="anonymous"></script>
 	-->
+		
 	<script src="/js/jquery-3.3.1.min.js" ></script>
+
+<!--
+	<script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
+-->
 
 	<!-- Google APIs -->
 	<!-- https://developers.google.com/identity/sign-in/web/sign-in -->
 	<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 	<meta name="google-signin-client_id" content="63734584828-cpm6irahebhdeq12o019v5ep90lmlrkf.apps.googleusercontent.com">
-
+		
 </head>

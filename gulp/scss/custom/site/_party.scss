@@ -1,5 +1,5 @@
 #party 								{
-	#party-players 					{
+	#party-players 					{ margin-bottom: 50px;
 
 		.player 					{ padding: 15px;
 			h5 						{ margin: 0; }
@@ -9,10 +9,15 @@
 
 		#add-player 				{ margin-top: 50px; }
 	}
+
+	#party-log 						{ margin-bottom: 50px;
+
+	}
 }
 
 #add-player-modal 				{
-	#add-player-search-target 	{ max-height: 200px; overflow-y: scroll;
+	#add-player-search-target 	{ max-height: 200px; overflow-y: auto; overflow-x: hidden;
+	
 		li 						{ font-size: 1.8rem;
 			button.btn 			{ padding: 3px 15px; }
 		}

@@ -49,11 +49,7 @@ try {
 		);
 	}
 }catch(PDOException $e){
-	/*
-	if(DEBUG){
-		echo json_encode(array('error' => $e->getMessage()));
-	}
-	*/
+	error_log($e->getMessage(), 0);
 }
 
 
