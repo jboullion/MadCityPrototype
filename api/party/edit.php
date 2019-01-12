@@ -10,6 +10,7 @@ header("content-type:application/json");
 
 if(empty($_POST) || empty($_POST['user_id']) || empty($_POST['party_name']) || empty($_SESSION['email']) ) {
 	echo json_encode(array('error' => 'Info Missing'));
+	exit;
 }
 
 // Update password if not blank

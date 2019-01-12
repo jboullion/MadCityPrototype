@@ -32,8 +32,10 @@ jQuery(document).ready(function($){
 	$removePlayerForm = $('#remove-player-form');
 	$removePlayerID = $('#remove-player-id');
 
+	$playerChat = $('.player-chat');
 	$playerChatForm = $('.player-chat-form');
-
+	$chatNavLinks = $('#chat-nav a');
+	
 	partyTemplate = $('#party-template').html();
 	playerTemplate = $('#player-template').html();
 	playerSearchTemplate = $('#player-search-template').html();
@@ -266,45 +268,83 @@ jQuery(document).ready(function($){
 		});;
 	});
 
+	//	TOGGLE Chat windows
+	$chatNavLinks.click(function(e){
+		e.preventDefault();
+		var target = $(this).attr('href');
+		var $target = $(target);
 
-	// SEND chat message
+		//We are not using any built in Bootstrap JS
+		$('.nav-item.active').removeClass('active');
+		$(this).parent().addClass('active');
+		$('.chat-panel .active').removeClass('active');
+		$target.addClass('active');
+
+		//Force all windows to the bottom of the chat area when we look at them
+		mcScrollDown($target);
+		return false;
+	});
+
+	//SCROLL the party chat to bottom
+	mcScrollDown($('#chat-party'));
+
+	$playerChat.keydown(function(e){
+		if(e.keyCode == 13){
+			$(this).parents('form').submit();
+		}
+	});
+
+
+	// SEND Chat message
 	$playerChatForm.submit(function(e){
 		e.preventDefault();
 
 		var dataPost = $(this).serializeArray();
 		var dataObject = $(this).serializeObject();
 
-		//prevent double submission
-		$buttons.prop('disabled', true);
+		//need to actually have a message to send!
+		if(! dataObject.player_chat) return false;
 
+		var $chatWindow = $('#chat-player-'+dataObject.receive_id+' .chat-wrapper');
 		$.post( BASE_DIR+"api/party/send-chat", dataPost, function( result ) {
 
 			if(result.success != null){
 				//reset form and close form on success
-				$playerChatForm.val();
+				$playerChatForm.find('textarea').val('');
 
 				var newChat = JBTemplateEngine(chatTemplate, {
 					timestamp: moment().calendar(), // https://momentjs.com/
 					content: dataObject.player_chat,
 				});
 
-				$('.chat-panel').append(newChat);
+				$chatWindow.append( newChat );
+
+				//move our window down
+				$chatWindow.scrollTop( $chatWindow[0].scrollHeight );
+
 			}else if(result.error != null){
 				//inform the user on failure
 				alert('Error: '+result.error);
 			}
 
 		}, 'json');
+
+		return false;
 	});
+	
 });
 
-$playerList = $('#player-list-target');
-
+/**
+ * Add a player to the player list
+ * 
+ * @param string element the element's id string. usually, #add-player-x
+ */
 function addPlayer(element){	
 	var $button = $(element);
 	var character_id = $button.data('id');
 	var user_id = $button.data('user');
 	var party_id = $('#add-player-party-id').val();
+	var $playerList = $('#player-list-target');
 
 	//prevent double submission
 	$button.prop('disabled', true);
@@ -338,4 +378,13 @@ function addPlayer(element){
 		}
 
 	}, 'json');
+}
+
+/**
+ * Scroll to the bottom of the jquery element
+ * 
+ * @param jQuery $element jQuery element to scroll
+ */
+function mcScrollDown($element){
+	$element.find('.chat-wrapper').scrollTop( $element.find('.chat-wrapper')[0].scrollHeight );
 }

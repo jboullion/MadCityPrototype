@@ -12,6 +12,7 @@ header("content-type:application/json");
 
 if(empty($_GET) || empty($_GET['player_search']) || empty($_GET['party_id']) || empty($_GET['user_id']) ) {
 	echo json_encode(array('error' => 'Info Missing'));
+	exit;
 }
 
 try {

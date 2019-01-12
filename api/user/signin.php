@@ -13,6 +13,7 @@ session_start();
 
 if(empty($_POST) || empty($_POST['email']) || empty($_POST['password'])) {
   echo json_encode(array('error' => 'Info Missing'));
+  exit;
 }
 
 $passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);

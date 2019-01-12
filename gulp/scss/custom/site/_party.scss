@@ -28,10 +28,10 @@
 			.chat-info 				{ font-size: 1rem; display: block; }
 
 			.send-chat 				{ background-color: #fefefe; float: right;
-				.chat-info 			{  }
+				.chat-info 			{ text-align: right; }
 			}
 			.receive-chat 			{ background-color: #f1f1f1; float: left;
-				.chat-info 			{ text-align: right; }
+				.chat-info 			{ }
 			}
 		}
 	}

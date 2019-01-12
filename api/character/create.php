@@ -8,6 +8,7 @@ header("content-type:application/json");
 
 if(empty($_POST) || empty($_POST['user_id']) || empty($_POST['character_name'])) {
 	echo json_encode(array('error' => 'Info Missing'));
+	exit;
 }
 
 try{

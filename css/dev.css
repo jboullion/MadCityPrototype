@@ -11750,11 +11750,11 @@ p {
     #party #party-chat .chat-wrapper .send-chat {
       background-color: #fefefe;
       float: right; }
+      #party #party-chat .chat-wrapper .send-chat .chat-info {
+        text-align: right; }
     #party #party-chat .chat-wrapper .receive-chat {
       background-color: #f1f1f1;
       float: left; }
-      #party #party-chat .chat-wrapper .receive-chat .chat-info {
-        text-align: right; }
 
 #add-player-modal #add-player-search-target {
   max-height: 200px;

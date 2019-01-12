@@ -10,6 +10,7 @@ header("content-type:application/json");
 
 if(empty($_POST) || empty($_SESSION['user_id']) || empty($_POST['party_log']) ) {
 	echo json_encode(array('error' => 'Info Missing'));
+	exit;
 }
 
 try {

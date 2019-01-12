@@ -8,8 +8,9 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/database.php');
 
 header("content-type:application/json");
 
-if(empty($_POST) || empty($_SESSION['user_id']) || empty($_POST['party_id']) || empty($_POST['receive_id']) || empty($_POST['content']) ) {
+if(empty($_POST) || empty($_SESSION['user_id']) || empty($_POST['party_id']) || empty($_POST['receive_id']) || empty($_POST['player_chat']) ) {
 	echo json_encode(array('error' => 'Info Missing'));
+	exit;
 }
 
 
@@ -25,7 +26,7 @@ try {
 			'party_id' => $_POST['party_id'],
 			'send_id' => $_POST['send_id'],
 			'receive_id' => $_POST['receive_id'],
-			'content' => $_POST['content']
+			'content' => $_POST['player_chat']
 		)
 	);
 

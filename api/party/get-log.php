@@ -8,6 +8,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/includes/database.php');
 
 if(empty($_GET) || empty($_GET['party_id']) || empty($_SESSION['user_id']) ) {
 	echo json_encode(array('error' => 'Info Missing'));
+	exit;
 }
 
 try {
