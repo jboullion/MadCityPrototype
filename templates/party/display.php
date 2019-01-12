@@ -13,9 +13,11 @@ if( ! empty($_GET['id']) && is_numeric($_GET['id']) && ! empty($_SESSION['user_i
 	<section class="wrapper">
 		<div class="container">
 			<div class="row">
-				<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/party/sections/players.php'); ?>
 				<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/party/sections/log.php'); ?>
-				<?php //$CHARACTER->displayEquipment(); ?>
+				<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/party/sections/players.php'); ?>
+			</div>
+			<div class="row">
+				<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/party/sections/chat.php'); ?>
 			</div>
 		</div>
 	</section>

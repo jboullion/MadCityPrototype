@@ -10938,15 +10938,15 @@ h2 {
   font-family: "Evil Genius", sans-serif; }
   @media (max-width: 767px) {
     h2 {
-      font-size: 3rem; } }
+      font-size: 2.8rem; } }
 
 h3 {
-  font-size: 3.2rem;
+  font-size: 2.6rem;
   line-height: 1.5; }
 
 h4 {
-  font-size: 3rem;
-  line-height: 1.7; }
+  font-size: 2rem;
+  line-height: 1.5; }
 
 h5 {
   font-family: "Roboto", sans-serif;
@@ -11270,10 +11270,28 @@ blockquote {
 
 .table thead th {
   border-top: 0;
-  border-bottom: 2px solid #333; }
+  border-bottom: 1px solid #333; }
 
 .list-group-item {
   border: 1px solid #333; }
+
+figure {
+  margin-bottom: 2rem; }
+
+.tab-content {
+  padding: 20px 0; }
+
+.nav-tabs {
+  border-bottom: 1px solid #333; }
+  .nav-tabs .nav-item {
+    margin-bottom: -1px; }
+  .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
+    border-color: #333 #333 transparent; }
+  .nav-tabs .nav-link.active,
+  .nav-tabs .nav-link.show .nav-link {
+    color: #333;
+    border: 1px solid transparent;
+    border-color: #333 #333 #fff; }
 
 /**
  * FOOTER
@@ -11682,23 +11700,59 @@ p {
   #powers #power-table td {
     width: 60%; } }
 
-#party #party-players {
-  margin-bottom: 50px; }
-  #party #party-players .player {
-    padding: 15px; }
-    #party #party-players .player h5 {
-      margin: 0; }
-    #party #party-players .player .player-edit {
-      cursor: pointer;
-      float: right;
-      font-size: 1.8rem;
-      line-height: 1.5;
-      padding: 10px; }
-  #party #party-players #add-player {
-    margin-top: 50px; }
+#party #party-players .player {
+  padding: 15px; }
+  #party #party-players .player h5 {
+    margin: 0; }
+  #party #party-players .player .player-edit {
+    cursor: pointer;
+    float: right;
+    font-size: 1.8rem;
+    line-height: 1.5;
+    padding: 10px; }
+
+#party #party-players #add-player {
+  margin-top: 50px; }
 
 #party #party-log {
-  margin-bottom: 50px; }
+  height: 400px;
+  overflow-y: auto;
+  border: 1px solid #333;
+  padding: 15px; }
+
+#party #party-chat {
+  margin-top: 50px; }
+  #party #party-chat #player-chat-form textarea {
+    border: 1px solid #333;
+    font-size: 1.4rem;
+    padding: 2px 5px;
+    resize: none; }
+  #party #party-chat #player-chat-form #submit-chat {
+    margin: 10px 0;
+    float: right; }
+  #party #party-chat .chat-panel {
+    background-color: #ddd;
+    border: 1px solid #333;
+    border-top: 0;
+    height: 300px;
+    overflow-y: scroll;
+    padding: 15px 0; }
+    #party #party-chat .chat-panel .chat-message {
+      border: 1px solid #333;
+      clear: both;
+      padding: 10px;
+      margin: 10px; }
+    #party #party-chat .chat-panel .chat-info {
+      font-size: 1rem;
+      display: block; }
+    #party #party-chat .chat-panel .your-chat {
+      background-color: #fefefe;
+      float: left; }
+    #party #party-chat .chat-panel .other-chat {
+      background-color: #f1f1f1;
+      float: right; }
+      #party #party-chat .chat-panel .other-chat .chat-info {
+        text-align: right; }
 
 #add-player-modal #add-player-search-target {
   max-height: 200px;

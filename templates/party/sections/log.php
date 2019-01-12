@@ -1,8 +1,8 @@
-<div id="party-log" class="col-12">
+<div class="col-12 col-md-8">
 	<h2>Party Log</h2>
 	
 	<?php 
-	echo '<div id="player-log">
+	echo '<div id="party-log">
 			'.$PARTY->getProp('log').'
 		</div>';
 
@@ -20,7 +20,7 @@
 			setInterval(function(){ 
 				$.get( BASE_DIR+"rest/party/get-log", {party_id:party_id}, function( data ) {
 					if(oldData !== data){
-						$( '#player-log' ).html(data);
+						$( '#party-log' ).html(data);
 						oldData = data;
 					}
 				});
@@ -30,10 +30,9 @@
 		<script src="/js/ckeditor.11.2.0.js" ></script>
 		<script>
 			ClassicEditor
-			.create( document.querySelector( '#player-log' ),{
+			.create( document.querySelector( '#party-log' ),{
 				autosave: {
 					save( editor ) {
-						console.log('Saving');
 
 						$.post( BASE_DIR+"rest/party/log", {party_id:party_id , party_log:editor.getData()}, function( result ) {
 							//console.log(result);

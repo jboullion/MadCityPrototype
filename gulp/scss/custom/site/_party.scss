@@ -1,5 +1,5 @@
 #party 								{
-	#party-players 					{ margin-bottom: 50px;
+	#party-players 					{ 
 
 		.player 					{ padding: 15px;
 			h5 						{ margin: 0; }
@@ -10,8 +10,30 @@
 		#add-player 				{ margin-top: 50px; }
 	}
 
-	#party-log 						{ margin-bottom: 50px;
+	#party-log 						{ height: 400px; overflow-y: auto; border: 1px solid $border-color; padding: 15px;
+		figure 						{
+			img 					{  }
+			figcaption 				{  }
+		}
+	}
 
+	#party-chat 					{ margin-top: 50px;
+		#player-chat-form 			{ 
+			textarea 				{ border: 1px solid $border-color; font-size: 1.4rem; padding: 2px 5px; resize: none; }
+			#submit-chat 			{ margin: 10px 0; float: right; }
+		}
+
+		.chat-panel 				{ background-color: #ddd; border: 1px solid $border-color; border-top: 0; height: 300px; overflow-y: scroll; padding: 15px 0;
+			.chat-message  			{ border: 1px solid $border-color; clear: both; padding: 10px; margin: 10px; }
+			.chat-info 				{ font-size: 1rem; display: block; }
+
+			.your-chat 				{ background-color: #fefefe; float: left;
+				.chat-info 			{  }
+			}
+			.other-chat 			{ background-color: #f1f1f1; float: right;
+				.chat-info 			{ text-align: right; }
+			}
+		}
 	}
 }
 

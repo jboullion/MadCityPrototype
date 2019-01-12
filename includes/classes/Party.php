@@ -149,15 +149,24 @@ class Party {
 			$controls .= '<div class="remove-player player-edit" data-id="'.$player['user_id'].'" data-email="'.$player['user_email'].'" ><i class="far fa-user-minus"></i></div>';
 		}
 
+		//View Character
 		if(! empty($player['character_id'])){
 			//Some users have not selected the character to use for this party
 			$controls .= '<a href="/character/view/?id='.$player['character_id'].'" class="view-player player-edit d-print-none" data-id="'.$player['character_id'].'"><i class="far fa-eye"></i></a>';
 		}
 
+		// Who is the user
+		$whoami = '';
+		if($_SESSION['user_id'] === $player['user_id'] ){
+			$whoami = '<i class="far fa-crown"></i> ';
+		}
+
+		$player_name = $player['user_id'] !== $this->dm_id?$player['character_name']:'<span style="color: #8c0007;">Game Master</span>';
+
 		echo '<div href="#" id="player-'.$player['user_id'].'" class="player list-group-item list-group-item-action">
 				<div class="w-100">
 					'.$controls.'
-					<h5 class="mb-1">'.($player['user_id'] !== $this->dm_id?$player['character_name']:'<span style="color: #8c0007;">Game Master</span>').'</h5>
+					<h5 class="mb-1">'.$whoami.$player_name.'</h5>
 					<small>'.$player['user_name'].'</small>
 				</div>
 			</div>';

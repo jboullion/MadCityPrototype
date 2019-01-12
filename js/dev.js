@@ -218,6 +218,7 @@ jQuery(document).ready(function($){
 
 	// menu toggle
 	$toggle.click(function(e){
+		console.log('click menu');
 		$menu.toggleClass('open');
 		$shade.toggleClass('open');
 	});
@@ -840,7 +841,6 @@ jQuery(document).ready(function($){
 
 	// OPEN Edit Party modal
 	$body.on('click','.edit-party', function(e){
-		console.log('Edit Party');
 		e.preventDefault();
 		e.stopPropagation();
 
@@ -1069,8 +1069,6 @@ function addPlayer(element){
 			//reset form and close form on success
 			//resetForm($addPlayerForm);
 
-			console.log(result.user);
-
 			var newPlayer = JBTemplateEngine(playerTemplate, {
 				party_id: party_id,
 				user_id: result.player.user_id,
@@ -1079,8 +1077,6 @@ function addPlayer(element){
 				character_id: result.player.character_id,
 				character_name: result.player.character_name
 			});
-
-			console.log(newPlayer);
 
 			$playerList.append(newPlayer);
 			$button.parents('.list-group-item').fadeOut(ANIMATION_DURATION, function() {

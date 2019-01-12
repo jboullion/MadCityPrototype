@@ -102,9 +102,28 @@ blockquote 					{ background: #f1f1f1; border-left: 10px solid $upgrayddd; margi
 .table th,
 .table td 					{ padding: 0.75rem; vertical-align: top; border-bottom: 1px solid $border-color; }
 
-.table thead th 			{ border-top: 0; border-bottom: 2px solid $border-color; }
+.table thead th 			{ border-top: 0; border-bottom: 1px solid $border-color; }
 
-.list-group-item 			{ border: 1px solid #333; }
+.list-group-item 			{ border: 1px solid $border-color; }
+
+figure 						{ margin-bottom: 2rem; }
+
+.tab-content 				{ padding: 20px 0; }
+
+.nav-tabs 					{ border-bottom: 1px solid $border-color;
+	.nav-item 				{ margin-bottom: -1px; }
+
+	.nav-link 				{
+		&:hover, 
+		&:focus 			{ border-color: $border-color $border-color transparent; }
+
+		&.active, 
+		&.show .nav-link { color: $text-color; border: 1px solid transparent; border-color: $border-color $border-color #fff; }
+	}
+
+}
+
+
 
 /**
  * FOOTER
