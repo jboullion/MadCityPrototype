@@ -18,7 +18,7 @@
 			//TODO: This isn't great, but should be fine when we move to react
 			var oldData = '';
 			setInterval(function(){ 
-				$.get( BASE_DIR+"rest/party/get-log", {party_id:party_id}, function( data ) {
+				$.get( BASE_DIR+"api/party/get-log", {party_id:party_id}, function( data ) {
 					if(oldData !== data){
 						$( '#party-log' ).html(data);
 						oldData = data;
@@ -34,7 +34,7 @@
 				autosave: {
 					save( editor ) {
 
-						$.post( BASE_DIR+"rest/party/log", {party_id:party_id , party_log:editor.getData()}, function( result ) {
+						$.post( BASE_DIR+"api/party/log", {party_id:party_id , party_log:editor.getData()}, function( result ) {
 							//console.log(result);
 						}, 'json');
 					}

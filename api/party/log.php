@@ -12,7 +12,6 @@ if(empty($_POST) || empty($_SESSION['user_id']) || empty($_POST['party_log']) ) 
 	echo json_encode(array('error' => 'Info Missing'));
 }
 
-// Update password if not blank
 try {
 	$update = 
 	"UPDATE `parties` 

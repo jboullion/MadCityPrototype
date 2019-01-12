@@ -3,6 +3,7 @@
  */
 jQuery(document).ready(function($){
 
+	//Setup all element targets early so we don't have to re scan the document for it
 	$body = $('body');
 	$partyList = $('#party-list-target');
 
@@ -27,14 +28,16 @@ jQuery(document).ready(function($){
 	$addPlayerSearch = $('#add-player-search');
 	$addPlayerSearchTarget = $('#add-player-search-target');
 
-
 	$removePlayerModal = $('#remove-player-modal');
 	$removePlayerForm = $('#remove-player-form');
 	$removePlayerID = $('#remove-player-id');
 
+	$playerChatForm = $('.player-chat-form');
+
 	partyTemplate = $('#party-template').html();
 	playerTemplate = $('#player-template').html();
 	playerSearchTemplate = $('#player-search-template').html();
+	chatTemplate = $('#chat-template').html();
 
 
 	// OPEN Create Party modal
@@ -95,7 +98,7 @@ jQuery(document).ready(function($){
 		//prevent double submission
 		$buttons.prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/party/create", dataPost, function( result ) {
+		$.post( BASE_DIR+"api/party/create", dataPost, function( result ) {
 
 			if(result.success != null){
 				//reset form and close form on success
@@ -132,7 +135,7 @@ jQuery(document).ready(function($){
 		//prevent double submission
 		$buttons.prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/party/edit", dataPost, function( result ) {
+		$.post( BASE_DIR+"api/party/edit", dataPost, function( result ) {
 
 			if(result.success != null){
 				//reset form and close form on success
@@ -171,7 +174,7 @@ jQuery(document).ready(function($){
 		var $buttons = $editEquipmentForm.find('button');
 		$buttons.prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/party/delete", {party_id: party_id, user_id: dataObject.user_id, party_password: dataObject.party_password}, function( result ) {
+		$.post( BASE_DIR+"api/party/delete", {party_id: party_id, user_id: dataObject.user_id, party_password: dataObject.party_password}, function( result ) {
 
 			if(result.success != null){
 				//reset form and close form on success
@@ -197,7 +200,7 @@ jQuery(document).ready(function($){
 
 			var dataPost = $addPlayerForm.serializeArray();
 
-			$.get( BASE_DIR+"rest/party/search", dataPost, function( result ) {
+			$.get( BASE_DIR+"api/party/search", dataPost, function( result ) {
 
 				$addPlayerSearchTarget.html('');
 
@@ -227,10 +230,10 @@ jQuery(document).ready(function($){
 		}
 	}, 250);
 
+	// SEARCH
 	$addPlayerSearch.keyup(function(e){
 		searchPlayer($(this).val());
 	});
-	
 
 	// REMOVE Player
 	$removePlayerForm.submit(function(e){
@@ -243,7 +246,7 @@ jQuery(document).ready(function($){
 		//prevent double submission
 		$buttons.prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/party/remove", dataPost, function( result ) {
+		$.post( BASE_DIR+"api/party/remove", dataPost, function( result ) {
 
 			if(result.success != null){
 				//reset form and close form on success
@@ -262,6 +265,37 @@ jQuery(document).ready(function($){
 			$buttons.prop('disabled', false);
 		});;
 	});
+
+
+	// SEND chat message
+	$playerChatForm.submit(function(e){
+		e.preventDefault();
+
+		var dataPost = $(this).serializeArray();
+		var dataObject = $(this).serializeObject();
+
+		//prevent double submission
+		$buttons.prop('disabled', true);
+
+		$.post( BASE_DIR+"api/party/send-chat", dataPost, function( result ) {
+
+			if(result.success != null){
+				//reset form and close form on success
+				$playerChatForm.val();
+
+				var newChat = JBTemplateEngine(chatTemplate, {
+					timestamp: moment().calendar(), // https://momentjs.com/
+					content: dataObject.player_chat,
+				});
+
+				$('.chat-panel').append(newChat);
+			}else if(result.error != null){
+				//inform the user on failure
+				alert('Error: '+result.error);
+			}
+
+		}, 'json');
+	});
 });
 
 $playerList = $('#player-list-target');
@@ -272,13 +306,12 @@ function addPlayer(element){
 	var user_id = $button.data('user');
 	var party_id = $('#add-player-party-id').val();
 
-
 	//prevent double submission
 	$button.prop('disabled', true);
 
-	$.post( BASE_DIR+"rest/party/add", {party_id:party_id, character_id:character_id, user_id:user_id}, function( result ) {
+	$.post( BASE_DIR+"api/party/add", { party_id:party_id, character_id:character_id, user_id:user_id }, function( result ) {
 
-		if(result.success != null){
+		if(result.success != null) {
 			//reset form and close form on success
 			//resetForm($addPlayerForm);
 
@@ -296,7 +329,7 @@ function addPlayer(element){
 				// Animation complete.
 				$(this).remove();
 			});
-		}else if(result.error != null){
+		}else if(result.error != null) {
 			//inform the user on failure
 			alert('Error: '+result.error);
 			$button.prop('disabled', false);

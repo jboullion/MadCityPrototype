@@ -33,7 +33,7 @@ jQuery(document).ready(function($){
 		//prevent double submission
 		$buttons.prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/character/create", dataPost, function( result ) {
+		$.post( BASE_DIR+"api/character/create", dataPost, function( result ) {
 
 			if(result.success != null){
 				//reset form and close form on success

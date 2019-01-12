@@ -11278,20 +11278,22 @@ blockquote {
 figure {
   margin-bottom: 2rem; }
 
-.tab-content {
-  padding: 20px 0; }
-
 .nav-tabs {
   border-bottom: 1px solid #333; }
   .nav-tabs .nav-item {
-    margin-bottom: -1px; }
-  .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
-    border-color: #333 #333 transparent; }
-  .nav-tabs .nav-link.active,
-  .nav-tabs .nav-link.show .nav-link {
-    color: #333;
-    border: 1px solid transparent;
-    border-color: #333 #333 #fff; }
+    margin-bottom: -1px;
+    border: 1px solid transparent; }
+    .nav-tabs .nav-item:hover, .nav-tabs .nav-item:focus {
+      border: 1px solid transparent;
+      border-bottom: 0;
+      border-color: #999 #999 #fff; }
+    .nav-tabs .nav-item.active {
+      color: #333;
+      border: 1px solid transparent;
+      border-color: #333 #333 #fff; }
+  .nav-tabs .nav-link {
+    border: 0;
+    font-weight: bold; }
 
 /**
  * FOOTER
@@ -11722,36 +11724,36 @@ p {
 
 #party #party-chat {
   margin-top: 50px; }
-  #party #party-chat #player-chat-form textarea {
+  #party #party-chat .player-chat-form textarea {
     border: 1px solid #333;
     font-size: 1.4rem;
     padding: 2px 5px;
-    resize: none; }
-  #party #party-chat #player-chat-form #submit-chat {
+    resize: none;
+    width: 100%; }
+  #party #party-chat .player-chat-form .submit-chat {
     margin: 10px 0;
     float: right; }
-  #party #party-chat .chat-panel {
-    background-color: #ddd;
+  #party #party-chat .chat-wrapper {
     border: 1px solid #333;
     border-top: 0;
     height: 300px;
     overflow-y: scroll;
     padding: 15px 0; }
-    #party #party-chat .chat-panel .chat-message {
+    #party #party-chat .chat-wrapper .chat-message {
       border: 1px solid #333;
       clear: both;
       padding: 10px;
       margin: 10px; }
-    #party #party-chat .chat-panel .chat-info {
+    #party #party-chat .chat-wrapper .chat-info {
       font-size: 1rem;
       display: block; }
-    #party #party-chat .chat-panel .your-chat {
+    #party #party-chat .chat-wrapper .send-chat {
       background-color: #fefefe;
-      float: left; }
-    #party #party-chat .chat-panel .other-chat {
-      background-color: #f1f1f1;
       float: right; }
-      #party #party-chat .chat-panel .other-chat .chat-info {
+    #party #party-chat .chat-wrapper .receive-chat {
+      background-color: #f1f1f1;
+      float: left; }
+      #party #party-chat .chat-wrapper .receive-chat .chat-info {
         text-align: right; }
 
 #add-player-modal #add-player-search-target {

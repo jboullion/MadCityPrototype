@@ -46,9 +46,18 @@ class Party {
 				$players = $stmt->fetchAll();
 
 				if(! empty($players)){
-					$this->players = $players;
+					foreach($players as $player){
+						if(empty($player['character_id'])){
+							$player['character_id'] = 0;
+							$player['character_name'] = 'Game Master';
+							$player['character_img'] = '';
+						}
+
+						$this->players[] = $player;
+					}
+					
 				}
-				
+
 			}catch(PDOException $e){
 				error_log($e->getMessage(), 0);
 			}
@@ -150,7 +159,7 @@ class Party {
 		}
 
 		//View Character
-		if(! empty($player['character_id'])){
+		if(! empty($player['character_id']) ){
 			//Some users have not selected the character to use for this party
 			$controls .= '<a href="/character/view/?id='.$player['character_id'].'" class="view-player player-edit d-print-none" data-id="'.$player['character_id'].'"><i class="far fa-eye"></i></a>';
 		}

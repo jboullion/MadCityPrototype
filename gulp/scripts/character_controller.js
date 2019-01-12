@@ -204,7 +204,7 @@ jQuery(document).ready(function($){
 
 		var data = $(this).serializeArray();
 
-		$.post( BASE_DIR+"rest/character/update", data, function( result ) {
+		$.post( BASE_DIR+"api/character/update", data, function( result ) {
 			//console.log(result);
 		}, 'json');
 
@@ -230,7 +230,7 @@ jQuery(document).ready(function($){
 		//prevent double submission
 		$buttons.prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/character/powers/add", dataPost, function( result ) {
+		$.post( BASE_DIR+"api/character/powers/add", dataPost, function( result ) {
 
 			if(result.success != null){
 				//reset form and close form on success
@@ -269,7 +269,7 @@ jQuery(document).ready(function($){
 		//prevent double submission
 		$buttons.prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/character/powers/edit", dataPost, function( result ) {
+		$.post( BASE_DIR+"api/character/powers/edit", dataPost, function( result ) {
 
 			if(result.success != null){
 				//reset form after animation completes
@@ -306,7 +306,7 @@ jQuery(document).ready(function($){
 		var $buttons = $editPowerForm.find('button');
 		$buttons.prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/character/powers/delete", {delete_key:deleteKey, user_id: dataObject.user_id, character_id: dataObject.character_id}, function( result ) {
+		$.post( BASE_DIR+"api/character/powers/delete", {delete_key:deleteKey, user_id: dataObject.user_id, character_id: dataObject.character_id}, function( result ) {
 
 			if(result.success != null){
 				resetForm($editPowerForm);
@@ -338,7 +338,7 @@ jQuery(document).ready(function($){
 		//prevent double submission
 		$buttons.prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/character/equipment/add", dataPost, function( result ) {
+		$.post( BASE_DIR+"api/character/equipment/add", dataPost, function( result ) {
 
 			if(result.success != null){
 				//reset form after animation completes
@@ -377,7 +377,7 @@ jQuery(document).ready(function($){
 		//prevent double submission
 		$buttons.prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/character/equipment/edit", dataPost, function( result ) {
+		$.post( BASE_DIR+"api/character/equipment/edit", dataPost, function( result ) {
 
 			if(result.success != null){
 				//TODO: This is where React is going to be amazing. Now I have to do so bullshit to update the table, but React would do that automagically
@@ -416,7 +416,7 @@ jQuery(document).ready(function($){
 		var $buttons = $editEquipmentForm.find('button');
 		$buttons.prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/character/equipment/delete", {delete_key:deleteKey, user_id: dataObject.user_id, character_id: dataObject.character_id}, function( result ) {
+		$.post( BASE_DIR+"api/character/equipment/delete", {delete_key:deleteKey, user_id: dataObject.user_id, character_id: dataObject.character_id}, function( result ) {
 
 			if(result.success != null){
 				//reset form and close form on success
@@ -448,7 +448,7 @@ jQuery(document).ready(function($){
 		//prevent double submission
 		$buttons.prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/character/delete", dataPost, function( result ) {
+		$.post( BASE_DIR+"api/character/delete", dataPost, function( result ) {
 
 			if(result.success != null){
 				//reset form and close form on success

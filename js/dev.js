@@ -218,7 +218,6 @@ jQuery(document).ready(function($){
 
 	// menu toggle
 	$toggle.click(function(e){
-		console.log('click menu');
 		$menu.toggleClass('open');
 		$shade.toggleClass('open');
 	});
@@ -460,7 +459,7 @@ jQuery(document).ready(function($){
 
 		var data = $(this).serializeArray();
 
-		$.post( BASE_DIR+"rest/character/update", data, function( result ) {
+		$.post( BASE_DIR+"api/character/update", data, function( result ) {
 			//console.log(result);
 		}, 'json');
 
@@ -486,7 +485,7 @@ jQuery(document).ready(function($){
 		//prevent double submission
 		$buttons.prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/character/powers/add", dataPost, function( result ) {
+		$.post( BASE_DIR+"api/character/powers/add", dataPost, function( result ) {
 
 			if(result.success != null){
 				//reset form and close form on success
@@ -525,7 +524,7 @@ jQuery(document).ready(function($){
 		//prevent double submission
 		$buttons.prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/character/powers/edit", dataPost, function( result ) {
+		$.post( BASE_DIR+"api/character/powers/edit", dataPost, function( result ) {
 
 			if(result.success != null){
 				//reset form after animation completes
@@ -562,7 +561,7 @@ jQuery(document).ready(function($){
 		var $buttons = $editPowerForm.find('button');
 		$buttons.prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/character/powers/delete", {delete_key:deleteKey, user_id: dataObject.user_id, character_id: dataObject.character_id}, function( result ) {
+		$.post( BASE_DIR+"api/character/powers/delete", {delete_key:deleteKey, user_id: dataObject.user_id, character_id: dataObject.character_id}, function( result ) {
 
 			if(result.success != null){
 				resetForm($editPowerForm);
@@ -594,7 +593,7 @@ jQuery(document).ready(function($){
 		//prevent double submission
 		$buttons.prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/character/equipment/add", dataPost, function( result ) {
+		$.post( BASE_DIR+"api/character/equipment/add", dataPost, function( result ) {
 
 			if(result.success != null){
 				//reset form after animation completes
@@ -633,7 +632,7 @@ jQuery(document).ready(function($){
 		//prevent double submission
 		$buttons.prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/character/equipment/edit", dataPost, function( result ) {
+		$.post( BASE_DIR+"api/character/equipment/edit", dataPost, function( result ) {
 
 			if(result.success != null){
 				//TODO: This is where React is going to be amazing. Now I have to do so bullshit to update the table, but React would do that automagically
@@ -672,7 +671,7 @@ jQuery(document).ready(function($){
 		var $buttons = $editEquipmentForm.find('button');
 		$buttons.prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/character/equipment/delete", {delete_key:deleteKey, user_id: dataObject.user_id, character_id: dataObject.character_id}, function( result ) {
+		$.post( BASE_DIR+"api/character/equipment/delete", {delete_key:deleteKey, user_id: dataObject.user_id, character_id: dataObject.character_id}, function( result ) {
 
 			if(result.success != null){
 				//reset form and close form on success
@@ -704,7 +703,7 @@ jQuery(document).ready(function($){
 		//prevent double submission
 		$buttons.prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/character/delete", dataPost, function( result ) {
+		$.post( BASE_DIR+"api/character/delete", dataPost, function( result ) {
 
 			if(result.success != null){
 				//reset form and close form on success
@@ -761,7 +760,7 @@ jQuery(document).ready(function($){
 		//prevent double submission
 		$buttons.prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/character/create", dataPost, function( result ) {
+		$.post( BASE_DIR+"api/character/create", dataPost, function( result ) {
 
 			if(result.success != null){
 				//reset form and close form on success
@@ -790,6 +789,7 @@ jQuery(document).ready(function($){
  */
 jQuery(document).ready(function($){
 
+	//Setup all element targets early so we don't have to re scan the document for it
 	$body = $('body');
 	$partyList = $('#party-list-target');
 
@@ -814,14 +814,16 @@ jQuery(document).ready(function($){
 	$addPlayerSearch = $('#add-player-search');
 	$addPlayerSearchTarget = $('#add-player-search-target');
 
-
 	$removePlayerModal = $('#remove-player-modal');
 	$removePlayerForm = $('#remove-player-form');
 	$removePlayerID = $('#remove-player-id');
 
+	$playerChatForm = $('.player-chat-form');
+
 	partyTemplate = $('#party-template').html();
 	playerTemplate = $('#player-template').html();
 	playerSearchTemplate = $('#player-search-template').html();
+	chatTemplate = $('#chat-template').html();
 
 
 	// OPEN Create Party modal
@@ -882,7 +884,7 @@ jQuery(document).ready(function($){
 		//prevent double submission
 		$buttons.prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/party/create", dataPost, function( result ) {
+		$.post( BASE_DIR+"api/party/create", dataPost, function( result ) {
 
 			if(result.success != null){
 				//reset form and close form on success
@@ -919,7 +921,7 @@ jQuery(document).ready(function($){
 		//prevent double submission
 		$buttons.prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/party/edit", dataPost, function( result ) {
+		$.post( BASE_DIR+"api/party/edit", dataPost, function( result ) {
 
 			if(result.success != null){
 				//reset form and close form on success
@@ -958,7 +960,7 @@ jQuery(document).ready(function($){
 		var $buttons = $editEquipmentForm.find('button');
 		$buttons.prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/party/delete", {party_id: party_id, user_id: dataObject.user_id, party_password: dataObject.party_password}, function( result ) {
+		$.post( BASE_DIR+"api/party/delete", {party_id: party_id, user_id: dataObject.user_id, party_password: dataObject.party_password}, function( result ) {
 
 			if(result.success != null){
 				//reset form and close form on success
@@ -984,7 +986,7 @@ jQuery(document).ready(function($){
 
 			var dataPost = $addPlayerForm.serializeArray();
 
-			$.get( BASE_DIR+"rest/party/search", dataPost, function( result ) {
+			$.get( BASE_DIR+"api/party/search", dataPost, function( result ) {
 
 				$addPlayerSearchTarget.html('');
 
@@ -1014,10 +1016,10 @@ jQuery(document).ready(function($){
 		}
 	}, 250);
 
+	// SEARCH
 	$addPlayerSearch.keyup(function(e){
 		searchPlayer($(this).val());
 	});
-	
 
 	// REMOVE Player
 	$removePlayerForm.submit(function(e){
@@ -1030,7 +1032,7 @@ jQuery(document).ready(function($){
 		//prevent double submission
 		$buttons.prop('disabled', true);
 
-		$.post( BASE_DIR+"rest/party/remove", dataPost, function( result ) {
+		$.post( BASE_DIR+"api/party/remove", dataPost, function( result ) {
 
 			if(result.success != null){
 				//reset form and close form on success
@@ -1049,6 +1051,37 @@ jQuery(document).ready(function($){
 			$buttons.prop('disabled', false);
 		});;
 	});
+
+
+	// SEND chat message
+	$playerChatForm.submit(function(e){
+		e.preventDefault();
+
+		var dataPost = $(this).serializeArray();
+		var dataObject = $(this).serializeObject();
+
+		//prevent double submission
+		$buttons.prop('disabled', true);
+
+		$.post( BASE_DIR+"api/party/send-chat", dataPost, function( result ) {
+
+			if(result.success != null){
+				//reset form and close form on success
+				$playerChatForm.val();
+
+				var newChat = JBTemplateEngine(chatTemplate, {
+					timestamp: moment().calendar(), // https://momentjs.com/
+					content: dataObject.player_chat,
+				});
+
+				$('.chat-panel').append(newChat);
+			}else if(result.error != null){
+				//inform the user on failure
+				alert('Error: '+result.error);
+			}
+
+		}, 'json');
+	});
 });
 
 $playerList = $('#player-list-target');
@@ -1059,13 +1092,12 @@ function addPlayer(element){
 	var user_id = $button.data('user');
 	var party_id = $('#add-player-party-id').val();
 
-
 	//prevent double submission
 	$button.prop('disabled', true);
 
-	$.post( BASE_DIR+"rest/party/add", {party_id:party_id, character_id:character_id, user_id:user_id}, function( result ) {
+	$.post( BASE_DIR+"api/party/add", { party_id:party_id, character_id:character_id, user_id:user_id }, function( result ) {
 
-		if(result.success != null){
+		if(result.success != null) {
 			//reset form and close form on success
 			//resetForm($addPlayerForm);
 
@@ -1083,7 +1115,7 @@ function addPlayer(element){
 				// Animation complete.
 				$(this).remove();
 			});
-		}else if(result.error != null){
+		}else if(result.error != null) {
 			//inform the user on failure
 			alert('Error: '+result.error);
 			$button.prop('disabled', false);
@@ -1207,7 +1239,7 @@ function jbDeleteSession(email){
 
 	if(email){
 		//disconnect from the server and then redirect to homepage
-		jQuery.post( BASE_DIR+"rest/user/logout", {email:email}, function( result ) {
+		jQuery.post( BASE_DIR+"api/user/logout", {email:email}, function( result ) {
 			if(result.success){
 				window.location.href = window.location.protocol+"//"+window.location.hostname;
 			}else{
@@ -1238,7 +1270,7 @@ function onLoad() {
  * @param jQueryElement $form the form sending the information that will also reciece the error notices
  */
 function jbUserFormSend(script, data, $form){
-	$.post( BASE_DIR+"rest/user/"+script, data, function( result ) {
+	$.post( BASE_DIR+"api/user/"+script, data, function( result ) {
 		if(result.success){
 
 			//redirect should occur on the server level, until we move to React

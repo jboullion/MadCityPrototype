@@ -45,15 +45,6 @@
 		}
 	?>
 
-	<!-- Set some early styles to hide various elements while the CSS loads -->
-	<style>
-		/*
-		.action-modal { background: rgba(0, 0, 0, 0); position: fixed; top: -20%; right: 0; bottom: 0px; left: 0; visibility: hidden; transition: all 0.2s; z-index: 99; }
-		#menu {  position: fixed; top: 0; right: 0; bottom: 0; transform: translate3d(100%, 0, 0); width: 280px; z-index: 100; }
-		#dice-result { visibility: hidden; opacity: 0; transition: opacity 0.2s, visibility 0.2s; background-color: white; position: fixed; left: 50%; bottom: 100px; font-size: 6rem; }
-		*/
-	</style>
-
 	<!-- jQuery 3 ( we don't want to have to reach out to an outside site When using service workers )
 	<script
 		src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -63,9 +54,6 @@
 		
 	<script src="/js/jquery-3.3.1.min.js" ></script>
 
-<!--
-	<script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
--->
 
 	<!-- Google APIs -->
 	<!-- https://developers.google.com/identity/sign-in/web/sign-in -->

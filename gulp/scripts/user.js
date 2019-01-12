@@ -65,7 +65,7 @@ function jbDeleteSession(email){
 
 	if(email){
 		//disconnect from the server and then redirect to homepage
-		jQuery.post( BASE_DIR+"rest/user/logout", {email:email}, function( result ) {
+		jQuery.post( BASE_DIR+"api/user/logout", {email:email}, function( result ) {
 			if(result.success){
 				window.location.href = window.location.protocol+"//"+window.location.hostname;
 			}else{
@@ -96,7 +96,7 @@ function onLoad() {
  * @param jQueryElement $form the form sending the information that will also reciece the error notices
  */
 function jbUserFormSend(script, data, $form){
-	$.post( BASE_DIR+"rest/user/"+script, data, function( result ) {
+	$.post( BASE_DIR+"api/user/"+script, data, function( result ) {
 		if(result.success){
 
 			//redirect should occur on the server level, until we move to React

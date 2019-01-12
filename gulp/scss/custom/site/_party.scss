@@ -18,19 +18,19 @@
 	}
 
 	#party-chat 					{ margin-top: 50px;
-		#player-chat-form 			{ 
-			textarea 				{ border: 1px solid $border-color; font-size: 1.4rem; padding: 2px 5px; resize: none; }
-			#submit-chat 			{ margin: 10px 0; float: right; }
+		.player-chat-form 			{ 
+			textarea 				{ border: 1px solid $border-color; font-size: 1.4rem; padding: 2px 5px; resize: none; width: 100%; }
+			.submit-chat 			{ margin: 10px 0; float: right; }
 		}
 
-		.chat-panel 				{ background-color: #ddd; border: 1px solid $border-color; border-top: 0; height: 300px; overflow-y: scroll; padding: 15px 0;
+		.chat-wrapper 				{ border: 1px solid $border-color; border-top: 0; height: 300px; overflow-y: scroll; padding: 15px 0;
 			.chat-message  			{ border: 1px solid $border-color; clear: both; padding: 10px; margin: 10px; }
 			.chat-info 				{ font-size: 1rem; display: block; }
 
-			.your-chat 				{ background-color: #fefefe; float: left;
+			.send-chat 				{ background-color: #fefefe; float: right;
 				.chat-info 			{  }
 			}
-			.other-chat 			{ background-color: #f1f1f1; float: right;
+			.receive-chat 			{ background-color: #f1f1f1; float: left;
 				.chat-info 			{ text-align: right; }
 			}
 		}

@@ -108,17 +108,19 @@ blockquote 					{ background: #f1f1f1; border-left: 10px solid $upgrayddd; margi
 
 figure 						{ margin-bottom: 2rem; }
 
-.tab-content 				{ padding: 20px 0; }
+.tab-content 				{ }
 
 .nav-tabs 					{ border-bottom: 1px solid $border-color;
-	.nav-item 				{ margin-bottom: -1px; }
-
-	.nav-link 				{
+	.nav-item 				{ margin-bottom: -1px; border: 1px solid transparent;
 		&:hover, 
-		&:focus 			{ border-color: $border-color $border-color transparent; }
+		&:focus 			{ border: 1px solid transparent; border-bottom: 0; border-color: #999 #999 #fff; }
 
-		&.active, 
-		&.show .nav-link { color: $text-color; border: 1px solid transparent; border-color: $border-color $border-color #fff; }
+		&.active 			{ color: $text-color; border: 1px solid transparent; border-color: $border-color $border-color #fff; }
+	}
+
+	.nav-link 				{ border: 0; font-weight: bold;
+		&:hover, 
+		&:focus 			{  }
 	}
 
 }
