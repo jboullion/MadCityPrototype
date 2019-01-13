@@ -146,6 +146,23 @@ class Party {
 	}
 
 	/**
+	 * Get the Character Name of a member in this party by their user name
+	 */
+	function getCharacterNameByUserID($user_id){
+		if($user_id === $this->dm_id){
+			return 'Game Master';
+		}
+
+		if(! empty($this->players)){
+			foreach($this->players as $player){
+				if($player['user_id'] === $user_id){
+					return $player['character_name'];
+				}
+			}
+		}
+	}
+
+	/**
 	 * Display a single player
 	 * 
 	 * @param array $player Player array from the database

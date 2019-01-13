@@ -11,7 +11,6 @@
 	 * https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/installing-plugins.html
 	 * https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/frameworks/react.html
 	 */
-	echo '<script>var party_id = '.$PARTY->party_id.';</script>';
 	if($PARTY->dm_id !== $_SESSION['user_id']):
 	?>
 		<script>

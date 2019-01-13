@@ -117,7 +117,7 @@ jQuery(document).ready(function($){
 				$partyList.append(newparty);
 			}else if(result.error != null){
 				//inform the user on failure
-				alert('Error: '+result.error);
+				console.log('Error: '+result.error);
 			}
 
 		}, 'json').done(function() {
@@ -154,7 +154,7 @@ jQuery(document).ready(function($){
 				$('#party-'+result.party.party_id).replaceWith(updatedParty);
 			}else if(result.error != null){
 				//inform the user on failure
-				alert('Error: '+result.error);
+				console.log('Error: '+result.error);
 			}
 
 		}, 'json').done(function() {
@@ -186,7 +186,7 @@ jQuery(document).ready(function($){
 
 			}else if(result.error != null){
 				//inform the user on failure
-				alert('Error: '+result.error);
+				console.log('Error: '+result.error);
 			}
 
 		}, 'json').done(function() {
@@ -222,7 +222,7 @@ jQuery(document).ready(function($){
 
 				}else if(result.error != null){
 					//inform the user on failure
-					//alert('Error: '+result.error);
+					//console.log('Error: '+result.error);
 					htmlResult = '<li class="list-group-item">'+result.error+'</li>';
 					$addPlayerSearchTarget.html(htmlResult);
 				}
@@ -260,7 +260,7 @@ jQuery(document).ready(function($){
 				});
 			}else if(result.error != null){
 				//inform the user on failure
-				alert('Error: '+result.error);
+				console.log('Error: '+result.error);
 			}
 
 		}, 'json').done(function() {
@@ -286,7 +286,7 @@ jQuery(document).ready(function($){
 	});
 
 	//SCROLL the party chat to bottom
-	mcScrollDown($('#chat-party'));
+	mcScrollDown($('#chat-0'));
 
 	$playerChat.keydown(function(e){
 		if(e.keyCode == 13){
@@ -305,7 +305,10 @@ jQuery(document).ready(function($){
 		//need to actually have a message to send!
 		if(! dataObject.player_chat) return false;
 
-		var $chatWindow = $('#chat-player-'+dataObject.receive_id+' .chat-wrapper');
+		console.log('#chat-'+dataObject.send_id+' .chat-wrapper');
+
+		var $chatWindow = $('#chat-'+dataObject.receive_id+' .chat-wrapper');
+		console.log($chatWindow);
 		$.post( BASE_DIR+"api/party/send-chat", dataPost, function( result ) {
 
 			if(result.success != null){
@@ -324,7 +327,7 @@ jQuery(document).ready(function($){
 
 			}else if(result.error != null){
 				//inform the user on failure
-				alert('Error: '+result.error);
+				console.log('Error: '+result.error);
 			}
 
 		}, 'json');
@@ -371,7 +374,7 @@ function addPlayer(element){
 			});
 		}else if(result.error != null) {
 			//inform the user on failure
-			alert('Error: '+result.error);
+			console.log('Error: '+result.error);
 			$button.prop('disabled', false);
 		}else{
 			$button.prop('disabled', true);
@@ -386,5 +389,6 @@ function addPlayer(element){
  * @param jQuery $element jQuery element to scroll
  */
 function mcScrollDown($element){
+
 	$element.find('.chat-wrapper').scrollTop( $element.find('.chat-wrapper')[0].scrollHeight );
 }

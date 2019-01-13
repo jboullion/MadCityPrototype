@@ -5,8 +5,10 @@ if( ! empty($_GET['id']) && is_numeric($_GET['id']) && ! empty($_SESSION['user_i
 	die('No Party Found');
 }
 
-//mc_print($PARTY);
+
+echo '<script>var BASE_DIR = "/"; var party_id = '.$PARTY->party_id.'; var user_id = '.$_SESSION['user_id'].';</script>'; 
 ?>
+
 <div id="party">
 	<?php $PARTY->displayNames(); ?>
 
