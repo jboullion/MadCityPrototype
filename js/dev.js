@@ -821,6 +821,8 @@ jQuery(document).ready(function($){
 	$playerChat = $('.player-chat');
 	$playerChatForm = $('.player-chat-form');
 	$chatNavLinks = $('#chat-nav a');
+	$chatWindows = $('.chat-wrapper');
+	
 	
 	partyTemplate = $('#party-template').html();
 	playerTemplate = $('#player-template').html();
@@ -1053,12 +1055,23 @@ jQuery(document).ready(function($){
 			$buttons.prop('disabled', false);
 		});;
 	});
+	
+	var CHAT_UPDATE = 2000;
+	var chatInterval = setInterval(function(){
+		getChat(user_id, 0);
+	}, CHAT_UPDATE);
 
 	//	TOGGLE Chat windows
 	$chatNavLinks.click(function(e){
 		e.preventDefault();
 		var target = $(this).attr('href');
 		var $target = $(target);
+		var receive_id = $(this).data('id');
+		clearInterval(chatInterval);
+
+		chatInterval = setInterval(function(){
+			getChat(user_id, receive_id);
+		}, CHAT_UPDATE);
 
 		//We are not using any built in Bootstrap JS
 		$('.nav-item.active').removeClass('active');
@@ -1066,6 +1079,7 @@ jQuery(document).ready(function($){
 		$('.chat-panel .active').removeClass('active');
 		$target.addClass('active');
 
+		
 		//Force all windows to the bottom of the chat area when we look at them
 		mcScrollDown($target);
 		return false;
@@ -1080,6 +1094,21 @@ jQuery(document).ready(function($){
 		}
 	});
 
+	function getChat(send_id, receive_id){
+		var $chatWindow = $('#chat-'+receive_id);
+		$.get( BASE_DIR+"api/party/get-chat", {party_id:party_id, send_id:send_id, receive_id:receive_id}, function( result ) {
+
+			if(result.success != null){
+				console.log(result);
+
+				
+			}else if(result.error != null){
+				//inform the user on failure
+				console.log('Error: '+result.error);
+			}
+
+		}, 'json');
+	}
 
 	// SEND Chat message
 	$playerChatForm.submit(function(e){
@@ -1091,10 +1120,8 @@ jQuery(document).ready(function($){
 		//need to actually have a message to send!
 		if(! dataObject.player_chat) return false;
 
-		console.log('#chat-'+dataObject.send_id+' .chat-wrapper');
-
 		var $chatWindow = $('#chat-'+dataObject.receive_id+' .chat-wrapper');
-		console.log($chatWindow);
+		
 		$.post( BASE_DIR+"api/party/send-chat", dataPost, function( result ) {
 
 			if(result.success != null){

@@ -97,7 +97,7 @@
 					if($_SESSION['user_id'] === $player['user_id']) continue;
 
 					echo '<li class="nav-item">
-								<a class="nav-link" href="#chat-'.$player['user_id'].'">'.$player['character_name'].'</a>	
+								<a class="nav-link" href="#chat-'.$player['user_id'].'" data-id="'.$player['user_id'].'">'.$player['character_name'].'</a>	
 							</li>';
 				}
 			}
@@ -106,7 +106,7 @@
 
 	<div class="tab-content chat-panel">
 		<div id="chat-0" class="tab-pane active">
-			<div class="chat-wrapper">
+			<div class="chat-wrapper" data-id="0">
 				<?php mc_display_chat( $PARTY->party_id, $_SESSION['user_id'], 0); ?>
 			</div>
 			<form method="post" action="" class="player-chat-form">
@@ -128,7 +128,7 @@
 					if($_SESSION['user_id'] === $player['user_id']) continue;
 
 					echo '<div id="chat-'.$player['user_id'].'" class="tab-pane">
-						<div class="chat-wrapper">';
+						<div class="chat-wrapper"  data-id="'.$player['user_id'].'">';
 					
 					mc_display_chat( $PARTY->party_id, $_SESSION['user_id'], $player['user_id']);
 
@@ -155,29 +155,3 @@
 </script>
 <!-- Moment JS to help with timestamping. May move this to site footer -->
 <script src="/js/moment.min.js" ></script>
-
-<script>
-	//TODO: This isn't great, but should be fine when we move to react
-	var oldData = '';
-	setInterval(function(){ 
-		$.get( BASE_DIR+"api/party/get-chat", {party_id:party_id, user_id:user_id}, function( data ) {
-			if(data){
-				//updateChat(data);
-			}
-		});
-	}, 5000);
-
-	/*
-	function updateChat(data){
-		Object.keys(obj).forEach(function(key,index) {
-			$chatWindows = $('.chat-'+key+' .chat-wrapper');
-			// key: the name of the object key
-			// index: the ordinal position of the key within the object 
-		});
-		$chatWindows.each(function(i){
-			
-			$('#chat-party')
-		});
-	}
-	*/
-</script>
