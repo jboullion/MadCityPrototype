@@ -270,10 +270,10 @@ jQuery(document).ready(function($){
 		});;
 	});
 	
-	var CHAT_UPDATE = 2000;
-	var chatInterval = setInterval(function(){
-		getChat(user_id, 0);
-	}, CHAT_UPDATE);
+	// var CHAT_UPDATE = 2000;
+	// var chatInterval = setInterval(function(){
+	// 	getChat(user_id, 0);
+	// }, CHAT_UPDATE);
 
 	//	TOGGLE Chat windows
 	$chatNavLinks.click(function(e){

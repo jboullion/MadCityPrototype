@@ -26,21 +26,18 @@ try {
 			)
 		);
 	}else{
-		$select = "SELECT * FROM `chat` 
-				WHERE party_id = :party_id 
-					AND send_id = :send_id
-					AND receive_id = :receive_id";
+		//single chat
+		$select = "SELECT * FROM chat 
+					WHERE ( send_id = ? AND receive_id = ? )
+						OR ( receive_id = ? AND send_id = ? )
+						AND party_id = ?
+					ORDER BY timestamp ASC";
 
 		$stmt = $PDO->prepare($select);
 		$result = $stmt->execute( 
-			array(
-				'party_id' => $_GET['party_id'],
-				'send_id' => $_GET['send_id'],
-				'receive_id' => $_GET['receive_id']
-			)
+			array( $_GET['send_id'], $_GET['receive_id'], $_GET['send_id'], $_GET['receive_id'], $_GET['party_id']	)
 		);
 	}
-	
 
 	$chat = $stmt->fetchAll();
 

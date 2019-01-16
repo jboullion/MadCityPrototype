@@ -1,87 +1,4 @@
-<?php 
-
-	/**
-	 * Display chat log between two users
-	 */
-	function mc_display_chat($party_id, $send_id, $receive_id){
-		global $PDO;
-
-		try{
-			//Could not get bind params to work on this query for some reason
-			if($receive_id !== 0){
-				$select = "SELECT * FROM chat 
-							WHERE ( send_id = ? AND receive_id = ? )
-								OR ( receive_id = ? AND send_id = ? )
-								AND party_id = ?
-							ORDER BY timestamp ASC";
-				
-				$stmt = $PDO->prepare($select);
-				$stmt->execute( 
-					array( $send_id, $receive_id, $send_id, $receive_id, $party_id	)
-				);
-
-			}else{
-				$select = "SELECT * FROM chat 
-							WHERE party_id = ? AND receive_id = 0 
-							ORDER BY timestamp ASC";
-
-				$stmt = $PDO->prepare($select);
-				$stmt->execute( 
-					array( $party_id )
-				);
-			}
-
-
-			$chat = $stmt->fetchAll();
-
-			if(! empty($chat)){
-				foreach($chat as $message){
-					mc_display_message($message);
-				}
-
-				echo '<div class="clearfix"></div>';
-			}
-
-		}catch(PDOException $e){
-			//error_log($e->getMessage(), 0);
-		}
-	}
-
-	/**
-	 * Display a single chat message. 
-	 * 
-	 * @param array $message an array of the message retrieved from the DB
-	 */
-	function mc_display_message($message = array()){
-
-		if(! empty($message['timestamp'])){
-			$timestamp = date( "F j, Y, g:i a", strtotime($message['timestamp']));
-
-			if($message['send_id'] === $_SESSION['user_id']){
-				//Sent message
-				$type = 'send';
-				$character_name = 'You';
-			}else{
-				$type = 'receive';
-				$character_name = $message['send_name'];
-			}
-
-			$content = $message['content'];
-		}else{
-			$timestamp = '<%timestamp%>';
-			$type = 'send';
-			$character_name = 'You';
-			$content = '<%content%>';
-		}
-
-		echo '<div class="chat-message '.$type.'-chat">
-					'.$content.'
-					<span class="chat-info">'.$character_name.' &bull; <span class="timestamp">'.$timestamp.'</span></span>
-				</div>';
-	}
-
-
-?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/chat-functions.php'); ?>
 <div id="party-chat" class="col-12">
 	<h2>Chat</h2>
 
@@ -114,7 +31,7 @@
 				<input type="hidden" class="party-id" name="party_id" value="<?php echo $PARTY->party_id; ?>" />
 				<input type="hidden" class="send-id" name="send_id" value="<?php echo $_SESSION['user_id']; ?>" />
 				<input type="hidden" class="receive-id" name="receive_id" value="0" />
-				<input type="hidden" class="send-name" name="send_name" value="<?php echo $_SESSION['user_id'] == $PARTY->dm_id?'Game Master':$PARTY->getCharacterNameByUserID($_SESSION['user_id']); ?>" />
+				<input type="hidden" id="send_name=" class="send-name" name="send_name" value="<?php echo $_SESSION['user_id'] == $PARTY->dm_id?'Game Master':$PARTY->getCharacterNameByUserID($_SESSION['user_id']); ?>" />
 				<input type="hidden" class="receive-name" name="receive_name" value="Party" />
 				<button type="submit" class="btn btn-primary submit-chat">Send</button>
 			</form>
@@ -155,3 +72,108 @@
 </script>
 <!-- Moment JS to help with timestamping. May move this to site footer -->
 <script src="/js/moment.min.js" ></script>
+
+<script>
+var conn = new WebSocket('ws://localhost:8080');
+conn.onopen = function(e) {
+	//console.log("Connection established!");
+
+	//we are connecting to this party's chat stream.
+	chatSubscribe(<?php echo $PARTY->party_id;?>);
+};
+
+
+
+function chatSubscribe(channel) {
+	conn.send(JSON.stringify({command: "subscribe", channel: channel}));
+}
+
+function chatSendMessage(data) {
+	//console.log({command: "message", message: data});
+	conn.send(JSON.stringify({command: "message", message: data}));
+}
+
+jQuery(document).ready(function(){
+	var $playerChatForm = $('.player-chat-form');
+	var character_name = $('#send_name').val();
+
+	$playerChatForm.on("submit", function(event){
+		event.preventDefault();
+
+		var dataObject = $(this).serializeObject();
+		var date = new Date();
+
+		dataObject.timestamp = date.toMysqlFormat();
+		dataObject.character_name = character_name;
+
+		chatSendMessage(JSON.stringify(dataObject))
+
+		//websocket.send(JSON.stringify(messageJSON));
+		//conn.send(JSON.stringify(dataObject));
+	});
+
+	//What do we do with a message from the server?
+	conn.onmessage = function(e) {
+		//console.log(e.data);
+	};
+});
+</script>
+<script>  
+	// function showMessage(messageHTML) {
+	// 	$('#chat-0').append(messageHTML);
+	// }
+
+	// $(document).ready(function(){
+	// 	var $playerChatForm = $('.player-chat-form');
+	// 	var character_name = $('#send_name').val();
+
+	// 	var websocket = new WebSocket("ws://madcity.local:8090/chat/php-socket.php"); 
+	// 	websocket.onopen = function(event) { 
+	// 		showMessage("<div class='chat-connection-ack'>Connection is established!</div>");		
+	// 	}
+
+	// 	websocket.onmessage = function(event) {
+	// 		var Data = JSON.parse(event.data);
+	// 		showMessage("<div class='"+Data.message_type+"'>"+Data.message+"</div>");
+	// 		$('#chat-message').val('');
+	// 	};
+
+	// 	websocket.onerror = function(event){
+	// 		showMessage("<div class='error'>Problem due to some Error</div>");
+	// 	};
+
+	// 	websocket.onclose = function(event){
+	// 		showMessage("<div class='chat-connection-ack'>Connection Closed</div>");
+	// 	};
+		
+	// 	$playerChatForm.on("submit", function(event){
+	// 		event.preventDefault();
+
+	// 		var dataObject = $(this).serializeObject();
+	// 		var date = new Date();
+	// 		var send_name = $()
+	// 		var messageJSON = {
+	// 			chat_user: character_name,
+	// 			chat_message: dataObject.player_chat,
+	// 			timestamp: date.toMysqlFormat()
+	// 		};
+	// 		websocket.send(JSON.stringify(messageJSON));
+	// 	});
+	// });
+</script>
+
+<script>
+	// var host = 'ws://madcity.local:8090/chat/websockets.php';
+	// var socket = new WebSocket(host);
+	// socket.onmessage = function(e) {
+	// 	document.getElementById('chat-0').innerHTML = e.data;
+	// };
+</script>
+
+<!-- Socket.io to communicate chat -->
+<!--
+<script src="/js/socket.io.js" ></script>
+<script>
+	var socket = io('http://madcity.local/');
+</script>
+		-->

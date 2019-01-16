@@ -185,6 +185,7 @@ class Party {
 		$whoami = '';
 		if($_SESSION['user_id'] === $player['user_id'] ){
 			$whoami = '<i class="far fa-crown"></i> ';
+			$controls = '<a href="/character/?id='.$player['character_id'].'" class="view-player player-edit d-print-none" data-id="'.$player['character_id'].'"><i class="far fa-pencil"></i></a>';
 		}
 
 		$player_name = $player['user_id'] !== $this->dm_id?$player['character_name']:'<span style="color: #8c0007;">Game Master</span>';
