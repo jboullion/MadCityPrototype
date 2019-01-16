@@ -805,6 +805,7 @@ jQuery(document).ready(function($){
 	});
 
 });
+
 /**
  * Controls the actions on the party listing page
  */
@@ -839,11 +840,13 @@ jQuery(document).ready(function($){
 	$removePlayerForm = $('#remove-player-form');
 	$removePlayerID = $('#remove-player-id');
 
+	$partyChat = $('#chat-0');
 	$playerChat = $('.player-chat');
 	$playerChatForm = $('.player-chat-form');
 	$chatNavLinks = $('#chat-nav a');
 	$chatWindows = $('.chat-wrapper');
 	
+	character_name = $('#send_name').val();
 	
 	partyTemplate = $('#party-template').html();
 	playerTemplate = $('#player-template').html();
@@ -1077,22 +1080,14 @@ jQuery(document).ready(function($){
 		});;
 	});
 	
-	// var CHAT_UPDATE = 2000;
-	// var chatInterval = setInterval(function(){
-	// 	getChat(user_id, 0);
-	// }, CHAT_UPDATE);
 
 	//	TOGGLE Chat windows
 	$chatNavLinks.click(function(e){
 		e.preventDefault();
 		var target = $(this).attr('href');
 		var $target = $(target);
-		var receive_id = $(this).data('id');
-		clearInterval(chatInterval);
 
-		chatInterval = setInterval(function(){
-			getChat(user_id, receive_id);
-		}, CHAT_UPDATE);
+		//var receive_id = $(this).data('id');
 
 		//We are not using any built in Bootstrap JS
 		$('.nav-item.active').removeClass('active');
@@ -1107,7 +1102,7 @@ jQuery(document).ready(function($){
 	});
 
 	//SCROLL the party chat to bottom
-	mcScrollDown($('#chat-0'));
+	mcScrollDown($partyChat);
 
 	$playerChat.keydown(function(e){
 		if(e.keyCode == 13){
@@ -1115,56 +1110,41 @@ jQuery(document).ready(function($){
 		}
 	});
 
-	function getChat(send_id, receive_id){
-		var $chatWindow = $('#chat-'+receive_id);
-		$.get( BASE_DIR+"api/party/get-chat", {party_id:party_id, send_id:send_id, receive_id:receive_id}, function( result ) {
-
-			if(result.success != null){
-				console.log(result);
-
-				
-			}else if(result.error != null){
-				//inform the user on failure
-				console.log('Error: '+result.error);
-			}
-
-		}, 'json');
-	}
 
 	// SEND Chat message
 	$playerChatForm.submit(function(e){
 		e.preventDefault();
 
-		var dataPost = $(this).serializeArray();
+		//var dataPost = $(this).serializeArray();
 		var dataObject = $(this).serializeObject();
 
 		//need to actually have a message to send!
 		if(! dataObject.player_chat) return false;
 
 		var $chatWindow = $('#chat-'+dataObject.receive_id+' .chat-wrapper');
-		
-		$.post( BASE_DIR+"api/party/send-chat", dataPost, function( result ) {
 
-			if(result.success != null){
-				//reset form and close form on success
-				$playerChatForm.find('textarea').val('');
+		var dataObject = $(this).serializeObject();
+		var date = new Date();
 
-				var newChat = JBTemplateEngine(chatTemplate, {
-					timestamp: moment().calendar(), // https://momentjs.com/
-					content: dataObject.player_chat,
-				});
+		dataObject.timestamp = date.toMysqlFormat();
+		dataObject.character_name = character_name;
 
-				$chatWindow.append( newChat );
+		//Send this message to the other players
+		chatSendMessage(JSON.stringify(dataObject))
 
-				//move our window down
-				$chatWindow.scrollTop( $chatWindow[0].scrollHeight );
+		//reset form and close form on success
+		$playerChatForm.find('textarea').val('');
 
-			}else if(result.error != null){
-				//inform the user on failure
-				console.log('Error: '+result.error);
-			}
+		var newChat = JBTemplateEngine(chatTemplate, {
+			timestamp: dataObject.timestamp,
+			content: dataObject.player_chat,
+		});
 
-		}, 'json');
+		// set our chat message to our chat window
+		$chatWindow.append( newChat );
+
+		//move our window down
+		$chatWindow.scrollTop( $chatWindow[0].scrollHeight );
 
 		return false;
 	});
@@ -1225,6 +1205,23 @@ function addPlayer(element){
 function mcScrollDown($element){
 
 	$element.find('.chat-wrapper').scrollTop( $element.find('.chat-wrapper')[0].scrollHeight );
+}
+
+/**
+ * Subscribe this user to this party
+ * @param string channel 
+ */
+function chatSubscribe(channel) {
+	conn.send(JSON.stringify({command: "subscribe", channel: channel}));
+}
+
+/**
+ * Send message to our chat server
+ * @param string data Must be a JSON string
+ */
+function chatSendMessage(data) {
+	//console.log({command: "message", message: data});
+	conn.send(JSON.stringify({command: "message", message: data}));
 }
 var deferredPrompt;
 //var addToHomeScreenBtns = document.querySelector('.action-dice');

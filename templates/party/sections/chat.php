@@ -70,110 +70,24 @@
 	mc_display_message();
 ?>
 </script>
-<!-- Moment JS to help with timestamping. May move this to site footer -->
+<!-- Moment JS to help with timestamping. May move this to site footer
 <script src="/js/moment.min.js" ></script>
+-->
 
+<!-- Setup our Websocket connection -->
 <script>
 var conn = new WebSocket('ws://localhost:8080');
 conn.onopen = function(e) {
-	//console.log("Connection established!");
-
-	//we are connecting to this party's chat stream.
+	console.log("Connection established!");
+	// connect to party chat.
 	chatSubscribe(<?php echo $PARTY->party_id;?>);
 };
 
+//What do we do with a message
+conn.onmessage = function(e) {
+	//console.log(e.data);
+	var dataObject = JSON.parse(e.data);
+	mcPasteMessage(dataObject);
+};
 
-
-function chatSubscribe(channel) {
-	conn.send(JSON.stringify({command: "subscribe", channel: channel}));
-}
-
-function chatSendMessage(data) {
-	//console.log({command: "message", message: data});
-	conn.send(JSON.stringify({command: "message", message: data}));
-}
-
-jQuery(document).ready(function(){
-	var $playerChatForm = $('.player-chat-form');
-	var character_name = $('#send_name').val();
-
-	$playerChatForm.on("submit", function(event){
-		event.preventDefault();
-
-		var dataObject = $(this).serializeObject();
-		var date = new Date();
-
-		dataObject.timestamp = date.toMysqlFormat();
-		dataObject.character_name = character_name;
-
-		chatSendMessage(JSON.stringify(dataObject))
-
-		//websocket.send(JSON.stringify(messageJSON));
-		//conn.send(JSON.stringify(dataObject));
-	});
-
-	//What do we do with a message from the server?
-	conn.onmessage = function(e) {
-		//console.log(e.data);
-	};
-});
 </script>
-<script>  
-	// function showMessage(messageHTML) {
-	// 	$('#chat-0').append(messageHTML);
-	// }
-
-	// $(document).ready(function(){
-	// 	var $playerChatForm = $('.player-chat-form');
-	// 	var character_name = $('#send_name').val();
-
-	// 	var websocket = new WebSocket("ws://madcity.local:8090/chat/php-socket.php"); 
-	// 	websocket.onopen = function(event) { 
-	// 		showMessage("<div class='chat-connection-ack'>Connection is established!</div>");		
-	// 	}
-
-	// 	websocket.onmessage = function(event) {
-	// 		var Data = JSON.parse(event.data);
-	// 		showMessage("<div class='"+Data.message_type+"'>"+Data.message+"</div>");
-	// 		$('#chat-message').val('');
-	// 	};
-
-	// 	websocket.onerror = function(event){
-	// 		showMessage("<div class='error'>Problem due to some Error</div>");
-	// 	};
-
-	// 	websocket.onclose = function(event){
-	// 		showMessage("<div class='chat-connection-ack'>Connection Closed</div>");
-	// 	};
-		
-	// 	$playerChatForm.on("submit", function(event){
-	// 		event.preventDefault();
-
-	// 		var dataObject = $(this).serializeObject();
-	// 		var date = new Date();
-	// 		var send_name = $()
-	// 		var messageJSON = {
-	// 			chat_user: character_name,
-	// 			chat_message: dataObject.player_chat,
-	// 			timestamp: date.toMysqlFormat()
-	// 		};
-	// 		websocket.send(JSON.stringify(messageJSON));
-	// 	});
-	// });
-</script>
-
-<script>
-	// var host = 'ws://madcity.local:8090/chat/websockets.php';
-	// var socket = new WebSocket(host);
-	// socket.onmessage = function(e) {
-	// 	document.getElementById('chat-0').innerHTML = e.data;
-	// };
-</script>
-
-<!-- Socket.io to communicate chat -->
-<!--
-<script src="/js/socket.io.js" ></script>
-<script>
-	var socket = io('http://madcity.local/');
-</script>
-		-->
