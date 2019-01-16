@@ -1,5 +1,9 @@
 <?php 
-//http://socketo.me/docs/
+/**
+ * The Chat Handler class which manages the Rachet web socket server we are using for our chat server
+ * 
+ * @link http://socketo.me/
+ */
 namespace MadChat;
 
 use Ratchet\MessageComponentInterface;
@@ -11,22 +15,19 @@ class Chat implements MessageComponentInterface {
 	private $users;
 	public $PDO;
 
-	public function __construct($PDO)
-	{
+	public function __construct($PDO) {
 		$this->clients = new \SplObjectStorage;
 		$this->subscriptions = [];
 		$this->users = [];
 		$this->PDO = $PDO;
 	}
 
-	public function onOpen(ConnectionInterface $conn)
-	{
+	public function onOpen(ConnectionInterface $conn) {
 		$this->clients->attach($conn);
 		$this->users[$conn->resourceId] = $conn;
 	}
 
-	public function onMessage(ConnectionInterface $conn, $msg)
-	{
+	public function onMessage(ConnectionInterface $conn, $msg) {
 		$data = json_decode($msg);
 		switch ($data->command) {
 			case "subscribe":
@@ -57,9 +58,9 @@ class Chat implements MessageComponentInterface {
 				
 				if (isset($this->subscriptions[$conn->resourceId])) {
 
-					$numRecv = count($this->subscriptions[$conn->resourceId]) - 1;
-					echo sprintf('Connection %d sending message "%s" to %d other connection%s' . "\n"
-						, $conn->resourceId, $data->message, $numRecv, $numRecv == 1 ? '' : 's');
+					//echo a message to the server for debug
+					//$numRecv = count($this->subscriptions[$conn->resourceId]) - 1;
+					//echo sprintf('Connection %d sending message "%s" to %d other connection%s' . "\n", $conn->resourceId, $data->message, $numRecv, $numRecv == 1 ? '' : 's');
 
 					$target = $this->subscriptions[$conn->resourceId];
 					foreach ($this->subscriptions as $id => $channel) {
@@ -71,15 +72,13 @@ class Chat implements MessageComponentInterface {
 		}
 	}
 
-	public function onClose(ConnectionInterface $conn)
-	{
+	public function onClose(ConnectionInterface $conn) {
 		$this->clients->detach($conn);
 		unset($this->users[$conn->resourceId]);
 		unset($this->subscriptions[$conn->resourceId]);
 	}
 
-	public function onError(ConnectionInterface $conn, \Exception $e)
-	{
+	public function onError(ConnectionInterface $conn, \Exception $e) {
 		echo "An error has occurred: {$e->getMessage()}\n";
 		$conn->close();
 	}

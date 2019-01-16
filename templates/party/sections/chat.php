@@ -87,7 +87,8 @@ conn.onopen = function(e) {
 conn.onmessage = function(e) {
 	//console.log(e.data);
 	var dataObject = JSON.parse(e.data);
-	mcPasteMessage(dataObject);
+	dataObject.type = 'receive';
+	mcPasteMessage(dataObject, false);
 };
 
 </script>

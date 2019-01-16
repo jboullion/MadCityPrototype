@@ -1121,8 +1121,6 @@ jQuery(document).ready(function($){
 		//need to actually have a message to send!
 		if(! dataObject.player_chat) return false;
 
-		var $chatWindow = $('#chat-'+dataObject.receive_id+' .chat-wrapper');
-
 		var dataObject = $(this).serializeObject();
 		var date = new Date();
 
@@ -1135,16 +1133,12 @@ jQuery(document).ready(function($){
 		//reset form and close form on success
 		$playerChatForm.find('textarea').val('');
 
-		var newChat = JBTemplateEngine(chatTemplate, {
-			timestamp: dataObject.timestamp,
-			content: dataObject.player_chat,
-		});
+		//update these values for pasting our message
+		dataObject.character_name = 'You';
+		dataObject.type = 'send';
 
-		// set our chat message to our chat window
-		$chatWindow.append( newChat );
-
-		//move our window down
-		$chatWindow.scrollTop( $chatWindow[0].scrollHeight );
+		//put this message in our chat box
+		mcPasteMessage(dataObject, true);
 
 		return false;
 	});
@@ -1208,7 +1202,37 @@ function mcScrollDown($element){
 }
 
 /**
- * Subscribe this user to this party
+ * Paste a message into the correct chat room
+ * @param object message JSON message object
+ */
+function mcPasteMessage(message, send){
+	//console.log(message);
+	if(send || message.receive_id == 0){
+		//console.log('Sending: #chat-'+message.receive_id+' .chat-wrapper');
+		var $chatWindow = $('#chat-'+message.receive_id+' .chat-wrapper');
+	}else{
+		//console.log('Receiving: #chat-'+message.send_id+' .chat-wrapper');
+		var $chatWindow = $('#chat-'+message.send_id+' .chat-wrapper');
+	}
+
+	if($chatWindow.length){
+		var newChat = JBTemplateEngine(chatTemplate, {
+			timestamp: message.timestamp,
+			content: message.player_chat,
+			type: message.type,
+			character_name: message.send_name
+		});
+
+		// set our chat message to our chat window
+		$chatWindow.append( newChat );
+
+		//move our window down
+		$chatWindow.scrollTop( $chatWindow[0].scrollHeight );
+	}
+}
+
+/**
+ * Subscribe this user to party chat
  * @param string channel 
  */
 function chatSubscribe(channel) {

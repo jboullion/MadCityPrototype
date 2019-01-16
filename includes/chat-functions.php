@@ -54,7 +54,7 @@ function mc_display_chat($party_id, $send_id, $receive_id){
  */
 function mc_display_message($message = array()){
 
-	if(! empty($message['timestamp'])){
+	if( ! empty($message['timestamp']) ){
 		$timestamp = date( "F j, Y, g:i a", strtotime($message['timestamp']));
 
 		if($message['send_id'] === $_SESSION['user_id']){
@@ -69,8 +69,8 @@ function mc_display_message($message = array()){
 		$content = $message['content'];
 	}else{
 		$timestamp = '<%timestamp%>';
-		$type = 'send';
-		$character_name = 'You';
+		$type = '<%type%>';
+		$character_name = '<%character_name%>';
 		$content = '<%content%>';
 	}
 
