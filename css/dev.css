@@ -10924,7 +10924,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 0px; }
 
 h1 {
-  font-size: 5rem;
+  font-size: 3rem;
   font-family: "Nosifer", sans-serif;
   line-height: 1.1;
   margin: 0; }
@@ -11173,33 +11173,12 @@ html {
 
 body {
   background-color: white;
+  color: #333;
   overflow-y: scroll;
   overflow-x: hidden;
   position: relative;
-  color: #333; }
+  height: 100vh; }
 
-/*
-body {
-	background: linear-gradient(216deg, #ffffff, #3f3f3f);
-	background-size: 400% 400%;
-
-	animation: AnimateGradient 10s ease infinite;
-
-	@keyframes AnimateGradient { 
-		0%{background-position:82% 0%}
-		50%{background-position:19% 100%}
-		100%{background-position:82% 0%}
-	}
-}
-
-
-//need to use mixin because pseudo elements don't play well with @extend
-@mixin selection-styles($color) {
-	color: white;
-	background: $color;
-	background: rgba($color, 0.9);
-}
-*/
 img {
   max-width: 100%;
   height: auto; }
@@ -11272,9 +11251,6 @@ blockquote {
   border-top: 0;
   border-bottom: 1px solid #333; }
 
-.list-group-item {
-  border: 1px solid #333; }
-
 figure {
   margin-bottom: 2rem; }
 
@@ -11295,21 +11271,43 @@ figure {
     border: 0;
     font-weight: bold; }
 
+.page-wrapper {
+  margin-right: 0;
+  margin-left: 0;
+  height: 100%; }
+
 /**
  * FOOTER
  */
-#main-navigation {
-  padding: 15px; }
-  #main-navigation #logo {
-    float: left; }
-  #main-navigation #user-info {
-    float: right;
-    padding: 9px 3% 0 0; }
-  @media (max-width: 575px) {
-    #main-navigation {
-      padding: 15px 0; }
-      #main-navigation #user-info {
-        padding: 9px 0 0 0; } }
+#left-nav {
+  background-color: #f1f1f1;
+  padding: 0;
+  width: 220px; }
+  #left-nav h1 {
+    padding: 15px;
+    margin-bottom: 30px; }
+  #left-nav #players .player {
+    padding: 3px 15px; }
+    #left-nav #players .player:hover {
+      background-color: #ccc;
+      cursor: pointer; }
+    #left-nav #players .player h5 {
+      margin: 0; }
+  #left-nav #players #add-player {
+    margin-top: 50px; }
+
+#main-navigation #logo {
+  float: left; }
+
+#main-navigation #user-info {
+  float: right;
+  padding: 9px 3% 0 0; }
+
+@media (max-width: 575px) {
+  #main-navigation {
+    padding: 15px 0; }
+    #main-navigation #user-info {
+      padding: 9px 0 0 0; } }
 
 .menu-toggle {
   cursor: pointer;
@@ -11702,24 +11700,19 @@ p {
   #powers #power-table td {
     width: 60%; } }
 
-#party #party-players .player {
+#party #players .player {
   padding: 15px; }
-  #party #party-players .player h5 {
+  #party #players .player:hover {
+    background-color: #ccc; }
+  #party #players .player h5 {
     margin: 0; }
-  #party #party-players .player .player-edit {
-    cursor: pointer;
-    float: right;
-    font-size: 1.8rem;
-    line-height: 1.5;
-    padding: 10px; }
 
-#party #party-players #add-player {
+#party #players #add-player {
   margin-top: 50px; }
 
 #party #party-log {
-  height: 400px;
+  height: 100%;
   overflow-y: auto;
-  border: 1px solid #333;
   padding: 15px; }
 
 #party #party-chat {

@@ -130,22 +130,6 @@ class Party {
 	}
 
 	/**
-	 * Display the list of players
-	 */
-	function displayPlayers(){ ?>
-		<div class="list-group" id="player-list-target">
-			<?php 
-				if(! empty($this->players)){
-					foreach($this->players as $player){
-						$this->displayPlayer($player);
-					}
-				}
-			?>
-		</div>
-		<?php 
-	}
-
-	/**
 	 * Get the Character Name of a member in this party by their user name
 	 */
 	function getCharacterNameByUserID($user_id){

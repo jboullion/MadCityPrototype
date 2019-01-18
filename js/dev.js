@@ -1204,6 +1204,8 @@ function mcScrollDown($element){
 /**
  * Paste a message into the correct chat room
  * @param object message JSON message object
+ * 
+ * TODO: Might need to track / check the message area and remove the message dom elements if over a certain number
  */
 function mcPasteMessage(message, send){
 	//console.log(message);

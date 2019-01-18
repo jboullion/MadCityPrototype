@@ -1,28 +1,8 @@
 /* SITE WIDE */   
 html, body					{ width: 100%; display:block; margin: 0; }
 html 						{ position: relative; /* font-size: $root-font-size; */ }
-body 						{ background-color: $body-color; 
-								overflow-y:scroll; 
-								overflow-x:hidden; 
-								position:relative; 
-								@extend .txt-antialiased;
-								color: $text-color;
+body 						{ @extend .txt-antialiased; background-color: $body-color; color: $text-color; overflow-y:scroll; overflow-x:hidden; position:relative; height: 100vh;
 }
-
-/*
-body {
-	background: linear-gradient(216deg, #ffffff, #3f3f3f);
-	background-size: 400% 400%;
-
-	animation: AnimateGradient 10s ease infinite;
-
-	@keyframes AnimateGradient { 
-		0%{background-position:82% 0%}
-		50%{background-position:19% 100%}
-		100%{background-position:82% 0%}
-	}
-}
-
 
 //need to use mixin because pseudo elements don't play well with @extend
 @mixin selection-styles($color) {
@@ -30,7 +10,6 @@ body {
 	background: $color;
 	background: rgba($color, 0.9);
 }
-*/
 
 
 img 						{ max-width: 100%; height: auto; }
@@ -104,7 +83,7 @@ blockquote 					{ background: #f1f1f1; border-left: 10px solid $upgrayddd; margi
 
 .table thead th 			{ border-top: 0; border-bottom: 1px solid $border-color; }
 
-.list-group-item 			{ border: 1px solid $border-color; }
+.list-group-item 			{ }
 
 figure 						{ margin-bottom: 2rem; }
 
@@ -125,7 +104,7 @@ figure 						{ margin-bottom: 2rem; }
 
 }
 
-
+.page-wrapper 						{ margin-right: 0; margin-left: 0; height: 100%; }
 
 /**
  * FOOTER
