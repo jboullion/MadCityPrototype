@@ -1,7 +1,7 @@
 /* SITE WIDE */   
-html, body					{ width: 100%; display:block; margin: 0; }
+html, body					{ width: 100%; display:block; margin: 0; height: 100%; }
 html 						{ position: relative; /* font-size: $root-font-size; */ }
-body 						{ @extend .txt-antialiased; background-color: $body-color; color: $text-color; overflow-y:scroll; overflow-x:hidden; position:relative; height: 100vh;
+body 						{ @extend .txt-antialiased; background-color: $body-color; color: $text-color; overflow-y: hidden; overflow-x:hidden; position:relative; height: 100vh;
 }
 
 //need to use mixin because pseudo elements don't play well with @extend
@@ -104,7 +104,22 @@ figure 						{ margin-bottom: 2rem; }
 
 }
 
-.page-wrapper 						{ margin-right: 0; margin-left: 0; height: 100%; }
+.page-wrapper 				{ margin-right: 0; margin-left: 0; height: 100%; }
+
+
+/**
+ * Common styles for all slack pages
+ */
+.slack-page 				{ 
+	.player-form-wrapper 	{ background-color: $white; border-top: 1px solid $border-color; padding: 10px 15px; position: fixed; bottom: 0; width: 100%;
+		.player-chat-form 	{ 
+			.input-group 	{ 
+				input 		{ border :1px solid $border-color; border-right: 0; flex: 1; font-size: 1.8rem; padding: 0 10px; text-align: left; }
+			}
+		}
+	}
+}
+
 
 /**
  * FOOTER

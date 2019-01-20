@@ -15,6 +15,7 @@ jQuery(document).ready(function($){
 
 	// menu toggle
 	$toggle.click(function(e){
+		console.log('Toggle Menu?')
 		$menu.toggleClass('open');
 		$shade.toggleClass('open');
 	});

@@ -1,4 +1,13 @@
-#party 								{ 
+#party 								{ position: relative; width: calc(100% - 220px); perspective: 1000px;
+
+	// ?? Page Flip? https://www.creativebloq.com/css3/create-page-turn-effect-6126260
+	.page 							{ backface-visibility: hidden; background-color: #fff; flex: 1;  overflow-y: auto; position: absolute; transition: all 0.4s; top: 40px; left: 0; padding: 20px;  width: 100%;
+		//&.turning 					{ transform: scaleX(0); /* transform: rotateY(-90deg); */  z-index: 101;  }
+
+		&.first 					{ z-index: 2; transform-origin: left top; }
+		&.second 					{ z-index: 1; }
+	}
+
 	#players 						{ 
 
 		.player 					{ padding: 15px;

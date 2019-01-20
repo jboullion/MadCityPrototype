@@ -79,3 +79,41 @@ function mc_display_message($message = array()){
 				<span class="chat-info">'.$character_name.' &bull; <span class="timestamp">'.$timestamp.'</span></span>
 			</div>';
 }
+
+/**
+ * Display a chat form
+ * 
+ * @param Party $PARTY The current Party object
+ * @param array $receiver An array of the user_id and the receiver name
+ */
+function mc_display_chat_form($PARTY, $receiver) {
+	//<textarea rows="3" class="player-chat" name="player_chat" maxlength="255"></textarea>
+	//<button type="submit" class="btn btn-primary submit-chat">Send</button>
+	/*
+	<button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		<span class="sr-only">Actions</span>
+	</button>
+	<div class="dropdown-menu">
+		<a class="dropdown-item" href="#">Action</a>
+		<a class="dropdown-item" href="#">Another action</a>
+		<a class="dropdown-item" href="#">Something else here</a>
+		<div role="separator" class="dropdown-divider"></div>
+		<a class="dropdown-item" href="#">Separated link</a>
+	</div>
+	*/
+	echo '<div class="player-form-wrapper">
+			<form method="post" action="" class="player-chat-form">
+				<div class="input-group">
+					<input type="text" class=" player-chat" name="player_chat" placeholder="Message">
+					<div class="input-group-append">
+						<button type="button" class="btn btn-outline-primary submit-chat">Send</button>
+					</div>
+				</div>
+				<input type="hidden" class="party-id" name="party_id" value="'.$PARTY->party_id.'" />
+				<input type="hidden" class="send-id" name="send_id" value="'.$_SESSION['user_id'].'" />
+				<input type="hidden" class="receive-id" name="receive_id" value="'.$receiver['id'].'" />
+				<input type="hidden" id="send_name=" class="send-name" name="send_name" value="'.($_SESSION['user_id'] == $PARTY->dm_id?'Game Master':$PARTY->getCharacterNameByUserID($_SESSION['user_id'])).'" />
+				<input type="hidden" class="receive-name" name="receive_name" value="'.$receiver['name'].'" />
+			</form>
+		</div>';
+}

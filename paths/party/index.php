@@ -17,7 +17,6 @@ if( ! empty($_GET['id']) && is_numeric($_GET['id']) && ! empty($_SESSION['user_i
 	mc_redirect('/parties/');
 	exit;
 }
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -27,7 +26,7 @@ if( ! empty($_GET['id']) && is_numeric($_GET['id']) && ! empty($_SESSION['user_i
 			<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/common/navigation.php'); ?>
 			<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/party/slack.php'); ?>
 			<?php //require_once($_SERVER['DOCUMENT_ROOT'].'/templates/party/display.php'); ?>
-			<?php //require_once($_SERVER['DOCUMENT_ROOT'].'/templates/common/footer.php'); ?>
+			<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/common/footer.php'); ?>
 		</div>
 	</body>
 </html>
