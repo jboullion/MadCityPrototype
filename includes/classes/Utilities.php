@@ -4,8 +4,8 @@
  */
 class Utilities {
 	//used for various timing purposes
-	var $start;
-	var $end;
+	public $start;
+	public $end;
 
 	/**
 	 * Debug function display cleaner information

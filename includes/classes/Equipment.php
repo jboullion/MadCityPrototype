@@ -3,11 +3,11 @@
  * A piece of hero equipment
  */
 class Equipment { 
-	var $name; 
-	var $description;
-	var $damage; // the "d" value of the dice involved
-	var $act;
-	VAR $ammo;
+	public $name; 
+	public $description;
+	public $damage; // the "d" value of the dice involved
+	public $act;
+	public $ammo;
 
 	/**
 	 * @param string $name The name of the power

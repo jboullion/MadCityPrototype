@@ -1,5 +1,5 @@
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/chat-functions.php'); ?>
-<div id="party" class="slack-page">
+<div id="party" class="page">
 	<?php 
 		//$PARTY->displayNames(); 
 		echo '<script>var BASE_DIR = "/"; var party_id = '.$PARTY->party_id.'; var user_id = '.$_SESSION['user_id'].';</script>'; 
@@ -22,5 +22,10 @@
 		*/
 	?>
 </div>
+<script id="chat-template" type="text/template">
+<?php 
+	mc_display_message();
+?>
+</script>
 <?php //require_once($_SERVER['DOCUMENT_ROOT'].'/templates/party/actions/add-player.php'); ?>
 <?php //require_once($_SERVER['DOCUMENT_ROOT'].'/templates/party/actions/remove-player.php'); ?>

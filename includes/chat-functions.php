@@ -12,7 +12,8 @@ function mc_display_chat($party_id, $send_id, $receive_id){
 						WHERE ( send_id = ? AND receive_id = ? )
 							OR ( receive_id = ? AND send_id = ? )
 							AND party_id = ?
-						ORDER BY timestamp ASC";
+						ORDER BY timestamp ASC
+						LIMIT 100";
 			
 			$stmt = $PDO->prepare($select);
 			$stmt->execute( 
@@ -55,17 +56,19 @@ function mc_display_chat($party_id, $send_id, $receive_id){
 function mc_display_message($message = array()){
 
 	if( ! empty($message['timestamp']) ){
-		$timestamp = date( "F j, Y, g:i a", strtotime($message['timestamp']));
+		//F j, Y, 
+		$timestamp = date( "g:i a", strtotime($message['timestamp']));
 
 		if($message['send_id'] === $_SESSION['user_id']){
 			//Sent message
 			$type = 'send';
-			$character_name = 'You';
+			//$character_name = 'You';
 		}else{
 			$type = 'receive';
 			$character_name = $message['send_name'];
 		}
 
+		$character_name = $message['send_name'];
 		$content = $message['content'];
 	}else{
 		$timestamp = '<%timestamp%>';
@@ -74,9 +77,18 @@ function mc_display_message($message = array()){
 		$content = '<%content%>';
 	}
 
-	echo '<div class="chat-message '.$type.'-chat">
+	//TODO: Need to setup a DM check here?
+	// Need to get the image of the user / character
+	$img = '<i class="far fa-helmet-battle"></i>';
+
+	echo '<div class="chat-message '.$type.'-chat d-flex">
+			<div class="chat-img">
+				'.$img.'
+			</div>
+			<div class="chat-content">
+				<div class="chat-info"><strong class="name">'.$character_name.'</strong> &bull; <span class="timestamp">'.$timestamp.'</span></div>
 				'.$content.'
-				<span class="chat-info">'.$character_name.' &bull; <span class="timestamp">'.$timestamp.'</span></span>
+			</div>
 			</div>';
 }
 

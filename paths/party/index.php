@@ -24,7 +24,7 @@ if( ! empty($_GET['id']) && is_numeric($_GET['id']) && ! empty($_SESSION['user_i
 	<body>
 		<div class="page-wrapper d-flex">
 			<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/common/navigation.php'); ?>
-			<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/party/slack.php'); ?>
+			<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/party/page.php'); ?>
 			<?php //require_once($_SERVER['DOCUMENT_ROOT'].'/templates/party/display.php'); ?>
 			<?php require_once($_SERVER['DOCUMENT_ROOT'].'/templates/common/footer.php'); ?>
 		</div>

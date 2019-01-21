@@ -4,13 +4,13 @@
  * A Heroes power.
  */
 class Power { 
-	var $type;
-	var $name; 
-	var $effect;
-	var $damage;
-	var $level;
-	VAR $stat;
-	var $description;
+	public $type;
+	public $name; 
+	public $effect;
+	public $damage;
+	public $level;
+	public $stat;
+	public $description;
 
 	/**
 	 * @param string $name The name of the power

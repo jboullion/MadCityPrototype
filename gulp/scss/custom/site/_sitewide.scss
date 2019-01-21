@@ -110,8 +110,23 @@ figure 						{ margin-bottom: 2rem; }
 /**
  * Common styles for all slack pages
  */
-.slack-page 				{ 
-	.player-form-wrapper 	{ background-color: $white; border-top: 1px solid $border-color; padding: 10px 15px; position: fixed; bottom: 0; width: 100%;
+.page 						{ 
+	.chat-wrapper 			{ padding: 15px; overflow-y: scroll; height: calc(100vh - 100px); visibility: hidden;
+		&.loaded 			{ visibility: visible; }
+
+		.chat-message 		{ padding: 10px 0;
+			.chat-img 		{ padding-right: 10px;
+				i 			{ font-size: 3rem; }
+			}
+
+			.chat-content 	{ 
+				.name 		{  }
+				.timestamp 	{  }
+			}
+		}
+	}
+
+	.player-form-wrapper 	{ background-color: #f1f1f1; padding: 10px 15px; position: fixed; bottom: 0; width: 100%;
 		.player-chat-form 	{ 
 			.input-group 	{ 
 				input 		{ border :1px solid $border-color; border-right: 0; flex: 1; font-size: 1.8rem; padding: 0 10px; text-align: left; }

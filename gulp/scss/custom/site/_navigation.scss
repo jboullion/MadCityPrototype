@@ -15,7 +15,10 @@
 	}
 }
 
-#top-nav 							{ background-color: #f1f1f1; border-bottom: 1px solid #ddd; height: 40px; position: absolute; top: 0; left: 0; width: 100%; z-index: 100;
+#top-nav 							{ background-color: #f1f1f1; border-bottom: 1px solid #ddd; height: 40px; position: relative; width: 100%; z-index: 100;
+	.current-page 					{ float: left; padding: 5px 15px;
+		h4 							{ margin: 0; }
+	}
 	.menu-toggle 					{ cursor: pointer; float: right; font-size: 2rem; line-height: 40px; height: 40px; text-align: center; width: 40px; user-select: none; }
 }
 

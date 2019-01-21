@@ -3,8 +3,8 @@
  * A User Object
  */
 class User { 
-	var $name; 
-	var $email;
+	public $name; 
+	public $email;
 
 	/**
 	 * @param string $name The name of the user

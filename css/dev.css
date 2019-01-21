@@ -11270,14 +11270,27 @@ figure {
 /**
  * Common styles for all slack pages
  */
-.slack-page .player-form-wrapper {
-  background-color: white;
-  border-top: 1px solid #333;
+.page .chat-wrapper {
+  padding: 15px;
+  overflow-y: scroll;
+  height: calc(100vh - 100px);
+  visibility: hidden; }
+  .page .chat-wrapper.loaded {
+    visibility: visible; }
+  .page .chat-wrapper .chat-message {
+    padding: 10px 0; }
+    .page .chat-wrapper .chat-message .chat-img {
+      padding-right: 10px; }
+      .page .chat-wrapper .chat-message .chat-img i {
+        font-size: 3rem; }
+
+.page .player-form-wrapper {
+  background-color: #f1f1f1;
   padding: 10px 15px;
   position: fixed;
   bottom: 0;
   width: 100%; }
-  .slack-page .player-form-wrapper .player-chat-form .input-group input {
+  .page .player-form-wrapper .player-chat-form .input-group input {
     border: 1px solid #333;
     border-right: 0;
     flex: 1;
@@ -11313,11 +11326,14 @@ figure {
   background-color: #f1f1f1;
   border-bottom: 1px solid #ddd;
   height: 40px;
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%;
   z-index: 100; }
+  #top-nav .current-page {
+    float: left;
+    padding: 5px 15px; }
+    #top-nav .current-page h4 {
+      margin: 0; }
   #top-nav .menu-toggle {
     cursor: pointer;
     float: right;

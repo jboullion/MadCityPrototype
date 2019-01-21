@@ -1124,8 +1124,11 @@ jQuery(document).ready(function($){
 
 		var dataObject = $(this).serializeObject();
 		var date = new Date();
+		
+		console.log(date);
+		console.log(moment(date).format('YYY-MM-DD HH:mm:ss'));
 
-		dataObject.timestamp = date.toMysqlFormat();
+		dataObject.timestamp = moment(date).format('YYY-MM-DD HH:mm:ss');
 		dataObject.character_name = character_name;
 
 		//Send this message to the other players
@@ -1198,8 +1201,7 @@ function addPlayer(element){
  * @param jQuery $element jQuery element to scroll
  */
 function mcScrollDown($element){
-
-	$element.find('.chat-wrapper').scrollTop( $element.find('.chat-wrapper')[0].scrollHeight );
+	$element.find('.chat-wrapper').scrollTop( $element.find('.chat-wrapper')[0].scrollHeight ).addClass('loaded');
 }
 
 /**
@@ -1218,9 +1220,11 @@ function mcPasteMessage(message, send){
 		var $chatWindow = $('#chat-'+message.send_id+' .chat-wrapper');
 	}
 
+	console.log(message.timestamp);
+
 	if($chatWindow.length){
 		var newChat = JBTemplateEngine(chatTemplate, {
-			timestamp: message.timestamp,
+			timestamp: moment(message.timestamp).format("h:mma"),
 			content: message.player_chat,
 			type: message.type,
 			character_name: message.send_name

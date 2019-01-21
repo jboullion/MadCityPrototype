@@ -6,21 +6,21 @@
  */
 class Character { 
 	// PDO Object with connection to DB
-	var $PDO;
+	public $PDO;
 
 	// The IDs of the character and user in the database
-	var $character_id;
-	var $user_id;
-	var $view;
+	public $character_id;
+	public $user_id;
+	public $view;
 
 	// name
-	var $name; 
-	var $hero_name;
-	var $power_type;
-	var $total_xp;
+	public $name; 
+	public $hero_name;
+	public $power_type;
+	public $total_xp;
 
 	// vitals
-	var $vitals = array(
+	public $vitals = array(
 		'physical' => array(
 			'health' => 'Health',
 			'power' => 'Power'
@@ -35,15 +35,15 @@ class Character {
 		)
 	);
 
-	var $health;
-	var $power;
-	var $health_regen;
-	var $power_regen;
-	var $durability;
-	var $resistance;
+	public $health;
+	public $power;
+	public $health_regen;
+	public $power_regen;
+	public $durability;
+	public $resistance;
 
 	// stats
-	var $stats = array(
+	public $stats = array(
 		'physical' => array(
 			'strength' => 'Strength',
 			'dexterity' => 'Dexterity',
@@ -61,18 +61,18 @@ class Character {
 		)
 	);
 
-	var $strength;
-	var $dexterity;
-	var $stamina;
-	var $intelligence;
-	var $perception;
-	var $wisdom;
-	var $charisma;
-	var $leadership;
-	var $will;
+	public $strength;
+	public $dexterity;
+	public $stamina;
+	public $intelligence;
+	public $perception;
+	public $wisdom;
+	public $charisma;
+	public $leadership;
+	public $will;
 
 	// skills
-	var $skills = array(
+	public $skills = array(
 		'physical' => array(
 			'melee' => 'Melee',
 			'stealth' => 'Stealth',
@@ -93,24 +93,24 @@ class Character {
 		)
 	);
 
-	var $melee;
-	var $stealth;
-	var $dodge;
-	var $fire_arms;
-	var $investigate;
-	var $medicine;
-	var $computers;
-	var $science;
-	var $romance;
-	var $persuasion;
-	var $intimidation;
-	var $alertness;
+	public $melee;
+	public $stealth;
+	public $dodge;
+	public $fire_arms;
+	public $investigate;
+	public $medicine;
+	public $computers;
+	public $science;
+	public $romance;
+	public $persuasion;
+	public $intimidation;
+	public $alertness;
 
 	// dynamic sets of abilities
-	var $powers;
-	var $equipment;
+	public $powers;
+	public $equipment;
 
-	var $slots = array(
+	public $slots = array(
 		'head' => 'Head',
 		'torso' => 'Torso',
 		'hands' => 'Hands',
@@ -122,7 +122,7 @@ class Character {
 	// 'one_hand'  => '1 Hand',
 	// 'two_hand'  => '2 Hands',
 
-	var $effects = array(
+	public $effects = array(
 		'None',
 		'Blind',
 		'Bloodlust',
@@ -136,9 +136,9 @@ class Character {
 		'Mind Control'
 	);
 
-	var $damage = array(0,4,8,12,16,20);
+	public $damage = array(0,4,8,12,16,20);
 
-	var $types = array(
+	public $types = array(
 		'Air',
 		'Animal',
 		'Blood',
@@ -156,9 +156,9 @@ class Character {
 		'Weather'
 	);
 
-	var $levels = array(1,2,3,4,5);
+	public $levels = array(1,2,3,4,5);
 
-	var $combinedstats = array();
+	public $combinedstats = array();
 
 	/**
 	 * @param array $character The results of a 

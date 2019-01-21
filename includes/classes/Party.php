@@ -2,19 +2,21 @@
 /**
  * A Party Object
  */
-class Party { 
+class Party {
+
 	// PDO Object with connection to DB
-	var $PDO;
+	public $PDO;
 
 	// The IDs of the party and user in the database
-	var $party_id;
-	var $dm_id;
-	var $dm_email;
+	public $party_id;
+	public $dm_id;
+	public $dm_email;
+	public $receive_id = 0;
 
-	var $name; 
-	var $total_xp; 
-	var $players = array();
-	var $log = '';
+	public $name; 
+	public $total_xp; 
+	public $players = array();
+	public $log = '';
 
 
 	function __construct($PDO, $party_id, $user_id) {
